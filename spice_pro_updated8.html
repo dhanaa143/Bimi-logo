@@ -246,10 +246,11 @@
        .inv-table td { padding: 8px; border-bottom: 1px solid #f3f4f6; }
        .inv-table tr:nth-child(even) td { background: #f9fafb; }
        .inv-totals-section { text-align: right; margin-bottom: 25px; }
-       .inv-totals-inner { width: 380px; box-sizing: border-box; display: inline-block; text-align: left; }
-       .inv-total-line { display: block; padding: 6px 0; font-size: 12px; border-bottom: 1px solid #f3f4f6; }
-       .inv-total-line span:first-child { display: inline-block; width: 140px; vertical-align: top; }
-       .inv-total-line span:last-child { display: inline-block; width: 240px; text-align: right; font-weight: 600; line-height: 1.5; }
+       .inv-totals-inner { width: 480px; box-sizing: border-box; display: inline-block; text-align: left; }
+       .inv-total-line { display: block; padding: 6px 0; font-size: 12px; border-bottom: 1px solid #f3f4f6; white-space: nowrap; }
+       .inv-total-line span:first-child { display: inline-block; width: 120px; vertical-align: top; white-space: normal; }
+       .inv-total-line span:last-child { display: inline-block; width: 340px; text-align: right; font-weight: 600; }
+       .inv-total-line.inv-qty-line span:last-child { font-size: 11px; }
        .inv-total-final { font-weight: 800; font-size: 15px; color: var(--primary); border-top: 2px solid var(--primary); padding-top: 8px; margin-top: 4px; }
        .inv-value-section { margin-bottom: 20px; display: flex; }
        .inv-value-box { width: 208px; margin-right: 12px; background: #f0fdf4; border-radius: 10px; padding: 12px; border: 1px solid #a7f3d0; box-sizing: border-box; font-size: 12px; }
@@ -3398,7 +3399,7 @@
 
      let qtyLabel = 'Total Quantity:';
      let qtyVal = mode === 'b2b'
-       ? `${totalQty.toFixed(2)} KG<br>(${b2bBreakdownParts.join(' + ')})<br>${totalPacksCount} Packs`
+       ? `${totalQty.toFixed(2)}KG (${b2bBreakdownParts.join(' + ')}) ${totalPacksCount} Packs`
        : `${totalQty} Packs`;
 
 
@@ -3596,7 +3597,7 @@
      const dt = window._invData;
      if(dt) {
        document.getElementById('printTotals').innerHTML = `
-         <div class="inv-total-line"><span>${dt.qtyLabel}</span><span>${dt.qtyVal}</span></div>
+         <div class="inv-total-line inv-qty-line"><span>${dt.qtyLabel}</span><span>${dt.qtyVal}</span></div>
          <div class="inv-total-line"><span>Sub Total:</span><span>${dt.fmt(dt.grandTotal)}</span></div>
          <div class="inv-total-line"><span>Discount:</span><span>${dt.fmt(dt.grandTotal - dt.grandDisc)}</span></div>
          <div class="inv-total-line inv-total-final"><span>Total Amount:</span><span>${dt.fmt(dt.grandDisc)}</span></div>
