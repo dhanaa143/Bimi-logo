@@ -1555,6 +1555,10 @@
      const sellerAddress = document.getElementById('sel_address').value || '';
      const sellerPhone = document.getElementById('sel_phone') ? document.getElementById('sel_phone').value : '';
      const sellerEmail = document.getElementById('sel_email') ? document.getElementById('sel_email').value : '';
+     const sellerCountry = document.getElementById('sel_country') ? document.getElementById('sel_country').value : '';
+     const sellerReg = document.getElementById('sel_reg') ? document.getElementById('sel_reg').value : '';
+     const sellerVat = document.getElementById('sel_vat') ? document.getElementById('sel_vat').value : '';
+     const sellerWebsite = document.getElementById('sel_website') ? document.getElementById('sel_website').value : '';
      const buyerName = document.getElementById('buy_name').value || '';
      const buyerCompany = document.getElementById('buy_company').value || 'Buyer Company';
      const buyerAddress = document.getElementById('buy_address').value || '';
@@ -1613,8 +1617,11 @@
              <h4>Exporter / Shipper</h4>
              <p><strong>${sellerCompany}</strong></p>
              ${sellerAddress ? `<p style="white-space:pre-line;">${sellerAddress}</p>` : ''}
+             ${sellerCountry ? `<p>${sellerCountry}</p>` : ''}
              ${sellerPhone ? `<p>Tel: ${sellerPhone}</p>` : ''}
              ${sellerEmail ? `<p>Email: ${sellerEmail}</p>` : ''}
+             ${sellerWebsite ? `<p>Web: ${sellerWebsite}</p>` : ''}
+             ${(sellerReg || sellerVat) ? `<p>Reg: ${sellerReg || '-'} | VAT: ${sellerVat || '-'}</p>` : ''}
            </div>
            <div class="inv-party-box" style="border-left-color:var(--secondary);">
              <h4>Consignee / Buyer</h4>
@@ -1856,6 +1863,7 @@
      const sellerCountry = document.getElementById('sel_country') ? document.getElementById('sel_country').value : 'Sri Lanka';
      const sellerReg = document.getElementById('sel_reg') ? (document.getElementById('sel_reg').value || '-') : '-';
      const sellerVat = document.getElementById('sel_vat') ? (document.getElementById('sel_vat').value || '-') : '-';
+     const sellerWebsite = document.getElementById('sel_website') ? document.getElementById('sel_website').value : '';
      const docTypeName = document.getElementById('po_doc_type') ? document.getElementById('po_doc_type').value : 'PURCHASE ORDER';
 
 
@@ -1923,6 +1931,7 @@
              <p>${sellerCountry}</p>
              ${sellerPhone ? `<p>Tel: ${sellerPhone}</p>` : ''}
              ${sellerEmail ? `<p>Email: ${sellerEmail}</p>` : ''}
+             ${sellerWebsite ? `<p>Web: ${sellerWebsite}</p>` : ''}
              <p>Reg: ${sellerReg} | VAT/TIN: ${sellerVat}</p>
            </div>
            <div class="inv-party-box" style="border-left-color:var(--secondary);">
@@ -3586,12 +3595,14 @@
      document.getElementById('printInvDates').innerHTML = `Date: ${d1} <br> Valid Until: ${d2}`;
 
 
+     const sellerWebsiteVal = document.getElementById('sel_website') ? document.getElementById('sel_website').value : '';
      document.getElementById('printSellerDetails').innerHTML = `
        <strong>${companyName}</strong><br>
        ${(document.getElementById('sel_address').value || '').replace(/\n/g, '<br>')}<br>
        ${document.getElementById('sel_country').value}<br>
        Tel: ${document.getElementById('sel_phone').value}<br>
-       Email: ${document.getElementById('sel_email').value}<br>
+       Email: ${document.getElementById('sel_email').value}
+       ${sellerWebsiteVal ? `<br>Web: ${sellerWebsiteVal}` : ''}<br>
        Reg: ${document.getElementById('sel_reg').value} | VAT: ${document.getElementById('sel_vat').value}
      `;
 
