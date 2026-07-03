@@ -3384,8 +3384,11 @@
 
          if(mode === 'b2b') {
              let netWtKg = tierShareKg;
-             let unitPricePerKg = (parseFloat(mr.querySelector('.m-price').value) || 0) - fobDeductionPerKg;
-             let discPricePerKg = unitPricePerKg * (1 - (discountPercent/100));
+             let cifPricePerKg = parseFloat(mr.querySelector('.m-price').value) || 0;
+             // Discount % applies to the CIF selling price only; freight/fulfillment (the
+             // CIF->FOB deduction) is a fixed cost that isn't discounted, so subtract it after.
+             let unitPricePerKg = cifPricePerKg - fobDeductionPerKg;
+             let discPricePerKg = (cifPricePerKg * (1 - (discountPercent/100))) - fobDeductionPerKg;
              let rowTotal = netWtKg * unitPricePerKg;
              let rowTotalDisc = netWtKg * discPricePerKg;
              let bk = b2bTierBreakdown(w, netWtKg);
@@ -3410,13 +3413,18 @@
                <td><b>${curr}${rowTotalDisc.toFixed(2)}</b></td>
              </tr>`;
          } else {
-             let price = (parseFloat(mr.querySelector('.m-price').value) || 0) - (fobDeductionPerKg * (w/1000));
+             let cifPrice = parseFloat(mr.querySelector('.m-price').value) || 0;
+             let fobDeductionPerPack = fobDeductionPerKg * (w/1000);
+             // Discount % applies to the CIF selling price only; the CIF->FOB deduction
+             // is a fixed cost that isn't discounted, so subtract it after discounting.
+             let price = cifPrice - fobDeductionPerPack;
+             let discPrice = (cifPrice * (1 - (discountPercent/100))) - fobDeductionPerPack;
              let count = Math.floor((weightKg * 1000) / (w * mRows.length));
              if(count > 0) {
                let unitPricePerKg = price * (1000/w);
-               let discPricePerKg = unitPricePerKg * (1 - (discountPercent/100));
+               let discPricePerKg = discPrice * (1000/w);
                let rowTotal = count * price;
-               let rowTotalDisc = count * price * (1 - (discountPercent/100));
+               let rowTotalDisc = count * discPrice;
 
 
                grandTotal += rowTotal;
@@ -3507,13 +3515,16 @@
          if(mode === 'b2b') {
            // B2B: pack weight (KG) x auto full-packs + remainder = this tier's share of "Total (kg)", priced per KG.
            // rowQty here tracks physical pack count (for the "Total Packages" cargo total).
-           let pricePerKg = (parseFloat(mr.querySelector('.m-price').value) || 0) - fobDeductionPerKg;
-           let discPricePerKg = pricePerKg * (1 - (discountPercent/100));
+           // Discount % applies to the CIF selling price only; the CIF->FOB deduction is a
+           // fixed cost that isn't discounted, so subtract it after discounting.
+           let cifPricePerKg = parseFloat(mr.querySelector('.m-price').value) || 0;
+           let discPricePerKg = (cifPricePerKg * (1 - (discountPercent/100))) - fobDeductionPerKg;
            rowQty += b2bTierBreakdown(w, tierShareKg).physicalPacks;
            rowAmount += tierShareKg * discPricePerKg;
          } else {
-           let price = (parseFloat(mr.querySelector('.m-price').value) || 0) - (fobDeductionPerKg * (w/1000));
-           let discPrice = price * (1 - (discountPercent/100));
+           let cifPrice = parseFloat(mr.querySelector('.m-price').value) || 0;
+           let fobDeductionPerPack = fobDeductionPerKg * (w/1000);
+           let discPrice = (cifPrice * (1 - (discountPercent/100))) - fobDeductionPerPack;
            let count = Math.floor((weightKg * 1000) / (w * mRows.length));
            rowQty += count;
            rowAmount += count * discPrice;
