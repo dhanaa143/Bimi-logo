@@ -3523,19 +3523,20 @@
          if(mode === 'b2b') {
            // B2B: pack weight (KG) x auto full-packs + remainder = this tier's share of "Total (kg)", priced per KG.
            // rowQty here tracks physical pack count (for the "Total Packages" cargo total).
-           // Discount % applies to the CIF selling price only; the CIF->FOB deduction is a
-           // fixed cost that isn't discounted, so subtract it after discounting.
+           // The product table shows the real (pre-discount) price per row — the discount
+           // is applied only once, in the Sub Total/Discount/Total Amount summary below —
+           // but still reflects the CIF->FOB deduction, since that's a real price basis change.
            let cifPricePerKg = parseFloat(mr.querySelector('.m-price').value) || 0;
-           let discPricePerKg = (cifPricePerKg * (1 - (discountPercent/100))) - fobDeductionPerKg;
+           let realPricePerKg = cifPricePerKg - fobDeductionPerKg;
            rowQty += b2bTierBreakdown(w, tierShareKg).physicalPacks;
-           rowAmount += tierShareKg * discPricePerKg;
+           rowAmount += tierShareKg * realPricePerKg;
          } else {
            let cifPrice = parseFloat(mr.querySelector('.m-price').value) || 0;
            let fobDeductionPerPack = fobDeductionPerKg * (w/1000);
-           let discPrice = (cifPrice * (1 - (discountPercent/100))) - fobDeductionPerPack;
+           let realPrice = cifPrice - fobDeductionPerPack;
            let count = Math.floor((weightKg * 1000) / (w * mRows.length));
            rowQty += count;
-           rowAmount += count * discPrice;
+           rowAmount += count * realPrice;
          }
        });
 
