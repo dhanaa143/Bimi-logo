@@ -1509,13 +1509,14 @@
        const cbm = row.querySelector('.s-cbm') ? (parseFloat(row.querySelector('.s-cbm').value) || 0) : 0;
        const grossOverride = row.querySelector('.s-gross') ? row.querySelector('.s-gross').value : '';
        let mRows = Array.from(row.querySelectorAll('.manual-weight-row')).filter(mr => (parseFloat(mr.querySelector('.m-weight').value)||0) > 0);
-       let rowPacks = 0;
+       let rowPacks = 0, sumTierKg = 0;
 
 
        mRows.forEach(mr => {
          let w = parseFloat(mr.querySelector('.m-weight').value);
          if (mode === 'b2b') {
            let totalKg = parseFloat(mr.querySelector('.m-totalkg').value) || 0;
+           sumTierKg += totalKg;
            rowPacks += b2bTierBreakdown(w, totalKg).physicalPacks;
          } else {
            rowPacks += Math.floor((weightKg * 1000) / (w * mRows.length));
@@ -1523,9 +1524,11 @@
        });
 
 
-       if (weightKg > 0) {
-         const netWt = weightKg;
-         const grossWt = (grossOverride !== '' && !isNaN(parseFloat(grossOverride))) ? parseFloat(grossOverride) : weightKg * 1.1;
+       // In B2B the actual traded weight is the sum of each tier's Total Weight (KG),
+       // not the separate/manual "Total (kg)" field, so the packing list always matches the priced tiers.
+       const netWt = (mode === 'b2b') ? sumTierKg : weightKg;
+       if (netWt > 0) {
+         const grossWt = (grossOverride !== '' && !isNaN(parseFloat(grossOverride))) ? parseFloat(grossOverride) : netWt * 1.1;
          totalNetWt += netWt; totalGrossWt += grossWt; totalPacksAll += rowPacks; totalCbm += cbm;
          rowsHtml += `<tr>
            <td style="padding:7px; border-bottom:1px solid #f3f4f6;">${name}<br><span style="color:#9ca3af; font-size:10px;">HS: ${hscode}</span></td>
@@ -2350,7 +2353,7 @@
        <span class="section-title">04. Spice Details (${spiceCount.toString().padStart(2,'0')})</span>
        <label>Name:</label><input type="text" class="s-name" placeholder="Ex: Alba Cinnamon" oninput="calc()">
        <div class="grid-2">
-         <div><label class="s-weight-label">Total (kg):</label><input type="number" class="s-weight" value="0" oninput="calc()"></div>
+         <div><label>Total (kg):</label><input type="number" class="s-weight" value="0" oninput="calc()"></div>
          <div><label>1kg Price (Rs):</label><input type="number" class="s-pcost" value="0" oninput="calc()"></div>
          <div><label>Courier (Rs):</label><input type="number" class="s-ship-lkr" value="0" oninput="calc()"></div>
          <div><label>Customs (Rs):</label><input type="number" class="s-customs-lkr" value="0" oninput="calc()"></div>
@@ -2388,7 +2391,7 @@
        <span class="section-title">04. Spice Details (${spiceCount.toString().padStart(2,'0')})</span>
        <label>Name:</label><input type="text" class="s-name" value="${sp.name||''}" oninput="calc()">
        <div class="grid-2">
-         <div><label class="s-weight-label">Total (kg):</label><input type="number" class="s-weight" value="${sp.weight||0}" oninput="calc()"></div>
+         <div><label>Total (kg):</label><input type="number" class="s-weight" value="${sp.weight||0}" oninput="calc()"></div>
          <div><label>1kg Price (Rs):</label><input type="number" class="s-pcost" value="${sp.pcost||0}" oninput="calc()"></div>
          <div><label>Courier (Rs):</label><input type="number" class="s-ship-lkr" value="${sp.ship_lkr||0}" oninput="calc()"></div>
          <div><label>Customs (Rs):</label><input type="number" class="s-customs-lkr" value="${sp.customs_lkr||0}" oninput="calc()"></div>
@@ -2435,29 +2438,6 @@
      const mode = document.getElementById('business_mode') ? document.getElementById('business_mode').value : 'b2c';
 
 
-     // In B2B mode, "Total (kg)" is derived from the sum of each tier's Total Weight (KG)
-     // so it can never drift out of sync with the priced tiers below.
-     document.querySelectorAll('.spice-row').forEach(row => {
-       const weightInput = row.querySelector('.s-weight');
-       const weightLabel = row.querySelector('.s-weight-label');
-       if (!weightInput) return;
-       if (mode === 'b2b') {
-         let sumKg = 0;
-         row.querySelectorAll('.manual-weight-row').forEach(mr => {
-           sumKg += parseFloat(mr.querySelector('.m-totalkg').value) || 0;
-         });
-         weightInput.value = sumKg.toFixed(2);
-         weightInput.readOnly = true;
-         weightInput.style.background = '#e2e8f0';
-         weightInput.style.cursor = 'not-allowed';
-         if (weightLabel) weightLabel.innerText = 'Total (kg) - Auto:';
-       } else {
-         weightInput.readOnly = false;
-         weightInput.style.background = '';
-         weightInput.style.cursor = '';
-         if (weightLabel) weightLabel.innerText = 'Total (kg):';
-       }
-     });
 
 
      const totalYearlyFixedCosts = (['uk_reg_lkr','domain_lkr','shopify_lkr','gemini_lkr','email_lkr','seo_lkr']
@@ -3458,11 +3438,10 @@
        const marks = row.querySelector('.s-marks') ? (row.querySelector('.s-marks').value || '-') : '-';
        const cbm = row.querySelector('.s-cbm') ? (parseFloat(row.querySelector('.s-cbm').value) || 0) : 0;
        const grossOverride = row.querySelector('.s-gross') ? row.querySelector('.s-gross').value : '';
-       if (weightKg <= 0) return;
 
 
        let mRows = Array.from(row.querySelectorAll('.manual-weight-row')).filter(mr => (parseFloat(mr.querySelector('.m-weight').value)||0) > 0);
-       let rowQty = 0, rowAmount = 0;
+       let rowQty = 0, rowAmount = 0, sumTierKg = 0;
        mRows.forEach(mr => {
          let w = parseFloat(mr.querySelector('.m-weight').value);
          if(mode === 'b2b') {
@@ -3471,6 +3450,7 @@
            let totalKg = parseFloat(mr.querySelector('.m-totalkg').value) || 0;
            let pricePerKg = parseFloat(mr.querySelector('.m-price').value) || 0;
            let discPricePerKg = pricePerKg * (1 - (discountPercent/100));
+           sumTierKg += totalKg;
            rowQty += b2bTierBreakdown(w, totalKg).physicalPacks;
            rowAmount += totalKg * discPricePerKg;
          } else {
@@ -3483,8 +3463,11 @@
        });
 
 
-       const netWt = weightKg;
-       const grossWt = (grossOverride !== '' && !isNaN(parseFloat(grossOverride))) ? parseFloat(grossOverride) : weightKg * 1.1;
+       // In B2B the actual traded weight is the sum of each tier's Total Weight (KG),
+       // not the separate/manual "Total (kg)" field, so the invoice always matches the priced tiers.
+       const netWt = (mode === 'b2b') ? sumTierKg : weightKg;
+       if (netWt <= 0) return;
+       const grossWt = (grossOverride !== '' && !isNaN(parseFloat(grossOverride))) ? parseFloat(grossOverride) : netWt * 1.1;
        // ALWAYS display as KG in export invoice, unit price per KG
        const qtyLabelTxt = `${netWt.toFixed(2)} KG`;
        const unitPrice = netWt > 0 ? (rowAmount / netWt) : 0;
