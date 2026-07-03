@@ -419,7 +419,7 @@
            <div class="section" style="border-left: 6px solid var(--primary); background: #f0fdf4;">
                <span class="section-title"><i class="fa-solid fa-briefcase"></i> Business Calculation Mode</span>
                <label>Select Mode:</label>
-               <select id="business_mode" onchange="calc(); updateInvCurrency(); buildPackingTable(); buildPoTable();" style="border-color: var(--primary); font-weight: bold; background: #fff;">
+               <select id="business_mode" onchange="updateWeightUnitLabels(); calc(); updateInvCurrency(); buildPackingTable(); buildPoTable();" style="border-color: var(--primary); font-weight: bold; background: #fff;">
                    <option value="b2c" selected>Retail Mode (B2C - Pack Split)</option>
                    <option value="b2b">Wholesale Mode (B2B - Bulk Order)</option>
                </select>
@@ -2120,7 +2120,7 @@
 
 
    window.onload = function() {
-     loadFixedCosts(); loadSellerProfile(); updatePriceLabels();
+     loadFixedCosts(); loadSellerProfile(); updatePriceLabels(); updateWeightUnitLabels();
      if (document.querySelectorAll('.spice-row').length === 0) addSpice();
      setDefaultInvoiceDates(); autoGenInvoiceNumber(); setDefaultTC(); setDefaultPoTC(); syncInvCurrencyFromMain();
      populateCrmDropdowns(); renderCrmLists(); renderLogs(); renderReadinessChecklist();
@@ -2262,16 +2262,25 @@
 
    function addManualWeightRow(container, w='', p='') {
      const s = document.getElementById('currency_symbol').value;
+     const mode = document.getElementById('business_mode') ? document.getElementById('business_mode').value : 'b2c';
+     const weightPlaceholder = mode === 'b2b' ? 'Weight (KG)' : 'Weight (g)';
      const div = document.createElement('div');
      div.className = 'manual-weight-row';
      div.innerHTML = `
-       <input type="number" class="m-weight" placeholder="Weight (g)" value="${w}" oninput="calc()">
+       <input type="number" class="m-weight" placeholder="${weightPlaceholder}" value="${w}" oninput="calc()">
        <input type="number" class="m-price" placeholder="Price (${s})" value="${p}" oninput="calc()">
        <button class="remove-manual-btn" style="border:none;background:none;color:var(--danger);cursor:pointer;font-size:16px;transition:0.2s;"
          onmouseover="this.style.transform='scale(1.2)'" onmouseout="this.style.transform='scale(1)'"
          onclick="this.parentElement.remove();calc();"><i class="fa-solid fa-xmark"></i></button>
      `;
      container.appendChild(div);
+   }
+
+
+   function updateWeightUnitLabels() {
+     const mode = document.getElementById('business_mode') ? document.getElementById('business_mode').value : 'b2c';
+     const weightPlaceholder = mode === 'b2b' ? 'Weight (KG)' : 'Weight (g)';
+     document.querySelectorAll('.m-weight').forEach(input => { input.placeholder = weightPlaceholder; });
    }
 
 
@@ -2466,12 +2475,12 @@
            spiceCifTotDisc += (count * discountedPrice * exRate);
 
 
-           cif1kgAct = (price * exRate) * (1000/w);
-           cif1kgDisc = (discountedPrice * exRate) * (1000/w);
+           cif1kgAct = (mode === 'b2b') ? (price * exRate) / w : (price * exRate) * (1000/w);
+           cif1kgDisc = (mode === 'b2b') ? (discountedPrice * exRate) / w : (discountedPrice * exRate) * (1000/w);
 
 
            if(mode === 'b2b') {
-               profitDetails += `${w/1000}kg: <b>${symbol}${price}</b> | `;
+               profitDetails += `${w}kg: <b>${symbol}${price}</b> | `;
            } else {
                let unitNet = (discountedPrice * exRate) - ((w/1000)*pCostPerKg + (w/1000)*unitFixedLKRPerKg + (w/1000)*unitShipCustomsLKRPerKg + unitFFLKR + unitAdsLKR + (discountedPrice * exRate * gwPercent));
                let kgNetProfit = unitNet * (1000/w);
@@ -3240,7 +3249,7 @@
 
 
          if(mode === 'b2b') {
-             let netWtKg = w / 1000;
+             let netWtKg = w;
              let unitPricePerKg = netWtKg > 0 ? price / netWtKg : 0;
              let discPricePerKg = unitPricePerKg * (1 - (discountPercent/100));
              let rowTotal = price;
@@ -3354,8 +3363,8 @@
          let price = parseFloat(mr.querySelector('.m-price').value) || 0;
          let discPrice = price * (1 - (discountPercent/100));
          if(mode === 'b2b') {
-           // B2B: each manual row is a bulk price tier — count is always 1, matching calc()
-           rowQty += (w / 1000);      // total KG for this tier
+           // B2B: each manual row is a bulk price tier (weight entered directly in KG) — count is always 1, matching calc()
+           rowQty += w;               // total KG for this tier
            rowAmount += discPrice;    // total discounted amount for this tier
          } else {
            let count = Math.floor((weightKg * 1000) / (w * mRows.length));
