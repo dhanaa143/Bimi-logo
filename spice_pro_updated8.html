@@ -2282,6 +2282,51 @@
    }
 
 
+   // Same per-pack Fulfillment fee (in LKR) that calc() derives from the shared Fulfillment
+   // section, so the invoice's CIF->FOB deduction matches the calculator summary exactly.
+   function getGlobalUnitFFLKR(exRate, mode) {
+     let totalPacks = 0, totalSku = 0;
+     document.querySelectorAll('.spice-row').forEach(row => {
+       const weightKg = parseFloat(row.querySelector('.s-weight').value) || 0;
+       const mRows = Array.from(row.querySelectorAll('.manual-weight-row')).filter(mr => (parseFloat(mr.querySelector('.m-weight').value)||0) > 0);
+       totalSku += mRows.length;
+       let rowPacks = 0;
+       mRows.forEach(mr => {
+         const w = parseFloat(mr.querySelector('.m-weight').value);
+         const count = (mode === 'b2b') ? 1 : Math.floor((weightKg * 1000) / (w * mRows.length));
+         rowPacks += count;
+       });
+       totalPacks += rowPacks;
+     });
+     const ffBase = (parseFloat(document.getElementById('manual_ff_base').value)||0) +
+       (totalPacks * (parseFloat(document.getElementById('manual_ff_unit').value)||0)) +
+       (totalSku * (parseFloat(document.getElementById('manual_ff_sku').value)||0));
+     const ffTotalCurr = totalPacks > 0 ? Math.max(parseFloat(document.getElementById('min_bill_gbp').value)||0, ffBase) : 0;
+     return totalPacks > 0 ? (ffTotalCurr * exRate / totalPacks) : 0;
+   }
+
+
+   // How much (per KG, in display currency) to subtract from this row's CIF price to get FOB:
+   // courier/customs cost spread over the row's weight, plus its share of the Fulfillment fee —
+   // the exact same components calc() subtracts to go from spiceCifTotAct to spiceFobTotAct.
+   function getCifToFobDeductionPerKg(row, mode, exRate, unitFFLKR) {
+     const weightKg = parseFloat(row.querySelector('.s-weight').value) || 0;
+     if (!(weightKg > 0) || !(exRate > 0)) return 0;
+     const shipLkr = parseFloat(row.querySelector('.s-ship-lkr').value) || 0;
+     const customsLkr = parseFloat(row.querySelector('.s-customs-lkr').value) || 0;
+     const mRows = Array.from(row.querySelectorAll('.manual-weight-row')).filter(mr => (parseFloat(mr.querySelector('.m-weight').value)||0) > 0);
+     let rowPacks = 0;
+     mRows.forEach(mr => {
+       const w = parseFloat(mr.querySelector('.m-weight').value);
+       const count = (mode === 'b2b') ? 1 : Math.floor((weightKg * 1000) / (w * mRows.length));
+       rowPacks += count;
+     });
+     const shipCustomsPerKgCurr = ((shipLkr + customsLkr) / weightKg) / exRate;
+     const ffPerKgCurr = ((unitFFLKR * rowPacks) / weightKg) / exRate;
+     return shipCustomsPerKgCurr + ffPerKgCurr;
+   }
+
+
    function addManualWeightRow(container, w='', p='') {
      const s = document.getElementById('currency_symbol').value;
      const mode = document.getElementById('business_mode') ? document.getElementById('business_mode').value : 'b2c';
@@ -3265,6 +3310,7 @@
      document.querySelectorAll('.incoterm-btn').forEach(b => b.classList.remove('selected'));
      btn.classList.add('selected');
      selectedIncoterm = term;
+     buildInvProductTable();
    }
 
 
@@ -3301,6 +3347,9 @@
      const curr = document.getElementById('inv_currency').value;
      const discountPercent = parseFloat(document.getElementById('discount_percent').value) || 0;
      const mode = document.getElementById('business_mode') ? document.getElementById('business_mode').value : 'b2c';
+     const exRate = parseFloat(document.getElementById('ex_rate').value) || 0;
+     const applyFob = selectedIncoterm === 'FOB';
+     const unitFFLKR = applyFob ? getGlobalUnitFFLKR(exRate, mode) : 0;
 
 
      const thead = document.getElementById('invProductTablePreview').querySelector('thead');
@@ -3328,13 +3377,14 @@
        let mRows = Array.from(row.querySelectorAll('.manual-weight-row')).filter(mr => (parseFloat(mr.querySelector('.m-weight').value)||0) > 0);
        // In B2B, "Total (kg)" is the single shared total, split evenly across each pack-size tier.
        let tierShareKg = (mode === 'b2b' && mRows.length > 0) ? weightKg / mRows.length : 0;
+       let fobDeductionPerKg = applyFob ? getCifToFobDeductionPerKg(row, mode, exRate, unitFFLKR) : 0;
        mRows.forEach(mr => {
          let w = parseFloat(mr.querySelector('.m-weight').value);
 
 
          if(mode === 'b2b') {
              let netWtKg = tierShareKg;
-             let unitPricePerKg = parseFloat(mr.querySelector('.m-price').value) || 0;
+             let unitPricePerKg = (parseFloat(mr.querySelector('.m-price').value) || 0) - fobDeductionPerKg;
              let discPricePerKg = unitPricePerKg * (1 - (discountPercent/100));
              let rowTotal = netWtKg * unitPricePerKg;
              let rowTotalDisc = netWtKg * discPricePerKg;
@@ -3360,7 +3410,7 @@
                <td><b>${curr}${rowTotalDisc.toFixed(2)}</b></td>
              </tr>`;
          } else {
-             let price = parseFloat(mr.querySelector('.m-price').value) || 0;
+             let price = (parseFloat(mr.querySelector('.m-price').value) || 0) - (fobDeductionPerKg * (w/1000));
              let count = Math.floor((weightKg * 1000) / (w * mRows.length));
              if(count > 0) {
                let unitPricePerKg = price * (1000/w);
@@ -3423,14 +3473,16 @@
      };
 
 
-     buildInvPrintData(curr, discountPercent, mode);
+     buildInvPrintData(curr, discountPercent, mode, exRate);
    }
 
 
-   function buildInvPrintData(curr, discountPercent, mode) {
+   function buildInvPrintData(curr, discountPercent, mode, exRate) {
      let rowsHtml = '';
      let idx = 1;
      let totalNet = 0, totalGross = 0, totalCbm = 0, totalPacks = 0, totalAmount = 0;
+     const applyFob = selectedIncoterm === 'FOB';
+     const unitFFLKR = applyFob ? getGlobalUnitFFLKR(exRate, mode) : 0;
 
 
      document.querySelectorAll('.spice-row').forEach(row => {
@@ -3449,17 +3501,18 @@
        let rowQty = 0, rowAmount = 0;
        // In B2B, "Total (kg)" is the single shared total, split evenly across each pack-size tier.
        let tierShareKg = (mode === 'b2b' && mRows.length > 0) ? weightKg / mRows.length : 0;
+       let fobDeductionPerKg = applyFob ? getCifToFobDeductionPerKg(row, mode, exRate, unitFFLKR) : 0;
        mRows.forEach(mr => {
          let w = parseFloat(mr.querySelector('.m-weight').value);
          if(mode === 'b2b') {
            // B2B: pack weight (KG) x auto full-packs + remainder = this tier's share of "Total (kg)", priced per KG.
            // rowQty here tracks physical pack count (for the "Total Packages" cargo total).
-           let pricePerKg = parseFloat(mr.querySelector('.m-price').value) || 0;
+           let pricePerKg = (parseFloat(mr.querySelector('.m-price').value) || 0) - fobDeductionPerKg;
            let discPricePerKg = pricePerKg * (1 - (discountPercent/100));
            rowQty += b2bTierBreakdown(w, tierShareKg).physicalPacks;
            rowAmount += tierShareKg * discPricePerKg;
          } else {
-           let price = parseFloat(mr.querySelector('.m-price').value) || 0;
+           let price = (parseFloat(mr.querySelector('.m-price').value) || 0) - (fobDeductionPerKg * (w/1000));
            let discPrice = price * (1 - (discountPercent/100));
            let count = Math.floor((weightKg * 1000) / (w * mRows.length));
            rowQty += count;
