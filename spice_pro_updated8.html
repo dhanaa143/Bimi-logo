@@ -3241,24 +3241,23 @@
 
          if(mode === 'b2b') {
              let netWtKg = w / 1000;
-             let packCount = Math.floor((weightKg * 1000) / (w * mRows.length));
-             let unitPricePerKg = price / netWtKg;
+             let unitPricePerKg = netWtKg > 0 ? price / netWtKg : 0;
              let discPricePerKg = unitPricePerKg * (1 - (discountPercent/100));
-             let rowTotal = packCount * price;
-             let rowTotalDisc = packCount * price * (1 - (discountPercent/100));
+             let rowTotal = price;
+             let rowTotalDisc = price * (1 - (discountPercent/100));
 
 
              grandTotal += rowTotal;
              grandDisc += rowTotalDisc;
-             totalQty += packCount * netWtKg;
-             totalPacksCount += packCount;
+             totalQty += netWtKg;
+             totalPacksCount += 1;
 
 
              rowsHtml += `<tr>
                <td>${idx++}</td>
                <td>${name}</td>
                <td>Bulk</td>
-               <td>${(packCount * netWtKg).toFixed(2)} KG</td>
+               <td>${netWtKg.toFixed(2)} KG</td>
                <td>${curr}${unitPricePerKg.toFixed(2)}</td>
                <td>${discountPercent}%</td>
                <td>${curr}${discPricePerKg.toFixed(2)}</td>
@@ -3355,10 +3354,9 @@
          let price = parseFloat(mr.querySelector('.m-price').value) || 0;
          let discPrice = price * (1 - (discountPercent/100));
          if(mode === 'b2b') {
-           // B2B: each mRow is a pack size — multiply price by number of packs
-           let packCount = Math.floor((weightKg * 1000) / (w * mRows.length));
-           rowQty += packCount * (w / 1000);      // total KG
-           rowAmount += packCount * discPrice;     // total discounted amount
+           // B2B: each manual row is a bulk price tier — count is always 1, matching calc()
+           rowQty += (w / 1000);      // total KG for this tier
+           rowAmount += discPrice;    // total discounted amount for this tier
          } else {
            let count = Math.floor((weightKg * 1000) / (w * mRows.length));
            rowQty += count;
