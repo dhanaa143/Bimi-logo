@@ -1340,17 +1340,12 @@
 
 
        <img id="printWatermark" class="watermark-bg" src="" style="display:none;">
-       <div class="print-content-wrapper inv-sig-section">
-           <div class="inv-sig-box" style="border:none;">
-               <img id="printSigImg" src="" style="max-width:150px; max-height:80px; display:none; margin:0 auto 10px; object-fit:contain;">
-               <div class="sig-line" id="sigLinePlaceholder"></div>
-               <p><strong>Authorized Signature</strong></p>
-               <p id="printSigName"></p>
-           </div>
-           <div class="inv-sig-box" style="border:none;">
-               <img id="printSealImg" src="" style="max-width:120px; max-height:120px; display:none; margin:0 auto 10px; object-fit:contain;">
+       <div class="print-content-wrapper inv-sig-section" style="text-align:center;">
+           <div class="inv-sig-box" style="border:none; margin:0 auto; float:none;">
+               <img id="printSealImg" src="" style="max-width:140px; max-height:140px; display:none; margin:0 auto 10px; object-fit:contain;">
                <div class="seal-line" id="sealLinePlaceholder"></div>
-               <p><strong>Company Stamp / Seal</strong></p>
+               <p><strong>Authorized Signature &amp; Seal</strong></p>
+               <p id="printSigName"></p>
                <p>Date: <span id="printSigDate"></span></p>
            </div>
        </div>
@@ -1591,8 +1586,11 @@
      const sealImg = document.getElementById('sealPreview').querySelector('img') ? document.getElementById('sealPreview').querySelector('img').src : '';
 
 
-     let sigHtml = (includeSigSeal && sigImg) ? `<img src="${sigImg}" style="max-width:140px; max-height:60px; display:block; margin:0 auto 4px; object-fit:contain;">` : `<div class="sig-line"></div>`;
-     let sealHtml = (includeSigSeal && sealImg) ? `<img src="${sealImg}" style="max-width:100px; max-height:100px; display:block; margin:0 auto 6px; object-fit:contain;">` : '';
+     // Signature and seal share a single spot (the seal image is expected to already
+     // include the signature); prefer the seal, fall back to signature, else a blank line.
+     let sigSealHtml = (includeSigSeal && sealImg) ? `<img src="${sealImg}" style="max-width:130px; max-height:130px; display:block; margin:0 auto 6px; object-fit:contain;">`
+       : (includeSigSeal && sigImg) ? `<img src="${sigImg}" style="max-width:140px; max-height:80px; display:block; margin:0 auto 6px; object-fit:contain;">`
+       : `<div class="sig-line"></div>`;
 
 
      const content = `
@@ -1671,9 +1669,8 @@
 
          <div class="print-content-wrapper inv-sig-section" style="text-align:right;">
            <div class="inv-sig-box" style="width:220px; display:inline-block; text-align:center;">
-             ${sealHtml}
-             ${sigHtml}
-             <p><strong>Authorized Signature</strong></p>
+             ${sigSealHtml}
+             <p><strong>Authorized Signature &amp; Seal</strong></p>
            </div>
          </div>
        </div>
@@ -1899,8 +1896,11 @@
      const poLogoHtml = poLogoSrc ? `<img src="${poLogoSrc}" style="max-width:64px; max-height:64px; object-fit:contain; display:block; margin-bottom:6px;">` : `<div style="width:48px; height:48px; background:#f0fdf4; border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:20px; color:var(--primary); margin-bottom:6px;"><i class="fa-solid fa-pepper-hot"></i></div>`;
 
 
-     let sigHtml = (includeSigSeal && sigImg) ? `<img src="${sigImg}" style="max-width:140px; max-height:60px; display:block; margin:0 auto 4px; object-fit:contain;">` : `<div class="sig-line"></div>`;
-     let sealHtml = (includeSigSeal && sealImg) ? `<img src="${sealImg}" style="max-width:100px; max-height:100px; display:block; margin:0 auto 6px; object-fit:contain;">` : '';
+     // Signature and seal share a single spot (the seal image is expected to already
+     // include the signature); prefer the seal, fall back to signature, else a blank line.
+     let sigSealHtml = (includeSigSeal && sealImg) ? `<img src="${sealImg}" style="max-width:130px; max-height:130px; display:block; margin:0 auto 6px; object-fit:contain;">`
+       : (includeSigSeal && sigImg) ? `<img src="${sigImg}" style="max-width:140px; max-height:80px; display:block; margin:0 auto 6px; object-fit:contain;">`
+       : `<div class="sig-line"></div>`;
 
 
      const pd = window._poData;
@@ -2002,9 +2002,8 @@
 
          <div class="print-content-wrapper inv-sig-section">
            <div class="inv-sig-box">
-             ${sealHtml}
-             ${sigHtml}
-             <p><strong>Authorized Signature</strong></p>
+             ${sigSealHtml}
+             <p><strong>Authorized Signature &amp; Seal</strong></p>
              <p>${companyName}</p>
            </div>
            <div class="inv-sig-box">
@@ -3713,20 +3712,13 @@
      const includeSigSeal = document.getElementById('include_sig_seal') ? document.getElementById('include_sig_seal').checked : true;
 
 
+     // Signature and seal share a single spot on the document (the seal image is
+     // expected to already include the signature); prefer the seal, fall back to signature.
      const sigImg = document.getElementById('sigPreview').querySelector('img');
-     if(sigImg && includeSigSeal) {
-       document.getElementById('printSigImg').src = sigImg.src;
-       document.getElementById('printSigImg').style.display = 'block';
-       document.getElementById('sigLinePlaceholder').style.display = 'none';
-     } else {
-       document.getElementById('printSigImg').style.display = 'none';
-       document.getElementById('sigLinePlaceholder').style.display = 'block';
-     }
-
-
      const sealImg = document.getElementById('sealPreview').querySelector('img');
-     if(sealImg && includeSigSeal) {
-       document.getElementById('printSealImg').src = sealImg.src;
+     const sigOrSealImg = sealImg || sigImg;
+     if(sigOrSealImg && includeSigSeal) {
+       document.getElementById('printSealImg').src = sigOrSealImg.src;
        document.getElementById('printSealImg').style.display = 'block';
        document.getElementById('sealLinePlaceholder').style.display = 'none';
      } else {
