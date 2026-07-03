@@ -1,0 +1,7 @@
+<resources>
+    <color name="spice_primary">#044E3B</color>
+    <color name="spice_primary_dark">#03301F</color>
+    <color name="spice_secondary">#F59E0B</color>
+    <color name="spice_bg">#F0FDF4</color>
+    <color name="white">#FFFFFF</color>
+</resources>
