@@ -91,10 +91,11 @@
          background: #fffcf0; padding: 10px; border-radius: 12px;
          border: 1px solid #fef3c7; transition: all 0.2s;
        }
-       .manual-weight-row.mwr-b2b { grid-template-columns: 1fr 0.7fr 1fr 40px; }
+       .manual-weight-row.mwr-b2b { grid-template-columns: 1fr 1fr 1fr 40px; }
        .manual-weight-row:hover { background: #fef9c3; }
        .manual-weight-row input { margin-bottom: 0; padding: 10px; }
-       .mwr-total-line { font-size: 10px; color: #b45309; font-weight: 700; margin: 0 0 10px 4px; }
+       .mwr-breakdown { grid-column: 1 / -1; font-size: 10px; color: #b45309; font-weight: 700; }
+       .mwr-breakdown:empty { display: none; }
        .btn {
          border: none; border-radius: 12px; cursor: pointer;
          font-weight: 700; font-size: 13px;
@@ -1514,8 +1515,8 @@
        mRows.forEach(mr => {
          let w = parseFloat(mr.querySelector('.m-weight').value);
          if (mode === 'b2b') {
-           let packsEl = mr.querySelector('.m-packs');
-           rowPacks += packsEl ? (parseFloat(packsEl.value) || 1) : 1;
+           let totalKg = parseFloat(mr.querySelector('.m-totalkg').value) || 0;
+           rowPacks += b2bTierBreakdown(w, totalKg).physicalPacks;
          } else {
            rowPacks += Math.floor((weightKg * 1000) / (w * mRows.length));
          }
@@ -2266,7 +2267,19 @@
    }
 
 
-   function addManualWeightRow(container, w='', p='', packs='') {
+   // B2B bulk tier: given a standard Pack Weight (KG) and a manually entered Total Weight (KG),
+   // work out how many full packs that makes plus any leftover (remainder) partial pack.
+   function b2bTierBreakdown(packWeightKg, totalKg) {
+     if (!(packWeightKg > 0) || !(totalKg > 0)) return { fullPacks: 0, remainderKg: 0, physicalPacks: 0 };
+     const fullPacks = Math.floor(totalKg / packWeightKg + 1e-9);
+     let remainderKg = totalKg - (fullPacks * packWeightKg);
+     if (remainderKg < 0.005) remainderKg = 0;
+     const physicalPacks = fullPacks + (remainderKg > 0 ? 1 : 0);
+     return { fullPacks, remainderKg, physicalPacks };
+   }
+
+
+   function addManualWeightRow(container, w='', p='', totalKg='') {
      const s = document.getElementById('currency_symbol').value;
      const mode = document.getElementById('business_mode') ? document.getElementById('business_mode').value : 'b2c';
      const div = document.createElement('div');
@@ -2274,11 +2287,12 @@
        div.className = 'manual-weight-row mwr-b2b';
        div.innerHTML = `
          <input type="number" class="m-weight" placeholder="Pack Weight (KG)" value="${w}" oninput="calc()">
-         <input type="number" class="m-packs" placeholder="No. of Packs" value="${packs || 1}" oninput="calc()">
-         <input type="number" class="m-price" placeholder="Total Price (${s})" value="${p}" oninput="calc()">
+         <input type="number" class="m-totalkg" placeholder="Total Weight (KG)" value="${totalKg}" oninput="calc()">
+         <input type="number" class="m-price" placeholder="Price per KG (${s})" value="${p}" oninput="calc()">
          <button class="remove-manual-btn" style="border:none;background:none;color:var(--danger);cursor:pointer;font-size:16px;transition:0.2s;"
            onmouseover="this.style.transform='scale(1.2)'" onmouseout="this.style.transform='scale(1)'"
            onclick="this.parentElement.remove();calc();"><i class="fa-solid fa-xmark"></i></button>
+         <div class="mwr-breakdown"></div>
        `;
      } else {
        div.className = 'manual-weight-row';
@@ -2300,12 +2314,12 @@
        const existing = Array.from(container.querySelectorAll('.manual-weight-row')).map(mr => {
          const wEl = mr.querySelector('.m-weight');
          const pEl = mr.querySelector('.m-price');
-         const packsEl = mr.querySelector('.m-packs');
+         const totalKgEl = mr.querySelector('.m-totalkg');
          return {
            w: wEl ? wEl.value : '',
            p: pEl ? pEl.value : '',
-           wasB2b: !!packsEl,
-           packs: packsEl ? packsEl.value : ''
+           wasB2b: !!totalKgEl,
+           totalKg: totalKgEl ? totalKgEl.value : ''
          };
        });
        container.innerHTML = '';
@@ -2313,12 +2327,12 @@
          const wVal = parseFloat(row.w) || 0;
          if (mode === 'b2b' && !row.wasB2b) {
            // Switching B2C (grams) -> B2B (KG): treat the entered grams as a single pack's KG weight
-           addManualWeightRow(container, wVal ? (wVal / 1000) : '', row.p, 1);
+           addManualWeightRow(container, wVal ? (wVal / 1000) : '', row.p, '');
          } else if (mode !== 'b2b' && row.wasB2b) {
            // Switching B2B (KG per pack) -> B2C (grams): carry the pack weight over as grams
            addManualWeightRow(container, wVal ? (wVal * 1000) : '', row.p);
          } else {
-           addManualWeightRow(container, row.w, row.p, row.packs);
+           addManualWeightRow(container, row.w, row.p, row.totalKg);
          }
        });
      });
@@ -2399,7 +2413,7 @@
      container.appendChild(div);
      const mwContainer = div.querySelector('.manual-weight-container');
      if (sp.manualWeights && sp.manualWeights.length > 0) {
-       sp.manualWeights.forEach(mw => addManualWeightRow(mwContainer, mw.weight||'', mw.price||'', mw.packs||''));
+       sp.manualWeights.forEach(mw => addManualWeightRow(mwContainer, mw.weight||'', mw.price||'', mw.totalKg||''));
      } else {
        addManualWeightRow(mwContainer);
      }
@@ -2421,7 +2435,7 @@
      const mode = document.getElementById('business_mode') ? document.getElementById('business_mode').value : 'b2c';
 
 
-     // In B2B mode, "Total (kg)" is derived from the bulk tiers (Pack Weight x No. of Packs)
+     // In B2B mode, "Total (kg)" is derived from the sum of each tier's Total Weight (KG)
      // so it can never drift out of sync with the priced tiers below.
      document.querySelectorAll('.spice-row').forEach(row => {
        const weightInput = row.querySelector('.s-weight');
@@ -2430,10 +2444,7 @@
        if (mode === 'b2b') {
          let sumKg = 0;
          row.querySelectorAll('.manual-weight-row').forEach(mr => {
-           const tw = parseFloat(mr.querySelector('.m-weight').value) || 0;
-           const packsEl = mr.querySelector('.m-packs');
-           const packs = packsEl ? (parseFloat(packsEl.value) || 1) : 1;
-           if (tw > 0) sumKg += tw * packs;
+           sumKg += parseFloat(mr.querySelector('.m-totalkg').value) || 0;
          });
          weightInput.value = sumKg.toFixed(2);
          weightInput.readOnly = true;
@@ -2531,17 +2542,38 @@
 
        mRows.forEach(mr => {
          let w = parseFloat(mr.querySelector('.m-weight').value);
+
+         if (mode === 'b2b') {
+           let totalKg = parseFloat(mr.querySelector('.m-totalkg').value) || 0;
+           let pricePerKg = parseFloat(mr.querySelector('.m-price').value) || 0;
+           let discPricePerKg = pricePerKg * (1 - (discountPercent / 100));
+           let bk = b2bTierBreakdown(w, totalKg);
+
+           rowPacks += 1;
+           rowPhysicalPacks += bk.physicalPacks;
+           rowRev += (totalKg * discPricePerKg * exRate);
+
+           spiceCifTotAct += (totalKg * pricePerKg * exRate);
+           spiceCifTotDisc += (totalKg * discPricePerKg * exRate);
+
+           cif1kgAct = pricePerKg * exRate;
+           cif1kgDisc = discPricePerKg * exRate;
+
+           let breakdownTxt = `${w}kg &times; ${bk.fullPacks}` + (bk.remainderKg > 0 ? ` + ${bk.remainderKg.toFixed(2)}kg &times; 1` : '');
+           profitDetails += `${breakdownTxt} = ${totalKg.toFixed(2)}kg: <b>${symbol}${pricePerKg}/kg</b> | `;
+           let breakdownEl = mr.querySelector('.mwr-breakdown');
+           if (breakdownEl) breakdownEl.innerHTML = totalKg > 0 ? `= ${breakdownTxt} (${bk.physicalPacks} packs)` : '';
+           return;
+         }
+
          let price = parseFloat(mr.querySelector('.m-price').value)||0;
          let discountedPrice = price * (1 - (discountPercent / 100));
-         let packsEl = mr.querySelector('.m-packs');
-         let packs = packsEl ? (parseFloat(packsEl.value) || 1) : 1;
-         let tierTotalKg = w * packs;
-         let count = (mode === 'b2b') ? 1 : Math.floor((weightKg * 1000) / (w * mRows.length));
+         let count = Math.floor((weightKg * 1000) / (w * mRows.length));
 
 
          if (count > 0) {
            rowPacks += count;
-           rowPhysicalPacks += (mode === 'b2b') ? packs : count;
+           rowPhysicalPacks += count;
            rowRev += (count * discountedPrice * exRate);
 
 
@@ -2549,17 +2581,13 @@
            spiceCifTotDisc += (count * discountedPrice * exRate);
 
 
-           cif1kgAct = (mode === 'b2b') ? (tierTotalKg > 0 ? (price * exRate) / tierTotalKg : 0) : (price * exRate) * (1000/w);
-           cif1kgDisc = (mode === 'b2b') ? (tierTotalKg > 0 ? (discountedPrice * exRate) / tierTotalKg : 0) : (discountedPrice * exRate) * (1000/w);
+           cif1kgAct = (price * exRate) * (1000/w);
+           cif1kgDisc = (discountedPrice * exRate) * (1000/w);
 
 
-           if(mode === 'b2b') {
-               profitDetails += `${w}kg &times; ${packs} = ${tierTotalKg.toFixed(2)}kg: <b>${symbol}${price}</b> | `;
-           } else {
-               let unitNet = (discountedPrice * exRate) - ((w/1000)*pCostPerKg + (w/1000)*unitFixedLKRPerKg + (w/1000)*unitShipCustomsLKRPerKg + unitFFLKR + unitAdsLKR + (discountedPrice * exRate * gwPercent));
-               let kgNetProfit = unitNet * (1000/w);
-               profitDetails += `${w}g (Per 1kg): <b>Rs. ${Math.round(kgNetProfit).toLocaleString()}</b> | `;
-           }
+           let unitNet = (discountedPrice * exRate) - ((w/1000)*pCostPerKg + (w/1000)*unitFixedLKRPerKg + (w/1000)*unitShipCustomsLKRPerKg + unitFFLKR + unitAdsLKR + (discountedPrice * exRate * gwPercent));
+           let kgNetProfit = unitNet * (1000/w);
+           profitDetails += `${w}g (Per 1kg): <b>Rs. ${Math.round(kgNetProfit).toLocaleString()}</b> | `;
          }
        });
 
@@ -2943,8 +2971,8 @@
          manualWeights: []
        };
        row.querySelectorAll('.manual-weight-row').forEach(mr => {
-         const packsEl = mr.querySelector('.m-packs');
-         spice.manualWeights.push({ weight: mr.querySelector('.m-weight').value, price: mr.querySelector('.m-price').value, packs: packsEl ? packsEl.value : '' });
+         const totalKgEl = mr.querySelector('.m-totalkg');
+         spice.manualWeights.push({ weight: mr.querySelector('.m-weight').value, price: mr.querySelector('.m-price').value, totalKg: totalKgEl ? totalKgEl.value : '' });
        });
        state.spices.push(spice);
      });
@@ -3320,29 +3348,28 @@
        let mRows = Array.from(row.querySelectorAll('.manual-weight-row')).filter(mr => (parseFloat(mr.querySelector('.m-weight').value)||0) > 0);
        mRows.forEach(mr => {
          let w = parseFloat(mr.querySelector('.m-weight').value);
-         let price = parseFloat(mr.querySelector('.m-price').value) || 0;
 
 
          if(mode === 'b2b') {
-             let packsEl = mr.querySelector('.m-packs');
-             let packs = packsEl ? (parseFloat(packsEl.value) || 1) : 1;
-             let netWtKg = w * packs;
-             let unitPricePerKg = netWtKg > 0 ? price / netWtKg : 0;
+             let netWtKg = parseFloat(mr.querySelector('.m-totalkg').value) || 0;
+             let unitPricePerKg = parseFloat(mr.querySelector('.m-price').value) || 0;
              let discPricePerKg = unitPricePerKg * (1 - (discountPercent/100));
-             let rowTotal = price;
-             let rowTotalDisc = price * (1 - (discountPercent/100));
+             let rowTotal = netWtKg * unitPricePerKg;
+             let rowTotalDisc = netWtKg * discPricePerKg;
+             let bk = b2bTierBreakdown(w, netWtKg);
+             let packSizeTxt = `${w}kg &times; ${bk.fullPacks}` + (bk.remainderKg > 0 ? ` + ${bk.remainderKg.toFixed(2)}kg &times; 1` : '');
 
 
              grandTotal += rowTotal;
              grandDisc += rowTotalDisc;
              totalQty += netWtKg;
-             totalPacksCount += packs;
+             totalPacksCount += bk.physicalPacks;
 
 
              rowsHtml += `<tr>
                <td>${idx++}</td>
                <td>${name}</td>
-               <td>${w}kg &times; ${packs}</td>
+               <td>${packSizeTxt}</td>
                <td>${netWtKg.toFixed(2)} KG</td>
                <td>${curr}${unitPricePerKg.toFixed(2)}</td>
                <td>${discountPercent}%</td>
@@ -3350,6 +3377,7 @@
                <td><b>${curr}${rowTotalDisc.toFixed(2)}</b></td>
              </tr>`;
          } else {
+             let price = parseFloat(mr.querySelector('.m-price').value) || 0;
              let count = Math.floor((weightKg * 1000) / (w * mRows.length));
              if(count > 0) {
                let unitPricePerKg = price * (1000/w);
@@ -3437,16 +3465,17 @@
        let rowQty = 0, rowAmount = 0;
        mRows.forEach(mr => {
          let w = parseFloat(mr.querySelector('.m-weight').value);
-         let price = parseFloat(mr.querySelector('.m-price').value) || 0;
-         let discPrice = price * (1 - (discountPercent/100));
          if(mode === 'b2b') {
-           // B2B: each manual row is a bulk price tier — pack weight (KG) x number of packs = tier weight.
-           // rowQty here tracks physical pack count (for the "Total Packages" cargo total), not KG.
-           let packsEl = mr.querySelector('.m-packs');
-           let packs = packsEl ? (parseFloat(packsEl.value) || 1) : 1;
-           rowQty += packs;
-           rowAmount += discPrice;     // total discounted amount for this tier
+           // B2B: pack weight (KG) x auto full-packs + remainder = tier's manually entered Total Weight (KG),
+           // priced per KG. rowQty here tracks physical pack count (for the "Total Packages" cargo total).
+           let totalKg = parseFloat(mr.querySelector('.m-totalkg').value) || 0;
+           let pricePerKg = parseFloat(mr.querySelector('.m-price').value) || 0;
+           let discPricePerKg = pricePerKg * (1 - (discountPercent/100));
+           rowQty += b2bTierBreakdown(w, totalKg).physicalPacks;
+           rowAmount += totalKg * discPricePerKg;
          } else {
+           let price = parseFloat(mr.querySelector('.m-price').value) || 0;
+           let discPrice = price * (1 - (discountPercent/100));
            let count = Math.floor((weightKg * 1000) / (w * mRows.length));
            rowQty += count;
            rowAmount += count * discPrice;
