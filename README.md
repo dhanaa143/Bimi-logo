@@ -21,13 +21,11 @@ then visit `http://localhost:8000`.
 - **File size reduced** — removed a `<video>` and `<img>` pointing at files that don't exist yet
   (`dhanaa_video.mp4`, `dhanaa_logo.png`), which were dead network requests. Replaced with
   CSS-only placeholders so the page loads clean until real media is ready.
-- **Contact form** — wired to Formspree. It currently falls back to opening the visitor's email
-  app (pre-filled) because a Formspree endpoint hasn't been configured yet. To finish this:
-  1. Create a free form at [formspree.io](https://formspree.io) using
-     `Dhanaaceylonspiceuk@gmail.com`.
-  2. Copy the endpoint it gives you (`https://formspree.io/f/xxxxxxxx`).
-  3. Paste it into `FORMSPREE_ENDPOINT` near the bottom of `index.html` (search for
-     `YOUR_FORM_ID`).
+- **Contact form** — wired to Formspree (`https://formspree.io/f/mzdllajn`, sends to
+  `Dhanaaceylonspiceuk@gmail.com`). If Formspree can't be reached for any reason, it falls back to
+  opening the visitor's email app with the enquiry pre-filled, so the form never fully breaks.
+  **Important:** Formspree sends a confirmation email on the very first real submission — check
+  the inbox and confirm it, otherwise that first submission won't be delivered.
 
 ## Adding real photos / logo
 
