@@ -50,7 +50,7 @@ button{cursor:pointer;border:none;background:none;font-family:inherit}
 #nav.s{background:rgba(11,36,23,.96);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);padding:.8rem 0;border-bottom:1px solid var(--border)}
 .navi{display:flex;align-items:center;justify-content:space-between;gap:2rem}
 .nlogo{display:flex;align-items:center;gap:.7rem}
-.nlmark{width:40px;height:40px;background:var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--fdis);font-size:.95rem;font-weight:700;color:var(--g1);overflow:hidden;flex-shrink:0}
+.nlmark{width:40px;height:40px;border-radius:50%;object-fit:contain;flex-shrink:0;display:block}
 .nltxt{display:flex;flex-direction:column}
 .nltxt span:first-child{font-family:var(--fdis);font-size:.85rem;font-weight:600;color:var(--white)}
 .nltxt span:last-child{font-family:var(--flab);font-size:.55rem;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--gold)}
@@ -111,7 +111,6 @@ button{cursor:pointer;border:none;background:none;font-family:inherit}
 /* ABOUT */
 .ag{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center}
 .aframe{position:relative;border-radius:2px;overflow:hidden;aspect-ratio:4/5;background:linear-gradient(135deg,var(--g1) 0%,var(--g4) 100%);display:flex;align-items:center;justify-content:center}
-.aframe-txt{font-family:var(--fdis);font-size:1.2rem;font-style:italic;color:var(--goldl);text-align:center;padding:2rem;line-height:1.6}
 .abad{position:absolute;bottom:-1.25rem;right:-1.25rem;background:var(--gold);color:var(--g1);padding:1.4rem;text-align:center;font-family:var(--fdis)}
 .abad-n{font-size:1.8rem;font-weight:700;line-height:1}
 .abad-t{font-size:.62rem;font-weight:600;letter-spacing:.09em;text-transform:uppercase;margin-top:.15rem;opacity:.8}
@@ -301,8 +300,7 @@ footer{background:var(--char);border-top:1px solid rgba(255,255,255,.055)}
 <div class="wrap">
 <div class="navi">
   <a href="#" class="nlogo" onclick="return sp('home')" style="gap:.65rem;align-items:center">
-    <!-- TODO: replace with <img src="assets/images/logo.png" alt="Dhanaa Spices Logo"> once the real logo file arrives -->
-    <div class="nlmark">D</div>
+    <img class="nlmark" src="assets/images/logo-mark.png" alt="Dhanaa Spices Logo" width="40" height="40">
     <div class="nltxt"><span>Dhanaa Spices</span><span>Ceylon Export</span></div>
   </a>
   <div class="nlinks">
@@ -340,7 +338,10 @@ footer{background:var(--char);border-top:1px solid rgba(255,255,255,.055)}
 <section class="ps a" id="s-home">
 
 <div id="hero">
-  <!-- TODO: add <video autoplay muted loop playsinline> background once dhanaa_video.mp4 (or a lighter compressed clip) is supplied -->
+  <video autoplay muted loop playsinline style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0">
+    <source src="assets/video/hero-video.mp4" type="video/mp4">
+  </video>
+  <div style="position:absolute;inset:0;background:linear-gradient(to right, rgba(11,36,23,.85) 0%, rgba(11,36,23,.72) 40%, rgba(11,36,23,.42) 70%, rgba(11,36,23,.18) 100%);z-index:1"></div>
   <div class="hov"></div>
   <div style="position:absolute;bottom:0;left:0;right:0;height:180px;background:linear-gradient(to top,var(--g1),transparent);z-index:1"></div>
   <div class="wrap" style="position:relative;z-index:2">
@@ -395,8 +396,8 @@ footer{background:var(--char);border-top:1px solid rgba(255,255,255,.055)}
   <div class="ag">
     <div class="avisual revL">
       <div class="aframe" style="margin-right:2rem">
-        <!-- TODO: replace with <img src="assets/images/about.jpg"> once a real photo is supplied -->
-        <div class="aframe-txt">Dhanaa Ceylon<br>Spices</div>
+        <!-- TODO: swap for a real farm/factory photo (assets/images/about.jpg) once one is supplied -->
+        <img src="assets/images/logo-full.png" alt="Dhanaa Ceylon Spices" style="max-width:62%;height:auto">
         <div class="abad"><div class="abad-n">Est.</div><div class="abad-t">Dhanaa Ceylon</div></div>
       </div>
     </div>
