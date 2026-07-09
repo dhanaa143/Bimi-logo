@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="description" content="Dhanaa Ceylon Spices LTD — Premium B2B Sri Lankan Spice Exporter. Ceylon Cinnamon, Black Pepper, Cardamom and more.">
+<title>Dhanaa Ceylon Spices LTD | Premium B2B Spice Exporter</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+--g1:#0B2417;--g2:#0F2D1C;--g3:#163824;--g4:#1E4D30;
+--gold:#B8942A;--goldl:#D4AF5A;--goldp:#E8D18A;
+--cream:#F8F4ED;--creamd:#EDE8DF;--white:#fff;
+--char:#1C1C1E;--muted:#6B7A6E;--light:#A8B8AC;
+--border:rgba(184,148,42,.2);--borderl:rgba(255,255,255,.1);
+--fdis:'Playfair Display',Georgia,serif;
+--fbod:'Inter',system-ui,sans-serif;
+--flab:'Poppins',sans-serif;
+--ease:cubic-bezier(.22,1,.36,1);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;overflow-x:hidden}
+body{font-family:var(--fbod);background:var(--g1);color:var(--cream);line-height:1.6;width:100%;overflow-x:hidden}
+a{text-decoration:none;color:inherit}
+button{cursor:pointer;border:none;background:none;font-family:inherit}
+::-webkit-scrollbar{width:3px}::-webkit-scrollbar-track{background:var(--g1)}::-webkit-scrollbar-thumb{background:var(--gold)}
+
+/* Utils */
+.wrap{max-width:1200px;margin:0 auto;padding:0 2rem}
+.lbl{font-family:var(--flab);font-size:.68rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--gold)}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.reveal.v{opacity:1;transform:none}
+.revL{opacity:0;transform:translateX(-36px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.revL.v{opacity:1;transform:none}
+.revR{opacity:0;transform:translateX(36px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.revR.v{opacity:1;transform:none}
+
+/* Buttons */
+.btn-g{display:inline-flex;align-items:center;gap:.55rem;padding:.8rem 1.9rem;background:var(--gold);color:var(--g1);font-family:var(--flab);font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;border-radius:2px;transition:.3s;position:relative;overflow:hidden}
+.btn-g::before{content:'';position:absolute;inset:0;background:var(--goldl);opacity:0;transition:.3s}
+.btn-g:hover::before{opacity:1}.btn-g:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(184,148,42,.3)}
+.btn-g:disabled{opacity:.6;cursor:not-allowed;transform:none!important}
+.btn-o{display:inline-flex;align-items:center;gap:.55rem;padding:.8rem 1.9rem;border:1px solid var(--border);color:var(--cream);font-family:var(--flab);font-size:.72rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;border-radius:2px;transition:.3s}
+.btn-o:hover{border-color:var(--gold);color:var(--gold);transform:translateY(-2px)}
+
+/* NAV */
+#nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:1rem 0;transition:all .4s}
+#nav.s{background:rgba(11,36,23,.96);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);padding:.8rem 0;border-bottom:1px solid var(--border)}
+.navi{display:flex;align-items:center;justify-content:space-between;gap:2rem}
+.nlogo{display:flex;align-items:center;gap:.7rem}
+.nlmark{width:40px;height:40px;background:var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--fdis);font-size:.95rem;font-weight:700;color:var(--g1);overflow:hidden;flex-shrink:0}
+.nltxt{display:flex;flex-direction:column}
+.nltxt span:first-child{font-family:var(--fdis);font-size:.85rem;font-weight:600;color:var(--white)}
+.nltxt span:last-child{font-family:var(--flab);font-size:.55rem;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--gold)}
+.nlinks{display:flex;align-items:center;gap:.15rem}
+.nlink{font-family:var(--flab);font-size:.68rem;font-weight:500;letter-spacing:.09em;text-transform:uppercase;color:var(--light);padding:.45rem .75rem;border-radius:2px;transition:.3s;white-space:nowrap}
+.nlink:hover,.nlink.a{color:var(--gold)}
+.ntog{display:none;flex-direction:column;gap:5px;padding:.4rem;cursor:pointer}
+.ntog span{width:22px;height:1.5px;background:var(--cream);transition:.3s;display:block}
+.mmenu{display:none;position:fixed;inset:0;background:var(--g1);z-index:999;padding:5.5rem 2rem 2rem;flex-direction:column;gap:.4rem;overflow-y:auto}
+.mmenu.open{display:flex}
+.mmenu a{font-family:var(--flab);font-size:.8rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--light);padding:1rem 0;border-bottom:1px solid var(--border);transition:.3s}
+.mmenu a:hover{color:var(--gold)}
+
+/* HERO */
+#hero{position:relative;min-height:100vh;display:flex;align-items:center;overflow:hidden;background:linear-gradient(135deg,var(--g4) 0%,var(--g1) 55%,var(--g2) 100%)}
+#hc{position:absolute;inset:0;z-index:0}
+.hov{position:absolute;inset:0;background:radial-gradient(ellipse 55% 75% at 72% 48%,rgba(184,148,42,.12) 0%,transparent 62%);z-index:1}
+.hcont{max-width:680px;padding-top:6.5rem;padding-bottom:4rem}
+.hbadge{display:inline-flex;align-items:center;gap:.55rem;padding:.35rem .9rem .35rem .55rem;border:1px solid var(--border);border-radius:100px;margin-bottom:2.25rem}
+.hbdot{width:5px;height:5px;border-radius:50%;background:var(--gold);animation:pulse 2.2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+.hbadge .lbl{font-size:.6rem}
+.hey{font-family:var(--flab);font-size:.65rem;font-weight:600;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);margin-bottom:1.1rem}
+.hh1{font-family:var(--fdis);font-size:clamp(2rem,5.5vw,4.6rem);font-weight:600;line-height:1.1;letter-spacing:-.02em;color:var(--white);margin-bottom:1.4rem}
+.hh1 em{font-style:italic;color:var(--goldl)}
+.hsub{font-size:1rem;font-weight:300;color:var(--light);max-width:500px;margin-bottom:2.75rem;line-height:1.8}
+.hact{display:flex;flex-wrap:wrap;gap:.9rem;align-items:center;margin-bottom:3.75rem}
+.hstats{display:flex;gap:2.75rem;flex-wrap:wrap}
+.hsv{font-family:var(--fdis);font-size:1.65rem;font-weight:600;color:var(--white);line-height:1}
+.hsl{font-family:var(--flab);font-size:.58rem;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-top:.2rem}
+.hscroll{position:absolute;bottom:2.25rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:.45rem;z-index:2;opacity:.45}
+.hsl2{width:1px;height:44px;background:linear-gradient(to bottom,transparent,var(--gold));animation:sd 1.8s ease-in-out infinite}
+@keyframes sd{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform:scaleY(1);transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+.hscroll span{font-family:var(--flab);font-size:.55rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+
+/* TRUST BAND */
+.tband{background:var(--g4);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:1rem 0;overflow:hidden;position:relative;contain:paint}
+.ttrack{display:flex;animation:scrollL 28s linear infinite;white-space:nowrap}
+.ttrack:hover{animation-play-state:paused}
+.titem{display:inline-flex;align-items:center;gap:.55rem;padding:0 2.25rem;flex-shrink:0}
+.titem span{font-family:var(--flab);font-size:.63rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--light)}
+.tdot{width:3px;height:3px;border-radius:50%;background:var(--gold);opacity:.55}
+@keyframes scrollL{0%{transform:translate3d(0,0,0)}100%{transform:translate3d(-50%,0,0)}}.ttrack{will-change:transform;transform:translate3d(0,0,0)}
+
+/* PAGE sections */
+.ps{display:none}.ps.a{display:block}
+
+/* SECTIONS common */
+.sec-dk{padding:6.5rem 0;background:var(--g1)}
+.sec-cr{padding:6.5rem 0;background:var(--cream);color:var(--char)}
+.sec-d2{padding:6.5rem 0;background:var(--g2)}
+
+/* headings */
+.h2dk{font-family:var(--fdis);font-size:clamp(1.9rem,3.2vw,2.65rem);font-weight:600;color:var(--white);line-height:1.15}
+.h2cr{font-family:var(--fdis);font-size:clamp(1.9rem,3.2vw,2.65rem);font-weight:600;color:var(--g1);line-height:1.15}
+.h2dk em,.h2cr em{font-style:italic;color:var(--goldl)}
+
+/* ABOUT */
+.ag{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center}
+.aframe{position:relative;border-radius:2px;overflow:hidden;aspect-ratio:4/5;background:linear-gradient(135deg,var(--g1) 0%,var(--g4) 100%);display:flex;align-items:center;justify-content:center}
+.aframe-txt{font-family:var(--fdis);font-size:1.2rem;font-style:italic;color:var(--goldl);text-align:center;padding:2rem;line-height:1.6}
+.abad{position:absolute;bottom:-1.25rem;right:-1.25rem;background:var(--gold);color:var(--g1);padding:1.4rem;text-align:center;font-family:var(--fdis)}
+.abad-n{font-size:1.8rem;font-weight:700;line-height:1}
+.abad-t{font-size:.62rem;font-weight:600;letter-spacing:.09em;text-transform:uppercase;margin-top:.15rem;opacity:.8}
+.avals{display:grid;grid-template-columns:1fr 1fr;gap:.85rem;margin-top:1.75rem}
+.aval{padding:1.1rem;border:1px solid rgba(11,36,23,.12);border-radius:2px;transition:.3s}
+.aval:hover{border-color:var(--gold);background:rgba(184,148,42,.04)}
+.avt{font-family:var(--flab);font-size:.67rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--g1);margin-bottom:.3rem}
+.avb{font-size:.8rem;color:var(--muted)}
+
+/* PRODUCTS GRID */
+.pgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5px;background:var(--border)}
+.pc{background:var(--g2);padding:2.25rem 1.85rem;position:relative;overflow:hidden;transition:all .4s;cursor:pointer}
+.pc::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(184,148,42,.07) 0%,transparent 55%);opacity:0;transition:.4s}
+.pc:hover{background:var(--g3)}.pc:hover::before{opacity:1}
+.pc.feat{grid-column:span 2;padding:2.75rem;display:flex;gap:2.5rem}
+.pci{width:52px;height:52px;border-radius:50%;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:1.3rem;margin-bottom:1.35rem;flex-shrink:0;transition:.4s}
+.pc:hover .pci{border-color:var(--gold);background:rgba(184,148,42,.1)}
+.pcn{font-family:var(--fdis);font-size:1.2rem;font-weight:600;color:var(--white);margin-bottom:.4rem}
+.pc.feat .pcn{font-size:1.65rem}
+.pco{font-family:var(--flab);font-size:.58rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:.75rem}
+.pcd{font-size:.82rem;color:var(--light);line-height:1.7;margin-bottom:1.3rem}
+.ptags{display:flex;flex-wrap:wrap;gap:.35rem}
+.ptag{padding:.22rem .6rem;border:1px solid rgba(184,148,42,.3);border-radius:100px;font-family:var(--flab);font-size:.55rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--goldl)}
+.parr{display:inline-flex;align-items:center;gap:.45rem;font-family:var(--flab);font-size:.6rem;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--gold);margin-top:1.35rem;opacity:0;transform:translateX(-6px);transition:.3s}
+.pc:hover .parr{opacity:1;transform:none}
+
+/* QUALITY */
+.qg{display:grid;grid-template-columns:1fr 1fr;gap:4.5rem;align-items:start}
+.qsteps{display:flex;flex-direction:column;gap:1.1rem;margin-top:1.75rem}
+.qstep{display:flex;gap:1.1rem}
+.qsn{font-family:var(--fdis);font-size:.8rem;font-weight:600;color:var(--gold);opacity:.65;padding-top:.12rem;flex-shrink:0;min-width:1.4rem}
+.qst{font-family:var(--flab);font-size:.72rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--g1);margin-bottom:.28rem}
+.qsb{font-size:.8rem;color:var(--muted)}
+.qcerts{display:grid;grid-template-columns:1fr 1fr;gap:.85rem;margin-top:2rem}
+.qcb{padding:1.25rem;border:1px solid rgba(11,36,23,.12);border-radius:2px;display:flex;align-items:center;gap:.85rem;transition:.3s}
+.qcb:hover{border-color:var(--gold);background:rgba(184,148,42,.04)}
+.qci{width:40px;height:40px;border-radius:50%;background:var(--g1);display:flex;align-items:center;justify-content:center;font-size:.65rem;font-family:var(--flab);font-weight:700;color:var(--gold);flex-shrink:0}
+.qcn{font-family:var(--flab);font-size:.68rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--g1)}
+.qcs{font-size:.7rem;color:var(--muted)}
+
+/* PL */
+.plg{display:grid;grid-template-columns:repeat(3,1fr);gap:1.35rem}
+.plc{background:rgba(255,255,255,.03);border:1px solid var(--borderl);border-radius:2px;padding:1.85rem;transition:.4s}
+.plc:hover{background:rgba(255,255,255,.06);border-color:rgba(184,148,42,.35);transform:translateY(-3px)}
+.plcn{font-family:var(--fdis);font-size:2.2rem;font-weight:600;color:rgba(184,148,42,.18);margin-bottom:.65rem;line-height:1}
+.plct{font-family:var(--fdis);font-size:1.05rem;font-weight:600;color:var(--white);margin-bottom:.65rem}
+.plcb{font-size:.8rem;color:var(--light);line-height:1.7}
+
+/* EXPORT */
+.eproc{display:grid;grid-template-columns:repeat(5,1fr);position:relative;margin-bottom:3.5rem}
+.estep{padding:1.75rem 1.2rem;text-align:center;position:relative}
+.estep::before{content:'';position:absolute;top:2.55rem;left:calc(50% + 22px);right:calc(-50% + 22px);height:1px;background:linear-gradient(to right,var(--gold),transparent);opacity:.35}
+.estep:last-child::before{display:none}
+.esci{width:44px;height:44px;border-radius:50%;background:var(--g1);border:1px solid rgba(11,36,23,.2);display:flex;align-items:center;justify-content:center;margin:0 auto 1.1rem;position:relative;z-index:1;font-family:var(--fdis);font-size:.75rem;font-weight:600;color:var(--gold)}
+.esct{font-family:var(--flab);font-size:.65rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--g1);margin-bottom:.35rem}
+.escb{font-size:.72rem;color:var(--muted);line-height:1.5}
+.einfog{display:grid;grid-template-columns:repeat(3,1fr);gap:1.35rem}
+.einfc{padding:1.6rem;border:1px solid rgba(11,36,23,.12);border-radius:2px}
+.einfot{font-family:var(--flab);font-size:.67rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--g1);margin-bottom:.8rem;padding-bottom:.7rem;border-bottom:1px solid rgba(11,36,23,.08)}
+.einfl{list-style:none;display:flex;flex-direction:column;gap:.45rem}
+.einfl li{font-size:.8rem;color:var(--muted);display:flex;align-items:center;gap:.45rem}
+.einfl li::before{content:'';width:3px;height:3px;border-radius:50%;background:var(--gold);flex-shrink:0}
+
+/* CERTS */
+.cgall{display:grid;grid-template-columns:repeat(4,1fr);gap:1.35rem}
+.ccard{background:rgba(255,255,255,.03);border:1px solid var(--borderl);border-radius:2px;padding:2.25rem 1.35rem;text-align:center;transition:.4s;cursor:pointer}
+.ccard:hover{background:rgba(184,148,42,.07);border-color:rgba(184,148,42,.4);transform:translateY(-3px)}
+.ccbadge{width:66px;height:66px;border-radius:50%;border:1.5px solid rgba(184,148,42,.3);display:flex;align-items:center;justify-content:center;margin:0 auto 1.35rem;font-family:var(--flab);font-size:.7rem;font-weight:700;color:var(--gold);transition:.3s}
+.ccard:hover .ccbadge{border-color:var(--gold);background:rgba(184,148,42,.1)}
+.ccn{font-family:var(--flab);font-size:.72rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--white);margin-bottom:.35rem}
+.ccd{font-size:.72rem;color:var(--light);line-height:1.5}
+
+/* BLOG */
+.bgg{display:grid;grid-template-columns:repeat(3,1fr);gap:1.85rem}
+.bc{border:1px solid rgba(11,36,23,.11);border-radius:2px;overflow:hidden;transition:.4s}
+.bc:hover{border-color:rgba(184,148,42,.28);transform:translateY(-3px);box-shadow:0 18px 52px rgba(11,36,23,.1)}
+.bcimg{aspect-ratio:16/9;background:linear-gradient(135deg,var(--g1) 0%,var(--g4) 100%);display:flex;align-items:center;justify-content:center;overflow:hidden}
+.bcimgt{font-family:var(--fdis);font-size:1rem;font-style:italic;color:var(--goldl);text-align:center;padding:.85rem}
+.bcbod{padding:1.6rem}
+.bccat{font-family:var(--flab);font-size:.57rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:.65rem}
+.bctit{font-family:var(--fdis);font-size:1.05rem;font-weight:600;color:var(--g1);margin-bottom:.55rem;line-height:1.3}
+.bcex{font-size:.8rem;color:var(--muted);line-height:1.65;margin-bottom:1.1rem}
+.bcmeta{font-family:var(--flab);font-size:.58rem;color:var(--muted)}
+.bcrm{display:inline-flex;align-items:center;gap:.35rem;font-family:var(--flab);font-size:.6rem;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--gold);transition:.3s}
+.bcrm:hover{gap:.6rem}
+
+/* CONTACT */
+.cg{display:grid;grid-template-columns:1fr 1.35fr;gap:4.5rem;align-items:start}
+.cch{display:flex;flex-direction:column;gap:.85rem;margin-bottom:2.25rem}
+.cci{display:flex;align-items:center;gap:.9rem;padding:.9rem;border:1px solid var(--borderl);border-radius:2px;transition:.3s;cursor:pointer}
+.cci:hover{border-color:var(--gold);background:rgba(184,148,42,.055)}
+.ccico{width:38px;height:38px;border-radius:50%;background:var(--g4);display:flex;align-items:center;justify-content:center;font-size:.9rem;flex-shrink:0}
+.ccilb{font-family:var(--flab);font-size:.58rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:.15rem}
+.cciv{font-size:.82rem;color:var(--light)}
+.ofc{margin-bottom:1.1rem}
+.ofcc{font-family:var(--flab);font-size:.58rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:.28rem}
+.ofca{font-size:.8rem;color:var(--light);line-height:1.6}
+.cform{background:rgba(255,255,255,.03);border:1px solid var(--borderl);border-radius:2px;padding:2.25rem}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:.85rem;margin-bottom:.85rem}
+.fg{display:flex;flex-direction:column;gap:.35rem;margin-bottom:.85rem}
+.fl{font-family:var(--flab);font-size:.6rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--light)}
+.fi{background:rgba(255,255,255,.045);border:1px solid var(--borderl);border-radius:2px;padding:.7rem .9rem;font-family:var(--fbod);font-size:.85rem;color:var(--white);outline:none;transition:.3s;width:100%}
+.fi::placeholder{color:rgba(255,255,255,.22)}.fi:focus{border-color:var(--gold);background:rgba(255,255,255,.07)}
+.fi option{background:var(--g2);color:var(--white)}
+.fta{min-height:110px;resize:vertical}
+.fsub{width:100%;padding:.9rem;background:var(--gold);color:var(--g1);font-family:var(--flab);font-size:.73rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;border-radius:2px;cursor:pointer;transition:.3s;border:none}
+.fsub:hover{background:var(--goldl);transform:translateY(-2px)}
+.fnote{font-size:.68rem;color:var(--muted);text-align:center;margin-top:.65rem}
+.fmsg{font-size:.75rem;text-align:center;margin-top:.85rem;padding:.65rem;border-radius:2px;display:none}
+.fmsg.ok{display:block;background:rgba(184,148,42,.12);color:var(--goldl)}
+.fmsg.err{display:block;background:rgba(220,90,90,.12);color:#e88}
+
+/* FOOTER */
+footer{background:var(--char);border-top:1px solid rgba(255,255,255,.055)}
+.ftop{padding:3.5rem 0;display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:2.5rem}
+.fbn{font-family:var(--fdis);font-size:1.1rem;font-weight:600;color:var(--white);margin-bottom:.2rem}
+.fbr{font-family:var(--flab);font-size:.57rem;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
+.fbd{font-size:.79rem;color:var(--muted);line-height:1.7;margin-top:.85rem;margin-bottom:1.25rem}
+.fsoc{display:flex;gap:.65rem}
+.fsl{width:32px;height:32px;border:1px solid rgba(255,255,255,.1);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.7rem;color:var(--muted);transition:.3s}
+.fsl:hover{border-color:var(--gold);color:var(--gold)}
+.fct{font-family:var(--flab);font-size:.6rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--white);margin-bottom:1.1rem}
+.flinks{display:flex;flex-direction:column;gap:.55rem}
+.flinks a{font-size:.79rem;color:var(--muted);transition:.3s}
+.flinks a:hover{color:var(--gold)}
+.fbot{border-top:1px solid rgba(255,255,255,.055);padding:1.35rem 0;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.9rem}
+.fcopy{font-size:.72rem;color:var(--muted)}
+.fleg{display:flex;gap:1.35rem}
+.fleg a{font-size:.68rem;color:var(--muted);transition:.3s}
+.fleg a:hover{color:var(--gold)}
+
+/* PAGE HERO (inner pages) */
+.phero{padding-top:6rem;background:var(--g1);padding-bottom:2.75rem}
+.phero-inner{padding-top:2rem}
+
+/* RESPONSIVE */
+@media(max-width:1024px){
+.ag,.qg,.cg{grid-template-columns:1fr}
+.avisual{display:none}
+.pgrid{grid-template-columns:1fr 1fr}.pc.feat{grid-column:span 2;flex-direction:column}
+.eproc{grid-template-columns:repeat(3,1fr)}.estep:nth-child(3)::before{display:none}
+.cgall{grid-template-columns:repeat(2,1fr)}
+.ftop{grid-template-columns:1fr 1fr}
+}
+@media(max-width:768px){.hero-vid-card{display:none!important}.hcont{max-width:100%!important;padding-top:5rem!important}
+.nltxt span:first-child{font-size:.78rem!important}
+.nltxt span:last-child{font-size:.5rem!important}
+.hbadge{padding:.3rem .7rem .3rem .45rem;font-size:.55rem}
+.hcont{padding-top:5.5rem!important;padding-bottom:3rem}
+.hstats{gap:1.75rem}
+.hsv{font-size:1.4rem}
+#nav .btn-g{padding:.6rem 1rem;font-size:.65rem}
+.nlinks,.ncta{display:none}.ntog{display:flex}
+.pgrid{grid-template-columns:1fr}.pc.feat{grid-column:span 1}
+.plg{grid-template-columns:1fr}
+.eproc{grid-template-columns:1fr 1fr}.estep::before{display:none}
+.einfog{grid-template-columns:1fr}
+.bgg{grid-template-columns:1fr}
+.frow{grid-template-columns:1fr}
+.ftop{grid-template-columns:1fr}
+.fbot{flex-direction:column;text-align:center}
+.avals{grid-template-columns:1fr}
+.qcerts{grid-template-columns:1fr}
+}
+
+/* === MOBILE FULL-WIDTH FIX === */
+@media(max-width:900px){
+  html,body{width:100%!important;overflow-x:hidden!important;margin:0!important;padding:0!important}
+  .wrap{width:100%!important;padding:0 1.25rem!important;box-sizing:border-box!important}
+  #hero{width:100%!important}
+  .navi{gap:1rem!important}
+  .ntog{display:flex!important}
+  .nlinks,.ncta{display:none!important}
+  .nltxt span:first-child{font-size:.78rem!important}
+  .hcont{max-width:100%!important;width:100%!important;padding-top:5.5rem!important;padding-bottom:3rem!important}
+  .hh1{font-size:clamp(1.85rem,7vw,3rem)!important}
+  .hstats{gap:2rem!important}
+  .hbadge{padding:.3rem .7rem .3rem .5rem!important}
+  section,.sec-cr,.sec-dk,.sec-d2{width:100%!important}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+<div class="wrap">
+<div class="navi">
+  <a href="#" class="nlogo" onclick="return sp('home')" style="gap:.65rem;align-items:center">
+    <!-- TODO: replace with <img src="assets/images/logo.png" alt="Dhanaa Spices Logo"> once the real logo file arrives -->
+    <div class="nlmark">D</div>
+    <div class="nltxt"><span>Dhanaa Spices</span><span>Ceylon Export</span></div>
+  </a>
+  <div class="nlinks">
+    <a class="nlink" data-sp="home" href="#" onclick="return sp('home')">Home</a>
+    <a class="nlink" data-sp="about" href="#" onclick="return sp('about')">About</a>
+    <a class="nlink" data-sp="products" href="#" onclick="return sp('products')">Products</a>
+    <a class="nlink" data-sp="quality" href="#" onclick="return sp('quality')">Quality</a>
+    <a class="nlink" data-sp="pl" href="#" onclick="return sp('pl')">Private Label</a>
+    <a class="nlink" data-sp="export" href="#" onclick="return sp('export')">Export</a>
+    <a class="nlink" data-sp="blog" href="#" onclick="return sp('blog')">Insights</a>
+    <a class="nlink" data-sp="contact" href="#" onclick="return sp('contact')">Contact</a>
+  </div>
+  <div style="margin-left:.65rem;display:flex;gap:.65rem" class="ncta">
+    <button class="btn-g" onclick="sp('contact')">Request Quote →</button>
+  </div>
+  <button class="ntog" id="ntog" onclick="tmob()"><span></span><span></span><span></span></button>
+</div>
+</div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mmenu" id="mmenu">
+  <a href="#" onclick="return sp('home')">Home</a>
+  <a href="#" onclick="return sp('about')">About</a>
+  <a href="#" onclick="return sp('products')">Products</a>
+  <a href="#" onclick="return sp('quality')">Quality</a>
+  <a href="#" onclick="return sp('pl')">Private Label</a>
+  <a href="#" onclick="return sp('export')">Export</a>
+  <a href="#" onclick="return sp('blog')">Insights</a>
+  <a href="#" onclick="return sp('contact')">Contact</a>
+  <div style="margin-top:1rem"><button class="btn-g" onclick="sp('contact')">Request a Quote →</button></div>
+</div>
+
+<!-- ════════ HOME ════════ -->
+<section class="ps a" id="s-home">
+
+<div id="hero">
+  <!-- TODO: add <video autoplay muted loop playsinline> background once dhanaa_video.mp4 (or a lighter compressed clip) is supplied -->
+  <div class="hov"></div>
+  <div style="position:absolute;bottom:0;left:0;right:0;height:180px;background:linear-gradient(to top,var(--g1),transparent);z-index:1"></div>
+  <div class="wrap" style="position:relative;z-index:2">
+    <div class="hcont">
+      <div class="hbadge"><div class="hbdot"></div><span class="lbl">Sri Lanka &amp; UK Registered · Global Export Ready</span></div>
+      <p class="hey">Dhanaa Ceylon Spices LTD</p>
+      <h1 class="hh1">Where the World's<br>Finest Spices<br><em>Begin Their Journey</em></h1>
+      <p class="hsub">Premium B2B spice exporter supplying Ceylon cinnamon and the world's most sought-after spices to importers, wholesalers, and food manufacturers in Europe, North America, and beyond.</p>
+      <div class="hact">
+        <button class="btn-g" onclick="sp('contact')">Request a Quote →</button>
+        <button class="btn-o" onclick="sp('products')">View Our Spices</button>
+      </div>
+      <div class="hstats">
+        <div><div class="hsv">15+</div><div class="hsl">Export Markets</div></div>
+        <div><div class="hsv">100%</div><div class="hsl">Pure Ceylon Origin</div></div>
+        <div><div class="hsv">UK</div><div class="hsl">Registered Business</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="hscroll"><div class="hsl2"></div><span>Scroll</span></div>
+</div>
+
+<!-- TRUST BAND -->
+<div class="tband">
+  <div class="ttrack" id="tt">
+    <div class="titem"><div class="tdot"></div><span>Sri Lanka Registered</span></div>
+    <div class="titem"><div class="tdot"></div><span>United Kingdom Registered</span></div>
+    <div class="titem"><div class="tdot"></div><span>Global Export Ready</span></div>
+    <div class="titem"><div class="tdot"></div><span>Premium Quality Assured</span></div>
+    <div class="titem"><div class="tdot"></div><span>B2B Supplier</span></div>
+    <div class="titem"><div class="tdot"></div><span>Private Label Available</span></div>
+    <div class="titem"><div class="tdot"></div><span>OEM Manufacturing</span></div>
+    <div class="titem"><div class="tdot"></div><span>Worldwide Shipping</span></div>
+    <div class="titem"><div class="tdot"></div><span>Bulk Orders Welcome</span></div>
+    <div class="titem"><div class="tdot"></div><span>Food Safety Compliant</span></div>
+    <div class="titem"><div class="tdot"></div><span>Sri Lanka Registered</span></div>
+    <div class="titem"><div class="tdot"></div><span>United Kingdom Registered</span></div>
+    <div class="titem"><div class="tdot"></div><span>Global Export Ready</span></div>
+    <div class="titem"><div class="tdot"></div><span>Premium Quality Assured</span></div>
+    <div class="titem"><div class="tdot"></div><span>B2B Supplier</span></div>
+    <div class="titem"><div class="tdot"></div><span>Private Label Available</span></div>
+    <div class="titem"><div class="tdot"></div><span>OEM Manufacturing</span></div>
+    <div class="titem"><div class="tdot"></div><span>Worldwide Shipping</span></div>
+    <div class="titem"><div class="tdot"></div><span>Bulk Orders Welcome</span></div>
+    <div class="titem"><div class="tdot"></div><span>Food Safety Compliant</span></div>
+  </div>
+</div>
+
+<!-- HOME: ABOUT PREVIEW -->
+<div class="sec-cr">
+<div class="wrap">
+  <div class="ag">
+    <div class="avisual revL">
+      <div class="aframe" style="margin-right:2rem">
+        <!-- TODO: replace with <img src="assets/images/about.jpg"> once a real photo is supplied -->
+        <div class="aframe-txt">Dhanaa Ceylon<br>Spices</div>
+        <div class="abad"><div class="abad-n">Est.</div><div class="abad-t">Dhanaa Ceylon</div></div>
+      </div>
+    </div>
+    <div class="revR">
+      <span class="lbl">Our Story</span>
+      <h2 class="h2cr" style="margin-top:.65rem;margin-bottom:1.35rem">Rooted in Sri Lanka.<br><em>Trusted Worldwide.</em></h2>
+      <p style="font-size:.93rem;color:#3D5045;line-height:1.85;margin-bottom:1.2rem">From the verdant highlands of Sri Lanka to the world's most discerning markets, Dhanaa Ceylon Spices was built on a single conviction: the finest spices deserve the finest standards. We are a dual-registered export house — headquartered in Galle, Sri Lanka, with a registered presence in the United Kingdom.</p>
+      <p style="font-size:.9rem;color:#3D5045;line-height:1.85;margin-bottom:1.75rem">Every consignment we ship carries the weight of our reputation. That means rigorous sourcing, direct farmer partnerships, meticulous processing, and full documentation — from phytosanitary certificates to precise COA reports.</p>
+      <div class="avals">
+        <div class="aval"><div class="avt">Direct Sourcing</div><div class="avb">Certified growers across Sri Lanka's spice-growing regions.</div></div>
+        <div class="aval"><div class="avt">Premium Processing</div><div class="avb">International food safety standards met at every step.</div></div>
+        <div class="aval"><div class="avt">Global Compliance</div><div class="avb">Full export documentation with every shipment.</div></div>
+        <div class="aval"><div class="avt">Reliable Supply</div><div class="avb">Consistent quality and on-time delivery, always.</div></div>
+      </div>
+      <div style="margin-top:2.25rem"><button class="btn-g" onclick="sp('about')" style="background:var(--g1);color:var(--cream)">Our Full Story →</button></div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- HOME: PRODUCTS PREVIEW -->
+<div class="sec-dk">
+<div class="wrap">
+  <div style="text-align:center;max-width:600px;margin:0 auto 3.5rem" class="reveal">
+    <span class="lbl">Our Products</span>
+    <h2 class="h2dk" style="margin-top:.65rem;margin-bottom:.75rem">Sri Lanka's Finest,<br>Ready for the World</h2>
+    <p style="font-size:.9rem;color:var(--light)">Premium spices sourced from the most fertile growing regions of Sri Lanka, graded and documented to the highest international standards.</p>
+  </div>
+  <div class="pgrid">
+    <div class="pc feat reveal">
+      <div><div class="pci" style="margin-bottom:1.1rem">🌿</div></div>
+      <div>
+        <p class="pco">Premium · Grade A</p>
+        <h3 class="pcn">Ceylon True Cinnamon</h3>
+        <p class="pcd">Cinnamomum verum — the authentic Ceylon cinnamon. Softer and more complex than cassia, with delicate floral notes and natural sweetness. Available as Alba, C4, C5 quills, chips, powder, and bark.</p>
+        <div class="ptags"><span class="ptag">Alba Grade</span><span class="ptag">C4/C5 Grade</span><span class="ptag">Powder</span><span class="ptag">Chips</span><span class="ptag">Bark</span></div>
+        <div class="parr" onclick="sp('products')">Explore Specifications →</div>
+      </div>
+    </div>
+    <div class="pc reveal"><div class="pci">🌶️</div><p class="pco">Premium Sri Lankan</p><h3 class="pcn">Black &amp; White Pepper</h3><p class="pcd">Bold, aromatic Piper nigrum. Whole, cracked, and ground formats available.</p><div class="ptags"><span class="ptag">Whole</span><span class="ptag">Ground</span></div><div class="parr" onclick="sp('products')">Learn More →</div></div>
+    <div class="pc reveal"><div class="pci">🌸</div><p class="pco">Matara · Kandy Region</p><h3 class="pcn">Cloves</h3><p class="pcd">Syzygium aromaticum — rich, intensely fragrant. High essential oil content. Whole and powder.</p><div class="ptags"><span class="ptag">Whole</span><span class="ptag">Powder</span></div><div class="parr" onclick="sp('products')">Learn More →</div></div>
+    <div class="pc reveal"><div class="pci">💚</div><p class="pco">Highland Grown</p><h3 class="pcn">Cardamom &amp; Nutmeg</h3><p class="pcd">Exceptional fragrance. Whole pods and powder. Mace also available from our Myristica fragrans.</p><div class="ptags"><span class="ptag">Whole</span><span class="ptag">Powder</span><span class="ptag">Mace</span></div><div class="parr" onclick="sp('products')">Learn More →</div></div>
+    <div class="pc reveal"><div class="pci">💛</div><p class="pco">Curcuma longa</p><h3 class="pcn">Turmeric &amp; Curry Blends</h3><p class="pcd">Vibrant high-curcumin turmeric and expertly crafted curry powder blends for food manufacturers.</p><div class="ptags"><span class="ptag">Raw</span><span class="ptag">Powder</span><span class="ptag">Custom Blends</span></div><div class="parr" onclick="sp('products')">Learn More →</div></div>
+  </div>
+  <div style="text-align:center;margin-top:2.75rem" class="reveal"><button class="btn-o" onclick="sp('products')">View All Products &amp; Specifications →</button></div>
+</div>
+</div>
+
+<!-- HOME: QUALITY PREVIEW -->
+<div class="sec-cr">
+<div class="wrap">
+  <div style="text-align:center;max-width:580px;margin:0 auto 3.25rem" class="reveal">
+    <span class="lbl">Our Standards</span>
+    <h2 class="h2cr" style="margin-top:.65rem;margin-bottom:.75rem">Quality Is Not<br><em>a Compromise</em></h2>
+    <p style="font-size:.9rem;color:var(--muted)">Every lot is tested, documented, and certified before departure. Our quality control is not a checkbox — it is the foundation of every customer relationship we build.</p>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1.25rem">
+    <div style="padding:1.85rem;border:1px solid rgba(11,36,23,.11);border-radius:2px;text-align:center" class="reveal">
+      <div style="font-size:1.75rem;margin-bottom:.85rem">🔬</div>
+      <div class="avt" style="text-align:center;justify-content:center">Laboratory Testing</div>
+      <div class="avb" style="text-align:center">COA, pesticide residue, heavy metals, aflatoxin per lot</div>
+    </div>
+    <div style="padding:1.85rem;border:1px solid rgba(11,36,23,.11);border-radius:2px;text-align:center" class="reveal">
+      <div style="font-size:1.75rem;margin-bottom:.85rem">📋</div>
+      <div class="avt" style="text-align:center">Full Documentation</div>
+      <div class="avb" style="text-align:center">Phytosanitary, Fumigation, COO, COA with every shipment</div>
+    </div>
+    <div style="padding:1.85rem;border:1px solid rgba(11,36,23,.11);border-radius:2px;text-align:center" class="reveal">
+      <div style="font-size:1.75rem;margin-bottom:.85rem">🌱</div>
+      <div class="avt" style="text-align:center">Farm Traceability</div>
+      <div class="avb" style="text-align:center">Direct farmer partnerships with full origin traceability</div>
+    </div>
+    <div style="padding:1.85rem;border:1px solid rgba(11,36,23,.11);border-radius:2px;text-align:center" class="reveal">
+      <div style="font-size:1.75rem;margin-bottom:.85rem">✅</div>
+      <div class="avt" style="text-align:center">International Standards</div>
+      <div class="avb" style="text-align:center">EU, UK, US, and Middle East market compliance</div>
+    </div>
+  </div>
+  <div style="text-align:center;margin-top:2.75rem" class="reveal"><button class="btn-g" onclick="sp('quality')" style="background:var(--g1);color:var(--cream)">Our Quality Process →</button></div>
+</div>
+</div>
+
+<!-- HOME: CTA BANNER -->
+<div style="padding:5rem 0;background:linear-gradient(135deg,var(--g4) 0%,var(--g1) 100%)">
+<div class="wrap" style="text-align:center" class="reveal">
+  <span class="lbl">Ready to Source?</span>
+  <h2 style="font-family:var(--fdis);font-size:clamp(2rem,4vw,3rem);font-weight:600;color:var(--white);margin-top:.65rem;margin-bottom:1.1rem;line-height:1.15">Start Your Supply<br>Relationship Today</h2>
+  <p style="font-size:.95rem;color:var(--light);max-width:520px;margin:0 auto 2.25rem;line-height:1.8">Whether you need a sample, a spot order, or a long-term supply contract — every enquiry receives a personal response within 24 hours.</p>
+  <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap">
+    <button class="btn-g" onclick="sp('contact')">Request a Quote →</button>
+    <button class="btn-o" onclick="sp('products')">Browse Products</button>
+  </div>
+</div>
+</div>
+
+</section><!-- /home -->
+
+<!-- ════════ ABOUT ════════ -->
+<section class="ps" id="s-about">
+<div class="phero"><div class="wrap phero-inner"><span class="lbl">About Dhanaa</span><h1 style="font-family:var(--fdis);font-size:clamp(2.4rem,5vw,3.9rem);font-weight:600;color:var(--white);margin-top:.65rem;line-height:1.08">The Art &amp; Science<br>of <em style="font-style:italic;color:var(--goldl)">Premium Spices</em></h1></div></div>
+<div class="sec-cr">
+<div class="wrap">
+  <div style="max-width:760px">
+    <p style="font-size:1.05rem;color:#2D4035;line-height:1.92;margin-bottom:1.85rem">Dhanaa Ceylon Spices was founded with a clear mission: to bring the world's finest Sri Lankan spices to international markets with the integrity and professionalism that premium buyers expect. We operate as a lean, expert-led export house — registered in Sri Lanka as <strong>Dhanaa Spices</strong> and in the United Kingdom as <strong>Dhanaa Ceylon Spices LTD</strong>.</p>
+    <p style="font-size:.95rem;color:#3D5045;line-height:1.88;margin-bottom:1.85rem">Our operation spans the full supply chain: from direct relationships with certified farmers in Galle, Matara, Kandy, and Matale, through our controlled processing and packaging facility, to documentation management and global logistics coordination. We handle everything so our buyers receive a seamless, reliable supply.</p>
+    <p style="font-size:.95rem;color:#3D5045;line-height:1.88;margin-bottom:2.75rem">What distinguishes Dhanaa is our commitment to transparency. Every shipment comes with a complete documentation package — Certificate of Analysis, Phytosanitary Certificate, Fumigation Certificate, Certificate of Origin, and full traceability records. We believe buyers should never have to chase paperwork.</p>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.85rem">
+    <div style="padding:2rem;background:var(--g1);color:var(--cream);border-radius:2px"><span class="lbl" style="display:block;margin-bottom:.85rem">Our Mission</span><p style="font-size:.85rem;line-height:1.8;color:var(--light)">To be the most trusted premium B2B spice exporter from Sri Lanka — delivering exceptional quality, complete transparency, and reliable supply to food businesses worldwide.</p></div>
+    <div style="padding:2rem;background:var(--g1);color:var(--cream);border-radius:2px"><span class="lbl" style="display:block;margin-bottom:.85rem">Our Vision</span><p style="font-size:.85rem;line-height:1.8;color:var(--light)">To position Sri Lankan spices — especially Ceylon cinnamon — as the global benchmark for quality, and to build Dhanaa as the export partner of choice for premium food manufacturers worldwide.</p></div>
+    <div style="padding:2rem;background:var(--g1);color:var(--cream);border-radius:2px"><span class="lbl" style="display:block;margin-bottom:.85rem">Core Values</span><p style="font-size:.85rem;line-height:1.8;color:var(--light)">Integrity in every transaction. Precision in every shipment. Sustainability in every sourcing decision. Partnership in every buyer relationship.</p></div>
+  </div>
+</div>
+</div>
+</section>
+
+<!-- ════════ PRODUCTS ════════ -->
+<section class="ps" id="s-products">
+<div class="phero"><div class="wrap phero-inner"><span class="lbl">Our Products</span><h1 style="font-family:var(--fdis);font-size:clamp(2.4rem,5vw,3.9rem);font-weight:600;color:var(--white);margin-top:.65rem;line-height:1.08">Premium Sri Lankan<br><em style="font-style:italic;color:var(--goldl)">Spices &amp; Botanicals</em></h1><p style="margin-top:.85rem;color:var(--light);max-width:540px;font-size:.93rem">Each product is sourced directly, processed to international food safety standards, and fully documented.</p></div></div>
+<div class="sec-cr">
+<div class="wrap">
+  <!-- Ceylon Cinnamon featured -->
+  <div style="border:1px solid rgba(11,36,23,.12);border-radius:2px;overflow:hidden;margin-bottom:2.25rem">
+    <div style="background:var(--g1);padding:1.75rem 2.25rem;display:flex;align-items:center;gap:1.25rem">
+      <span style="font-size:1.85rem">🌿</span>
+      <div><span class="lbl">Featured Product</span><h3 style="font-family:var(--fdis);font-size:1.45rem;font-weight:600;color:var(--white);margin-top:.25rem">Ceylon True Cinnamon — Cinnamomum verum</h3></div>
+    </div>
+    <div style="padding:2.25rem;display:grid;grid-template-columns:1fr 1fr;gap:2.75rem">
+      <div>
+        <p style="font-size:.88rem;color:#3D5045;line-height:1.82;margin-bottom:1.35rem">The world's only true cinnamon, grown exclusively in Sri Lanka. Distinguished from cassia by its thin, multi-layered quills, delicate sweetness, and significantly lower coumarin content — the preferred choice for premium food manufacturers and health-conscious markets globally.</p>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:.85rem">
+          <div style="padding:.85rem;border:1px solid rgba(11,36,23,.1);border-radius:2px"><span class="lbl" style="font-size:.57rem;display:block;margin-bottom:.3rem">Moisture</span><span style="font-size:.82rem;color:#3D5045">Max 12%</span></div>
+          <div style="padding:.85rem;border:1px solid rgba(11,36,23,.1);border-radius:2px"><span class="lbl" style="font-size:.57rem;display:block;margin-bottom:.3rem">MOQ</span><span style="font-size:.82rem;color:#3D5045">500 KG</span></div>
+          <div style="padding:.85rem;border:1px solid rgba(11,36,23,.1);border-radius:2px"><span class="lbl" style="font-size:.57rem;display:block;margin-bottom:.3rem">Shelf Life</span><span style="font-size:.82rem;color:#3D5045">24 months</span></div>
+          <div style="padding:.85rem;border:1px solid rgba(11,36,23,.1);border-radius:2px"><span class="lbl" style="font-size:.57rem;display:block;margin-bottom:.3rem">Container</span><span style="font-size:.82rem;color:#3D5045">20' / 40' FCL</span></div>
+        </div>
+      </div>
+      <div>
+        <span class="lbl" style="font-size:.6rem;display:block;margin-bottom:.85rem">Available Grades &amp; Forms</span>
+        <div style="display:flex;flex-direction:column;gap:.45rem">
+          <div style="padding:.7rem .9rem;border:1px solid rgba(11,36,23,.1);border-radius:2px;display:flex;justify-content:space-between;align-items:center"><span style="font-size:.82rem;color:#3D5045;font-weight:500">Alba Grade Quills</span><span class="lbl" style="font-size:.55rem;color:var(--gold)">PREMIUM</span></div>
+          <div style="padding:.7rem .9rem;border:1px solid rgba(11,36,23,.1);border-radius:2px"><span style="font-size:.82rem;color:#3D5045;font-weight:500">C4 / C5 Grade Quills</span></div>
+          <div style="padding:.7rem .9rem;border:1px solid rgba(11,36,23,.1);border-radius:2px"><span style="font-size:.82rem;color:#3D5045;font-weight:500">Cinnamon Powder</span></div>
+          <div style="padding:.7rem .9rem;border:1px solid rgba(11,36,23,.1);border-radius:2px"><span style="font-size:.82rem;color:#3D5045;font-weight:500">Cinnamon Chips</span></div>
+          <div style="padding:.7rem .9rem;border:1px solid rgba(11,36,23,.1);border-radius:2px"><span style="font-size:.82rem;color:#3D5045;font-weight:500">Cinnamon Bark / Quillings</span></div>
+        </div>
+        <div style="margin-top:1.35rem"><button class="btn-g" onclick="sp('contact')" style="background:var(--g1);color:var(--cream)">Request Specs &amp; Quote →</button></div>
+      </div>
+    </div>
+  </div>
+  <!-- Other products -->
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.35rem">
+    <div style="border:1px solid rgba(11,36,23,.12);border-radius:2px;padding:1.85rem"><div style="font-size:1.4rem;margin-bottom:.9rem">🌶️</div><span class="lbl" style="font-size:.57rem;display:block;margin-bottom:.4rem">Piper nigrum</span><h3 style="font-family:var(--fdis);font-size:1.1rem;font-weight:600;color:var(--g1);margin-bottom:.65rem">Black &amp; White Pepper</h3><p style="font-size:.8rem;color:var(--muted);line-height:1.7;margin-bottom:.9rem">Aromatic Sri Lankan pepper. Whole, cracked, and ground formats.</p><button class="btn-o" style="color:var(--g1);border-color:rgba(11,36,23,.2);font-size:.62rem;padding:.55rem 1.1rem" onclick="sp('contact')">Get Quote</button></div>
+    <div style="border:1px solid rgba(11,36,23,.12);border-radius:2px;padding:1.85rem"><div style="font-size:1.4rem;margin-bottom:.9rem">🌸</div><span class="lbl" style="font-size:.57rem;display:block;margin-bottom:.4rem">Syzygium aromaticum</span><h3 style="font-family:var(--fdis);font-size:1.1rem;font-weight:600;color:var(--g1);margin-bottom:.65rem">Cloves</h3><p style="font-size:.8rem;color:var(--muted);line-height:1.7;margin-bottom:.9rem">High essential oil content. Rich, intensely fragrant whole and powder.</p><button class="btn-o" style="color:var(--g1);border-color:rgba(11,36,23,.2);font-size:.62rem;padding:.55rem 1.1rem" onclick="sp('contact')">Get Quote</button></div>
+    <div style="border:1px solid rgba(11,36,23,.12);border-radius:2px;padding:1.85rem"><div style="font-size:1.4rem;margin-bottom:.9rem">💚</div><span class="lbl" style="font-size:.57rem;display:block;margin-bottom:.4rem">Elettaria cardamomum</span><h3 style="font-family:var(--fdis);font-size:1.1rem;font-weight:600;color:var(--g1);margin-bottom:.65rem">Cardamom</h3><p style="font-size:.8rem;color:var(--muted);line-height:1.7;margin-bottom:.9rem">Fragrant hill-country cardamom. Whole pods and decorticated seeds.</p><button class="btn-o" style="color:var(--g1);border-color:rgba(11,36,23,.2);font-size:.62rem;padding:.55rem 1.1rem" onclick="sp('contact')">Get Quote</button></div>
+    <div style="border:1px solid rgba(11,36,23,.12);border-radius:2px;padding:1.85rem"><div style="font-size:1.4rem;margin-bottom:.9rem">🟤</div><span class="lbl" style="font-size:.57rem;display:block;margin-bottom:.4rem">Myristica fragrans</span><h3 style="font-family:var(--fdis);font-size:1.1rem;font-weight:600;color:var(--g1);margin-bottom:.65rem">Nutmeg &amp; Mace</h3><p style="font-size:.8rem;color:var(--muted);line-height:1.7;margin-bottom:.9rem">Warm, complex nutmeg with its delicate aril mace. Whole and powder.</p><button class="btn-o" style="color:var(--g1);border-color:rgba(11,36,23,.2);font-size:.62rem;padding:.55rem 1.1rem" onclick="sp('contact')">Get Quote</button></div>
+    <div style="border:1px solid rgba(11,36,23,.12);border-radius:2px;padding:1.85rem"><div style="font-size:1.4rem;margin-bottom:.9rem">💛</div><span class="lbl" style="font-size:.57rem;display:block;margin-bottom:.4rem">Curcuma longa</span><h3 style="font-family:var(--fdis);font-size:1.1rem;font-weight:600;color:var(--g1);margin-bottom:.65rem">Turmeric</h3><p style="font-size:.8rem;color:var(--muted);line-height:1.7;margin-bottom:.9rem">High curcumin content. Vibrant colour, rich aroma. Finger and powder.</p><button class="btn-o" style="color:var(--g1);border-color:rgba(11,36,23,.2);font-size:.62rem;padding:.55rem 1.1rem" onclick="sp('contact')">Get Quote</button></div>
+    <div style="border:1px solid rgba(11,36,23,.12);border-radius:2px;padding:1.85rem"><div style="font-size:1.4rem;margin-bottom:.9rem">🍃</div><span class="lbl" style="font-size:.57rem;display:block;margin-bottom:.4rem">Custom Formulation</span><h3 style="font-family:var(--fdis);font-size:1.1rem;font-weight:600;color:var(--g1);margin-bottom:.65rem">Curry &amp; Spice Blends</h3><p style="font-size:.8rem;color:var(--muted);line-height:1.7;margin-bottom:.9rem">Custom curry powder and spice blend manufacturing to your formulation.</p><button class="btn-o" style="color:var(--g1);border-color:rgba(11,36,23,.2);font-size:.62rem;padding:.55rem 1.1rem" onclick="sp('contact')">Get Quote</button></div>
+  </div>
+</div>
+</div>
+</section>
+
+<!-- ════════ QUALITY ════════ -->
+<section class="ps" id="s-quality">
+<div class="phero"><div class="wrap phero-inner"><span class="lbl">Quality Standards</span><h1 style="font-family:var(--fdis);font-size:clamp(2.4rem,5vw,3.9rem);font-weight:600;color:var(--white);margin-top:.65rem;line-height:1.08">Quality Is Not<br><em style="font-style:italic;color:var(--goldl)">a Compromise</em></h1></div></div>
+<div class="sec-cr">
+<div class="wrap">
+  <div class="qg">
+    <div>
+      <span class="lbl">Our Process</span>
+      <h2 class="h2cr" style="margin-top:.65rem;margin-bottom:1.25rem">From Harvest to<br>Your Warehouse</h2>
+      <p style="font-size:.9rem;color:#3D5045;line-height:1.85;margin-bottom:1.65rem">Every spice passes through a rigorous multi-stage quality control process. We don't just inspect the final product — we control quality at every point in the supply chain.</p>
+      <div class="qsteps">
+        <div class="qstep"><div class="qsn">01</div><div><div class="qst">Farm-Level Sourcing</div><div class="qsb">Direct partnerships with certified growers. Pre-harvest assessments and farmer training.</div></div></div>
+        <div class="qstep"><div class="qsn">02</div><div><div class="qst">Raw Material Inspection</div><div class="qsb">Incoming lots tested for moisture, volatile oil content, microbiological load, and physical defects.</div></div></div>
+        <div class="qstep"><div class="qsn">03</div><div><div class="qst">Processing &amp; Cleaning</div><div class="qsb">Controlled temperature processing, dust removal, and size-grading to specification.</div></div></div>
+        <div class="qstep"><div class="qsn">04</div><div><div class="qst">Pre-Shipment Testing</div><div class="qsb">COA generated per lot. Pesticide residue, heavy metals, aflatoxin, microbiological testing.</div></div></div>
+        <div class="qstep"><div class="qsn">05</div><div><div class="qst">Documentation Package</div><div class="qsb">Phytosanitary Certificate, Fumigation Certificate, Certificate of Origin, COA, and full shipping documents.</div></div></div>
+      </div>
+    </div>
+    <div>
+      <span class="lbl">Certifications</span>
+      <h2 class="h2cr" style="margin-top:.65rem;margin-bottom:1.25rem">International<br>Standards Compliant</h2>
+      <p style="font-size:.9rem;color:#3D5045;line-height:1.85;margin-bottom:1.65rem">Our facility and processes are designed to meet and exceed international buyer requirements across EU, UK, US, and Middle East markets.</p>
+      <div class="qcerts">
+        <div class="qcb"><div class="qci">ISO</div><div><div class="qcn">ISO 22000</div><div class="qcs">Food Safety Management</div></div></div>
+        <div class="qcb"><div class="qci">HA</div><div><div class="qcn">HACCP</div><div class="qcs">Hazard Analysis Protocol</div></div></div>
+        <div class="qcb"><div class="qci">GMP</div><div><div class="qcn">GMP Certified</div><div class="qcs">Good Manufacturing Practice</div></div></div>
+        <div class="qcb"><div class="qci">ORG</div><div><div class="qcn">Organic Ready</div><div class="qcs">Organic Transition Available</div></div></div>
+        <div class="qcb"><div class="qci">FDA</div><div><div class="qcn">FDA Compliant</div><div class="qcs">US Market Ready</div></div></div>
+        <div class="qcb"><div class="qci">EU</div><div><div class="qcn">EU Standards</div><div class="qcs">European Import Ready</div></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</section>
+
+<!-- ════════ PRIVATE LABEL ════════ -->
+<section class="ps" id="s-pl">
+<div class="phero"><div class="wrap phero-inner"><span class="lbl">Private Label &amp; OEM</span><h1 style="font-family:var(--fdis);font-size:clamp(2.4rem,5vw,3.9rem);font-weight:600;color:var(--white);margin-top:.65rem;line-height:1.08">Your Brand.<br><em style="font-style:italic;color:var(--goldl)">Our Expertise.</em></h1><p style="margin-top:.85rem;color:var(--light);max-width:520px;font-size:.93rem">Build your own spice brand on the foundation of true Ceylon quality.</p></div></div>
+<div class="sec-d2" style="padding:5rem 0">
+<div class="wrap">
+  <div class="plg">
+    <div class="plc"><div class="plcn">01</div><h3 class="plct">Private Label</h3><p class="plcb">Supply your own branding and packaging design. We manufacture, pack, and label to your exact specifications. MOQ from 500KG per SKU. Retail, wholesale, and foodservice formats available.</p></div>
+    <div class="plc"><div class="plcn">02</div><h3 class="plct">OEM Manufacturing</h3><p class="plcb">Custom formulation services for curry blends, spice mixes, and seasonings. Our development team works to your taste profile and specification. Full NDA available before discussions begin.</p></div>
+    <div class="plc"><div class="plcn">03</div><h3 class="plct">Custom Packaging</h3><p class="plcb">PP bags, kraft pouches, glass jars, bulk sacks, and custom retail packs. Work with your design files or use our packaging partners for a complete turnkey solution.</p></div>
+    <div class="plc"><div class="plcn">04</div><h3 class="plct">Retail Packs</h3><p class="plcb">25g to 500g retail formats with your label. Shelf-ready packaging trays and retail-compliant labeling for EU, UK, and US markets. Designed for supermarket shelf appeal.</p></div>
+    <div class="plc"><div class="plcn">05</div><h3 class="plct">Wholesale Packs</h3><p class="plcb">1KG to 25KG foodservice and wholesale formats for distributors, restaurant chains, and food manufacturers needing clean-label bulk product.</p></div>
+    <div class="plc"><div class="plcn">06</div><h3 class="plct">Full Documentation</h3><p class="plcb">Every private label order ships with the complete documentation package — COA, Phytosanitary, Fumigation, and Certificate of Origin. Your brand backed by full traceability.</p></div>
+  </div>
+  <div style="text-align:center;margin-top:2.75rem"><button class="btn-g" onclick="sp('contact')">Start Your Private Label Journey →</button></div>
+</div>
+</div>
+</section>
+
+<!-- ════════ EXPORT ════════ -->
+<section class="ps" id="s-export">
+<div class="phero"><div class="wrap phero-inner"><span class="lbl">Export Services</span><h1 style="font-family:var(--fdis);font-size:clamp(2.4rem,5vw,3.9rem);font-weight:600;color:var(--white);margin-top:.65rem;line-height:1.08">Seamless Export,<br><em style="font-style:italic;color:var(--goldl)">Every Time</em></h1></div></div>
+<div class="sec-cr">
+<div class="wrap">
+  <div style="max-width:580px;margin-bottom:3.5rem">
+    <span class="lbl">Our Export Process</span>
+    <h2 class="h2cr" style="margin-top:.65rem;margin-bottom:.85rem">From Enquiry to Arrival<br>in 5 Clear Steps</h2>
+    <p style="font-size:.9rem;color:var(--muted);line-height:1.8">We manage the entire export process on your behalf — from initial sample dispatch through to container delivery at your port.</p>
+  </div>
+  <div class="eproc">
+    <div class="estep"><div class="esci">01</div><div class="esct">Enquiry &amp; Quote</div><div class="escb">Submit requirements. Detailed quotation within 24 hours.</div></div>
+    <div class="estep"><div class="esci">02</div><div class="esct">Sampling</div><div class="escb">Pre-shipment samples dispatched. Approval before production.</div></div>
+    <div class="estep"><div class="esci">03</div><div class="esct">Production &amp; QC</div><div class="escb">Lot processed, graded, and packed. QC at every stage.</div></div>
+    <div class="estep"><div class="esci">04</div><div class="esct">Documentation</div><div class="escb">Full document package: COA, Phytosanitary, Fumigation, COO.</div></div>
+    <div class="estep"><div class="esci">05</div><div class="esct">Shipment</div><div class="escb">Container loaded Colombo Port. BL and AWB management included.</div></div>
+  </div>
+  <div class="einfog">
+    <div class="einfc"><div class="einfot">Incoterms Offered</div><ul class="einfl"><li>FOB Colombo</li><li>CIF Destination Port</li><li>CFR Destination Port</li><li>EXW Our Facility</li><li>DDP (on request)</li></ul></div>
+    <div class="einfc"><div class="einfot">Shipping Options</div><ul class="einfl"><li>20' FCL &amp; 40' FCL</li><li>LCL (Groupage)</li><li>Air Freight (express)</li><li>Port of Loading: Colombo</li><li>Worldwide Delivery</li></ul></div>
+    <div class="einfc"><div class="einfot">Documents Provided</div><ul class="einfl"><li>Certificate of Analysis (COA)</li><li>Phytosanitary Certificate</li><li>Fumigation Certificate</li><li>Certificate of Origin</li><li>Commercial Invoice &amp; Packing List</li><li>Bill of Lading / AWB</li></ul></div>
+  </div>
+</div>
+</div>
+</section>
+
+<!-- ════════ BLOG ════════ -->
+<section class="ps" id="s-blog">
+<div class="phero"><div class="wrap phero-inner"><span class="lbl">Insights &amp; Education</span><h1 style="font-family:var(--fdis);font-size:clamp(2.4rem,5vw,3.9rem);font-weight:600;color:var(--white);margin-top:.65rem;line-height:1.08">The Spice<br><em style="font-style:italic;color:var(--goldl)">Intelligence Hub</em></h1></div></div>
+<div class="sec-cr">
+<div class="wrap">
+  <div class="bgg">
+    <div class="bc"><div class="bcimg"><div class="bcimgt">Ceylon vs Cassia:<br>The Real Difference</div></div><div class="bcbod"><div class="bccat">Ceylon Cinnamon</div><h3 class="bctit">Ceylon vs Cassia Cinnamon: What Every Importer Must Know</h3><p class="bcex">The cinnamon market is flooded with cassia masquerading as Ceylon. Here's how to identify true Cinnamomum verum, understand coumarin limits, and source correctly for EU and UK markets.</p><div style="display:flex;justify-content:space-between;align-items:center"><span class="bcmeta">8 min read</span><span class="bcrm">Read Article →</span></div></div></div>
+    <div class="bc"><div class="bcimg"><div class="bcimgt">Importing Sri Lankan<br>Spices: A Buyer's Guide</div></div><div class="bcbod"><div class="bccat">Export Industry</div><h3 class="bctit">A Buyer's Guide to Importing Sri Lankan Spices</h3><p class="bcex">Documentation requirements, phytosanitary regulations, minimum order quantities, and how to evaluate a supplier — everything you need before your first order.</p><div style="display:flex;justify-content:space-between;align-items:center"><span class="bcmeta">12 min read</span><span class="bcrm">Read Article →</span></div></div></div>
+    <div class="bc"><div class="bcimg"><div class="bcimgt">Health Benefits of<br>True Ceylon Cinnamon</div></div><div class="bcbod"><div class="bccat">Product Education</div><h3 class="bctit">The Proven Health Benefits of True Ceylon Cinnamon</h3><p class="bcex">Why food manufacturers are reformulating with Ceylon cinnamon — the science behind coumarin-free cinnamon and antioxidant properties that drive premium positioning.</p><div style="display:flex;justify-content:space-between;align-items:center"><span class="bcmeta">6 min read</span><span class="bcrm">Read Article →</span></div></div></div>
+    <div class="bc"><div class="bcimg"><div class="bcimgt">Why Sri Lanka Produces<br>the World's Finest Spices</div></div><div class="bcbod"><div class="bccat">Sri Lankan Agriculture</div><h3 class="bctit">Why Sri Lanka Produces the World's Finest Spices</h3><p class="bcex">Geography, climate, soil, and generations of knowledge. An in-depth look at why the southern and central highlands are the only places for true cinnamon.</p><div style="display:flex;justify-content:space-between;align-items:center"><span class="bcmeta">10 min read</span><span class="bcrm">Read Article →</span></div></div></div>
+    <div class="bc"><div class="bcimg"><div class="bcimgt">10 Questions to Ask<br>Your Spice Supplier</div></div><div class="bcbod"><div class="bccat">Buyer Guides</div><h3 class="bctit">10 Questions to Ask Before Choosing a Spice Exporter</h3><p class="bcex">Quality, documentation, lead times, and traceability — the questions that separate professional export houses from informal traders. A practical checklist for procurement.</p><div style="display:flex;justify-content:space-between;align-items:center"><span class="bcmeta">7 min read</span><span class="bcrm">Read Article →</span></div></div></div>
+    <div class="bc"><div class="bcimg"><div class="bcimgt">Building a Private Label<br>Spice Brand</div></div><div class="bcbod"><div class="bccat">Private Label</div><h3 class="bctit">Building a Premium Spice Brand with Private Label Manufacturing</h3><p class="bcex">How importers and distributors are building profitable private label spice brands using Sri Lankan origin products — from retail positioning to packaging specification.</p><div style="display:flex;justify-content:space-between;align-items:center"><span class="bcmeta">9 min read</span><span class="bcrm">Read Article →</span></div></div></div>
+  </div>
+</div>
+</div>
+</section>
+
+<!-- ════════ CONTACT ════════ -->
+<section class="ps" id="s-contact">
+<div class="phero"><div class="wrap phero-inner"><span class="lbl">Get In Touch</span><h1 style="font-family:var(--fdis);font-size:clamp(2.4rem,5vw,3.9rem);font-weight:600;color:var(--white);margin-top:.65rem;line-height:1.08">Ready to Source<br><em style="font-style:italic;color:var(--goldl)">Premium Spices?</em></h1></div></div>
+<div class="sec-dk" style="padding:4.5rem 0">
+<div class="wrap">
+  <div class="cg">
+    <div>
+      <span class="lbl">Contact Dhanaa</span>
+      <h2 class="h2dk" style="margin-top:.65rem;margin-bottom:.9rem">Let's Talk<br>Business</h2>
+      <p style="color:var(--light);font-size:.9rem;line-height:1.82;margin-bottom:2.1rem">Whether you're placing your first order or looking to establish a long-term supply relationship, we respond to every enquiry personally within 24 hours.</p>
+      <div class="cch">
+        <a href="mailto:Dhanaaceylonspiceuk@gmail.com" class="cci"><div class="ccico">✉</div><div><div class="ccilb">Email</div><div class="cciv">Dhanaaceylonspiceuk@gmail.com</div></div></a>
+        <a href="https://wa.me/94762307361" target="_blank" rel="noopener" class="cci"><div class="ccico">📱</div><div><div class="ccilb">WhatsApp</div><div class="cciv">+94 76 230 7361</div></div></a>
+        <a href="tel:+94762307361" class="cci"><div class="ccico">📞</div><div><div class="ccilb">Phone</div><div class="cciv">+94 76 230 7361</div></div></a>
+      </div>
+      <div>
+        <div class="ofc"><div class="ofcc">🇱🇰 Sri Lanka — Head Office</div><div class="ofca">Maththawala, Meegoda, Wanchawala<br>Galle 80120, Sri Lanka<br><a href="https://maps.app.goo.gl/AL4RU9mpKNnCxL9J6" target="_blank" rel="noopener" style="color:var(--gold);font-size:.75rem;font-family:var(--flab);letter-spacing:.08em;text-transform:uppercase;margin-top:.4rem;display:inline-flex;align-items:center;gap:.3rem">📍 View on Google Maps →</a></div></div>
+        <div class="ofc"><div class="ofcc">🇬🇧 United Kingdom — Registered</div><div class="ofca">Dhanaa Ceylon Spices LTD<br>Registered in England &amp; Wales</div></div>
+      </div>
+    </div>
+    <div class="cform">
+      <div style="margin-bottom:1.6rem"><h3 style="font-family:var(--fdis);font-size:1.2rem;font-weight:600;color:var(--white);margin-bottom:.25rem">Request a Quote</h3><p style="font-size:.77rem;color:var(--muted)">We respond within 24 hours with pricing and availability.</p></div>
+      <form id="quoteForm" onsubmit="return sendEnquiry(this)">
+        <input type="hidden" name="_subject" value="New Quote Enquiry — Dhanaa Ceylon Spices website">
+        <div class="frow"><div class="fg"><label class="fl">First Name</label><input type="text" class="fi" name="firstName" placeholder="John" required></div><div class="fg"><label class="fl">Last Name</label><input type="text" class="fi" name="lastName" placeholder="Smith" required></div></div>
+        <div class="fg"><label class="fl">Company Name</label><input type="text" class="fi" name="company" placeholder="Your Company Ltd"></div>
+        <div class="fg"><label class="fl">Email Address</label><input type="email" class="fi" name="email" placeholder="john@yourcompany.com" required></div>
+        <div class="frow">
+          <div class="fg"><label class="fl">Country</label><input type="text" class="fi" name="country" placeholder="United Kingdom"></div>
+          <div class="fg"><label class="fl">Product Interest</label><select class="fi" name="product"><option>Ceylon Cinnamon</option><option>Black Pepper</option><option>Cloves</option><option>Cardamom</option><option>Turmeric</option><option>Nutmeg &amp; Mace</option><option>Private Label</option><option>Multiple Products</option></select></div>
+        </div>
+        <div class="fg"><label class="fl">Enquiry Details</label><textarea class="fi fta" name="message" placeholder="Tell us about your requirements — product, quantity, packaging, destination port..." required></textarea></div>
+        <button class="fsub" type="submit">Send Enquiry →</button>
+        <p class="fnote">By submitting you agree to our Privacy Policy. We never share your data with third parties.</p>
+        <div class="fmsg" id="fmsg"></div>
+      </form>
+    </div>
+  </div>
+</div>
+</div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+<div class="wrap">
+  <div class="ftop">
+    <div>
+      <div class="fbn">Dhanaa Ceylon Spices LTD</div>
+      <div class="fbr">Premium B2B Spice Exporter · Sri Lanka &amp; UK</div>
+      <p class="fbd">From the highlands of Sri Lanka to markets worldwide — supplying the finest Ceylon spices with uncompromising quality and full export documentation.</p>
+      <div class="fsoc"><a href="#" class="fsl">in</a><a href="#" class="fsl">ig</a><a href="#" class="fsl">fb</a></div>
+    </div>
+    <div>
+      <div class="fct">Products</div>
+      <div class="flinks"><a href="#" onclick="return sp('products')">Ceylon Cinnamon</a><a href="#" onclick="return sp('products')">Black &amp; White Pepper</a><a href="#" onclick="return sp('products')">Cloves</a><a href="#" onclick="return sp('products')">Cardamom &amp; Nutmeg</a><a href="#" onclick="return sp('products')">Turmeric</a><a href="#" onclick="return sp('products')">Curry Blends</a></div>
+    </div>
+    <div>
+      <div class="fct">Company</div>
+      <div class="flinks"><a href="#" onclick="return sp('about')">About Us</a><a href="#" onclick="return sp('quality')">Quality &amp; Certifications</a><a href="#" onclick="return sp('pl')">Private Label</a><a href="#" onclick="return sp('export')">Export Services</a><a href="#" onclick="return sp('blog')">Insights</a><a href="#" onclick="return sp('contact')">Contact</a></div>
+    </div>
+    <div>
+      <div class="fct">Contact</div>
+      <div class="flinks"><a href="mailto:Dhanaaceylonspiceuk@gmail.com">Dhanaaceylonspiceuk@gmail.com</a><a href="tel:+94762307361">+94 76 230 7361</a><a href="https://maps.app.goo.gl/AL4RU9mpKNnCxL9J6" target="_blank" rel="noopener">Galle, Sri Lanka</a><a href="#">UK Office</a></div>
+    </div>
+  </div>
+  <div class="fbot">
+    <div class="fcopy">© 2026 Dhanaa Ceylon Spices LTD. All rights reserved. Registered in England &amp; Wales.</div>
+    <div class="fleg"><a href="#">Privacy Policy</a><a href="#">Terms &amp; Conditions</a><a href="#">Cookie Policy</a></div>
+  </div>
+</div>
+</footer>
+
+<script>
+// Navigation
+function sp(name){
+  document.querySelectorAll('.ps').forEach(function(s){s.classList.remove('a');});
+  var t=document.getElementById('s-'+name);
+  if(t){t.classList.add('a');}
+  window.scrollTo({top:0,behavior:'smooth'});
+  document.querySelectorAll('.nlink').forEach(function(l){l.classList.toggle('a',l.dataset.sp===name);});
+  document.getElementById('mmenu').classList.remove('open');
+  return false;
+}
+function tmob(){document.getElementById('mmenu').classList.toggle('open');}
+
+// Scroll nav
+window.addEventListener('scroll',function(){
+  var n=document.getElementById('nav');
+  if(window.scrollY>55)n.classList.add('s');else n.classList.remove('s');
+});
+
+// Reveal on scroll
+var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting)e.target.classList.add('v');});},{threshold:.08,rootMargin:'0px 0px -35px 0px'});
+document.querySelectorAll('.reveal,.revL,.revR').forEach(function(el){obs.observe(el);});
+
+// Contact form — Formspree
+// 1. Create a free form at https://formspree.io (sign up with Dhanaaceylonspiceuk@gmail.com)
+// 2. Copy the endpoint it gives you (looks like https://formspree.io/f/xxxxabcd)
+// 3. Paste it below, replacing the placeholder, then re-publish the site.
+var FORMSPREE_ENDPOINT = 'https://formspree.io/f/mzdllajn';
+
+function sendEnquiry(form){
+  var btn = form.querySelector('.fsub');
+  var msg = document.getElementById('fmsg');
+  var data = new FormData(form);
+
+  function showMsg(text, ok){
+    msg.textContent = text;
+    msg.className = 'fmsg ' + (ok ? 'ok' : 'err');
+  }
+
+  function mailFallback(){
+    var body = 'Name: ' + data.get('firstName') + ' ' + data.get('lastName') + '\n' +
+      'Company: ' + (data.get('company') || '-') + '\n' +
+      'Email: ' + data.get('email') + '\n' +
+      'Country: ' + (data.get('country') || '-') + '\n' +
+      'Product Interest: ' + data.get('product') + '\n\n' +
+      (data.get('message') || '');
+    var mailto = 'mailto:Dhanaaceylonspiceuk@gmail.com' +
+      '?subject=' + encodeURIComponent('New Quote Enquiry — ' + data.get('firstName') + ' ' + data.get('lastName')) +
+      '&body=' + encodeURIComponent(body);
+    window.location.href = mailto;
+    showMsg('Opening your email app to send this enquiry…', true);
+  }
+
+  btn.disabled = true;
+  btn.textContent = 'Sending...';
+
+  if(FORMSPREE_ENDPOINT.indexOf('YOUR_FORM_ID') !== -1){
+    // Formspree not configured yet — use email as an immediate working fallback.
+    mailFallback();
+    btn.disabled = false;
+    btn.textContent = 'Send Enquiry →';
+    return false;
+  }
+
+  fetch(FORMSPREE_ENDPOINT, {
+    method: 'POST',
+    headers: { 'Accept': 'application/json' },
+    body: data
+  }).then(function(res){
+    if(res.ok){
+      showMsg('✓ Sent — we will respond within 24 hours.', true);
+      form.reset();
+    } else {
+      showMsg('Something went wrong sending that. Opening your email app instead…', false);
+      mailFallback();
+    }
+  }).catch(function(){
+    showMsg('Could not reach the server. Opening your email app instead…', false);
+    mailFallback();
+  }).finally(function(){
+    btn.disabled = false;
+    btn.textContent = 'Send Enquiry →';
+  });
+
+  return false;
+}
+</script>
+
+<a href="https://wa.me/94762307361" target="_blank" rel="noopener" title="Chat on WhatsApp"
+   style="position:fixed;bottom:1.75rem;right:1.75rem;z-index:9999;width:56px;height:56px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(37,211,102,.4);transition:.3s;text-decoration:none"
+   onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
+  <svg viewBox="0 0 24 24" width="28" height="28" fill="white">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+  </svg>
+</a>
+</body>
+</html>
