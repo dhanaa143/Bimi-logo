@@ -317,6 +317,17 @@ footer{background:var(--char);border-top:1px solid rgba(255,255,255,.055)}
 .fleg a{font-size:.68rem;color:var(--muted);transition:.3s}
 .fleg a:hover{color:var(--gold)}
 
+/* TRANSLATE WIDGET */
+.gtranslate{display:flex;align-items:center}
+.gtranslate .goog-te-gadget{font-family:var(--flab)!important;font-size:0!important;color:transparent!important}
+.gtranslate .goog-te-gadget-simple{background:transparent!important;border:1px solid var(--border)!important;border-radius:2px!important;padding:.4rem .6rem!important;display:inline-flex!important;align-items:center!important}
+.gtranslate .goog-te-gadget-simple .goog-te-menu-value{color:var(--light)!important;font-family:var(--flab)!important;font-size:.65rem!important;letter-spacing:.05em!important}
+.gtranslate .goog-te-gadget-simple .goog-te-menu-value span{color:var(--light)!important}
+.gtranslate img{display:none!important}
+body>.skiptranslate{display:none!important}
+body{top:0!important}
+.mmenu .gtranslate{margin-top:1rem}
+
 /* PAGE HERO (inner pages) */
 .phero{padding-top:6rem;background:var(--g1);padding-bottom:2.75rem}
 .phero-inner{padding-top:2rem}
@@ -349,6 +360,7 @@ footer{background:var(--char);border-top:1px solid rgba(255,255,255,.055)}
 .fbot{flex-direction:column;text-align:center}
 .avals{grid-template-columns:1fr}
 .qcerts{grid-template-columns:1fr}
+.qprevg,.mvvg,.featg,.oprodg{grid-template-columns:1fr!important}
 }
 
 /* === MOBILE FULL-WIDTH FIX === */
@@ -391,6 +403,7 @@ footer{background:var(--char);border-top:1px solid rgba(255,255,255,.055)}
   <div style="margin-left:.65rem;display:flex;gap:.65rem" class="ncta">
     <button class="btn-g" onclick="sp('contact')">Request Quote →</button>
   </div>
+  <div id="google_translate_element" class="gtranslate" style="margin-left:.5rem"></div>
   <button class="ntog" id="ntog" onclick="tmob()"><span></span><span></span><span></span></button>
 </div>
 </div>
@@ -529,7 +542,7 @@ footer{background:var(--char);border-top:1px solid rgba(255,255,255,.055)}
     <h2 class="h2cr" style="margin-top:.65rem;margin-bottom:.75rem">Quality Is Not<br><em>a Compromise</em></h2>
     <p style="font-size:.9rem;color:var(--muted)">Every lot is tested, documented, and certified before departure. Our quality control is not a checkbox — it is the foundation of every customer relationship we build.</p>
   </div>
-  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1.25rem">
+  <div class="qprevg" style="display:grid;grid-template-columns:repeat(4,1fr);gap:1.25rem">
     <div style="padding:1.85rem;border:1px solid rgba(11,36,23,.11);border-radius:2px;text-align:center" class="reveal">
       <div style="font-size:1.75rem;margin-bottom:.85rem">🔬</div>
       <div class="avt" style="text-align:center;justify-content:center">Laboratory Testing</div>
@@ -580,7 +593,7 @@ footer{background:var(--char);border-top:1px solid rgba(255,255,255,.055)}
     <p style="font-size:.95rem;color:#3D5045;line-height:1.88;margin-bottom:1.85rem">Our operation spans the full supply chain: from direct relationships with certified farmers in Galle, Matara, Kandy, and Matale, through our controlled processing and packaging facility, to documentation management and global logistics coordination. We handle everything so our buyers receive a seamless, reliable supply.</p>
     <p style="font-size:.95rem;color:#3D5045;line-height:1.88;margin-bottom:2.75rem">What distinguishes Dhanaa is our commitment to transparency. Every shipment comes with a complete documentation package — Certificate of Analysis, Phytosanitary Certificate, Fumigation Certificate, Certificate of Origin, and full traceability records. We believe buyers should never have to chase paperwork.</p>
   </div>
-  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.85rem">
+  <div class="mvvg" style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.85rem">
     <div style="padding:2rem;background:var(--g1);color:var(--cream);border-radius:2px"><span class="lbl" style="display:block;margin-bottom:.85rem">Our Mission</span><p style="font-size:.85rem;line-height:1.8;color:var(--light)">To be the most trusted premium B2B spice exporter from Sri Lanka — delivering exceptional quality, complete transparency, and reliable supply to food businesses worldwide.</p></div>
     <div style="padding:2rem;background:var(--g1);color:var(--cream);border-radius:2px"><span class="lbl" style="display:block;margin-bottom:.85rem">Our Vision</span><p style="font-size:.85rem;line-height:1.8;color:var(--light)">To position Sri Lankan spices — especially Ceylon cinnamon — as the global benchmark for quality, and to build Dhanaa as the export partner of choice for premium food manufacturers worldwide.</p></div>
     <div style="padding:2rem;background:var(--g1);color:var(--cream);border-radius:2px"><span class="lbl" style="display:block;margin-bottom:.85rem">Core Values</span><p style="font-size:.85rem;line-height:1.8;color:var(--light)">Integrity in every transaction. Precision in every shipment. Sustainability in every sourcing decision. Partnership in every buyer relationship.</p></div>
@@ -600,7 +613,7 @@ footer{background:var(--char);border-top:1px solid rgba(255,255,255,.055)}
       <span style="font-size:1.85rem">🌿</span>
       <div><span class="lbl">Featured Product</span><h3 style="font-family:var(--fdis);font-size:1.45rem;font-weight:600;color:var(--white);margin-top:.25rem">Ceylon True Cinnamon — Cinnamomum verum</h3></div>
     </div>
-    <div style="padding:2.25rem;display:grid;grid-template-columns:1fr 1fr;gap:2.75rem">
+    <div class="featg" style="padding:2.25rem;display:grid;grid-template-columns:1fr 1fr;gap:2.75rem">
       <div>
         <p style="font-size:.88rem;color:#3D5045;line-height:1.82;margin-bottom:1.35rem">The world's only true cinnamon, grown exclusively in Sri Lanka. Distinguished from cassia by its thin, multi-layered quills, delicate sweetness, and significantly lower coumarin content — the preferred choice for premium food manufacturers and health-conscious markets globally.</p>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:.85rem">
@@ -624,7 +637,7 @@ footer{background:var(--char);border-top:1px solid rgba(255,255,255,.055)}
     </div>
   </div>
   <!-- Other products -->
-  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.35rem">
+  <div class="oprodg" style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.35rem">
     <div style="border:1px solid rgba(11,36,23,.12);border-radius:2px;padding:1.85rem"><div style="font-size:1.4rem;margin-bottom:.9rem">🌶️</div><span class="lbl" style="font-size:.57rem;display:block;margin-bottom:.4rem">Piper nigrum</span><h3 style="font-family:var(--fdis);font-size:1.1rem;font-weight:600;color:var(--g1);margin-bottom:.65rem">Black &amp; White Pepper</h3><p style="font-size:.8rem;color:var(--muted);line-height:1.7;margin-bottom:.9rem">Aromatic Sri Lankan pepper. Whole, cracked, and ground formats.</p><button class="btn-o" style="color:var(--g1);border-color:rgba(11,36,23,.2);font-size:.62rem;padding:.55rem 1.1rem" onclick="sp('contact')">Get Quote</button></div>
     <div style="border:1px solid rgba(11,36,23,.12);border-radius:2px;padding:1.85rem"><div style="font-size:1.4rem;margin-bottom:.9rem">🌸</div><span class="lbl" style="font-size:.57rem;display:block;margin-bottom:.4rem">Syzygium aromaticum</span><h3 style="font-family:var(--fdis);font-size:1.1rem;font-weight:600;color:var(--g1);margin-bottom:.65rem">Cloves</h3><p style="font-size:.8rem;color:var(--muted);line-height:1.7;margin-bottom:.9rem">High essential oil content. Rich, intensely fragrant whole and powder.</p><button class="btn-o" style="color:var(--g1);border-color:rgba(11,36,23,.2);font-size:.62rem;padding:.55rem 1.1rem" onclick="sp('contact')">Get Quote</button></div>
     <div style="border:1px solid rgba(11,36,23,.12);border-radius:2px;padding:1.85rem"><div style="font-size:1.4rem;margin-bottom:.9rem">💚</div><span class="lbl" style="font-size:.57rem;display:block;margin-bottom:.4rem">Elettaria cardamomum</span><h3 style="font-family:var(--fdis);font-size:1.1rem;font-weight:600;color:var(--g1);margin-bottom:.65rem">Cardamom</h3><p style="font-size:.8rem;color:var(--muted);line-height:1.7;margin-bottom:.9rem">Fragrant hill-country cardamom. Whole pods and decorticated seeds.</p><button class="btn-o" style="color:var(--g1);border-color:rgba(11,36,23,.2);font-size:.62rem;padding:.55rem 1.1rem" onclick="sp('contact')">Get Quote</button></div>
@@ -1017,6 +1030,18 @@ function sendEnquiry(form){
   return false;
 }
 </script>
+
+<!-- Language translator (Google Website Translator) -->
+<script>
+function googleTranslateElementInit(){
+  new google.translate.TranslateElement({
+    pageLanguage: 'en',
+    layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+    autoDisplay: false
+  }, 'google_translate_element');
+}
+</script>
+<script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
 <a href="https://wa.me/94762307361" target="_blank" rel="noopener" title="Chat on WhatsApp"
    style="position:fixed;bottom:1.75rem;right:1.75rem;z-index:9999;width:56px;height:56px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(37,211,102,.4);transition:.3s;text-decoration:none"
