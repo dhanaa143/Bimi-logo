@@ -317,16 +317,24 @@ footer{background:var(--char);border-top:1px solid rgba(255,255,255,.055)}
 .fleg a{font-size:.68rem;color:var(--muted);transition:.3s}
 .fleg a:hover{color:var(--gold)}
 
-/* TRANSLATE WIDGET */
-.gtranslate{display:flex;align-items:center}
-.gtranslate .goog-te-gadget{font-family:var(--flab)!important;font-size:0!important;color:transparent!important}
-.gtranslate .goog-te-gadget-simple{background:transparent!important;border:1px solid var(--border)!important;border-radius:2px!important;padding:.4rem .6rem!important;display:inline-flex!important;align-items:center!important}
-.gtranslate .goog-te-gadget-simple .goog-te-menu-value{color:var(--light)!important;font-family:var(--flab)!important;font-size:.65rem!important;letter-spacing:.05em!important}
-.gtranslate .goog-te-gadget-simple .goog-te-menu-value span{color:var(--light)!important}
-.gtranslate img{display:none!important}
+/* TRANSLATE WIDGET — custom UI driven by Google's engine (their own widget lives in a
+   cross-origin iframe we can't restyle, so we hide it and drive it programmatically) */
+#google_translate_element{position:absolute;width:1px;height:1px;overflow:hidden;opacity:0;pointer-events:none}
 body>.skiptranslate{display:none!important}
 body{top:0!important}
-.mmenu .gtranslate{margin-top:1rem}
+.langsw{position:relative;flex-shrink:0}
+.langbtn{width:38px;height:38px;border:1px solid var(--border);border-radius:50%;background:transparent;color:var(--light);font-size:.95rem;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:.3s}
+.langbtn:hover,.langbtn.open{border-color:var(--gold);color:var(--gold);background:rgba(184,148,42,.08)}
+.langmenu{display:none;position:absolute;top:calc(100% + .7rem);right:0;background:var(--g2);border:1px solid var(--border);border-radius:2px;min-width:190px;max-height:19rem;overflow-y:auto;box-shadow:0 22px 48px rgba(0,0,0,.4);z-index:2000}
+.langmenu.open{display:block}
+.langmenu::-webkit-scrollbar{width:4px}.langmenu::-webkit-scrollbar-thumb{background:var(--gold)}
+.lang-item{padding:.6rem 1.1rem;font-family:var(--flab);font-size:.68rem;font-weight:500;letter-spacing:.04em;color:var(--light);cursor:pointer;transition:.2s;white-space:nowrap;border-bottom:1px solid rgba(255,255,255,.05)}
+.lang-item:last-child{border-bottom:none}
+.lang-item:hover{background:rgba(184,148,42,.12);color:var(--goldl)}
+.lang-loading{padding:.85rem 1.1rem;font-family:var(--flab);font-size:.65rem;color:var(--muted);letter-spacing:.05em}
+.mmenu .langsw{margin-top:1.1rem;display:flex;justify-content:center}
+.mmenu .langmenu{right:auto;left:50%;transform:translateX(-50%)}
+.langbtn-wide{width:auto;border-radius:100px;padding:.6rem 1.1rem;gap:.2rem}
 
 /* PAGE HERO (inner pages) */
 .phero{padding-top:6rem;background:var(--g1);padding-bottom:2.75rem}
@@ -403,11 +411,16 @@ body{top:0!important}
   <div style="margin-left:.65rem;display:flex;gap:.65rem" class="ncta">
     <button class="btn-g" onclick="sp('contact')">Request Quote →</button>
   </div>
-  <div id="google_translate_element" class="gtranslate" style="margin-left:.5rem"></div>
+  <div class="langsw" id="langsw1">
+    <button class="langbtn" onclick="toggleLangMenu('langsw1')" aria-label="Change language" title="Change language">🌐</button>
+    <div class="langmenu" id="langmenu1"><div class="lang-loading">Loading languages…</div></div>
+  </div>
   <button class="ntog" id="ntog" onclick="tmob()"><span></span><span></span><span></span></button>
 </div>
 </div>
 </nav>
+
+<div id="google_translate_element"></div>
 
 <!-- MOBILE MENU -->
 <div class="mmenu" id="mmenu">
@@ -420,6 +433,10 @@ body{top:0!important}
   <a href="#" onclick="return sp('blog')">Insights</a>
   <a href="#" onclick="return sp('contact')">Contact</a>
   <div style="margin-top:1rem"><button class="btn-g" onclick="sp('contact')">Request a Quote →</button></div>
+  <div class="langsw" id="langsw2">
+    <button class="langbtn langbtn-wide" onclick="toggleLangMenu('langsw2')" aria-label="Change language" title="Change language">🌐 <span style="font-size:.68rem;font-family:var(--flab);letter-spacing:.08em;text-transform:uppercase;margin-left:.4rem">Language</span></button>
+    <div class="langmenu" id="langmenu2"><div class="lang-loading">Loading languages…</div></div>
+  </div>
 </div>
 
 <!-- ════════ HOME ════════ -->
@@ -1031,15 +1048,64 @@ function sendEnquiry(form){
 }
 </script>
 
-<!-- Language translator (Google Website Translator) -->
+<!-- Language translator — Google's engine, our own UI (their widget renders in a
+     cross-origin iframe we can't restyle, so it's hidden and driven programmatically) -->
 <script>
 function googleTranslateElementInit(){
   new google.translate.TranslateElement({
     pageLanguage: 'en',
-    layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
     autoDisplay: false
   }, 'google_translate_element');
+  waitForGoogleCombo();
 }
+
+function waitForGoogleCombo(attempt){
+  attempt = attempt || 0;
+  var combo = document.querySelector('.goog-te-combo');
+  if(!combo){
+    if(attempt > 40) return; // ~20s, give up quietly
+    return setTimeout(function(){ waitForGoogleCombo(attempt + 1); }, 500);
+  }
+  buildLangMenus(combo);
+}
+
+function buildLangMenus(combo){
+  var options = Array.prototype.slice.call(combo.options).filter(function(o){ return o.value; });
+  ['langmenu1','langmenu2'].forEach(function(menuId){
+    var menu = document.getElementById(menuId);
+    if(!menu) return;
+    menu.innerHTML = '';
+    options.forEach(function(opt){
+      var item = document.createElement('div');
+      item.className = 'lang-item';
+      item.textContent = opt.text;
+      item.onclick = function(){
+        combo.value = opt.value;
+        combo.dispatchEvent(new Event('change'));
+        closeLangMenus();
+      };
+      menu.appendChild(item);
+    });
+  });
+}
+
+function toggleLangMenu(switchId){
+  var wrap = document.getElementById(switchId);
+  var menu = wrap.querySelector('.langmenu');
+  var isOpen = menu.classList.contains('open');
+  closeLangMenus();
+  if(!isOpen){
+    wrap.querySelector('.langbtn').classList.add('open');
+    menu.classList.add('open');
+  }
+}
+function closeLangMenus(){
+  document.querySelectorAll('.langbtn.open').forEach(function(b){ b.classList.remove('open'); });
+  document.querySelectorAll('.langmenu.open').forEach(function(m){ m.classList.remove('open'); });
+}
+document.addEventListener('click', function(e){
+  if(!e.target.closest('.langsw')) closeLangMenus();
+});
 </script>
 <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
