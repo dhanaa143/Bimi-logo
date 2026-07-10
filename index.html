@@ -317,18 +317,14 @@ footer{background:var(--char);border-top:1px solid rgba(255,255,255,.055)}
 .fleg a{font-size:.68rem;color:var(--muted);transition:.3s}
 .fleg a:hover{color:var(--gold)}
 
-/* TRANSLATE WIDGET — custom UI driven by Google's engine (their own widget lives in a
-   cross-origin iframe we can't restyle, so we hide it and drive it programmatically) */
-#google_translate_element{position:absolute;width:1px;height:1px;overflow:hidden;opacity:0;pointer-events:none}
-body>.skiptranslate{display:none!important}
-body{top:0!important}
+/* TRANSLATE WIDGET */
 .langsw{position:relative;flex-shrink:0}
 .langbtn{width:38px;height:38px;border:1px solid var(--border);border-radius:50%;background:transparent;color:var(--light);font-size:.95rem;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:.3s}
 .langbtn:hover,.langbtn.open{border-color:var(--gold);color:var(--gold);background:rgba(184,148,42,.08)}
 .langmenu{display:none;position:absolute;top:calc(100% + .7rem);right:0;background:var(--g2);border:1px solid var(--border);border-radius:2px;min-width:190px;max-height:19rem;overflow-y:auto;box-shadow:0 22px 48px rgba(0,0,0,.4);z-index:2000}
 .langmenu.open{display:block}
 .langmenu::-webkit-scrollbar{width:4px}.langmenu::-webkit-scrollbar-thumb{background:var(--gold)}
-.lang-item{padding:.6rem 1.1rem;font-family:var(--flab);font-size:.68rem;font-weight:500;letter-spacing:.04em;color:var(--light);cursor:pointer;transition:.2s;white-space:nowrap;border-bottom:1px solid rgba(255,255,255,.05)}
+.lang-item{display:block;text-decoration:none;padding:.6rem 1.1rem;font-family:var(--flab);font-size:.68rem;font-weight:500;letter-spacing:.04em;color:var(--light);cursor:pointer;transition:.2s;white-space:nowrap;border-bottom:1px solid rgba(255,255,255,.05)}
 .lang-item:last-child{border-bottom:none}
 .lang-item:hover{background:rgba(184,148,42,.12);color:var(--goldl)}
 .lang-loading{padding:.85rem 1.1rem;font-family:var(--flab);font-size:.65rem;color:var(--muted);letter-spacing:.05em}
@@ -419,8 +415,6 @@ body{top:0!important}
 </div>
 </div>
 </nav>
-
-<div id="google_translate_element"></div>
 
 <!-- MOBILE MENU -->
 <div class="mmenu" id="mmenu">
@@ -938,7 +932,7 @@ body{top:0!important}
       <div class="fbn">Dhanaa Ceylon Spices LTD</div>
       <div class="fbr">Premium B2B Spice Exporter · Sri Lanka &amp; UK</div>
       <p class="fbd">From the highlands of Sri Lanka to markets worldwide — supplying the finest Ceylon spices with uncompromising quality and full export documentation.</p>
-      <div class="fsoc"><a href="#" class="fsl">in</a><a href="#" class="fsl">ig</a><a href="#" class="fsl">fb</a></div>
+      <div class="fsoc"><a href="#" class="fsl">in</a><a href="https://www.instagram.com/dhanaaspices143?igsh=MTBuMTc0YXE3b3Rwcg==" target="_blank" rel="noopener" class="fsl">ig</a><a href="https://www.facebook.com/DhanaaSpices" target="_blank" rel="noopener" class="fsl">fb</a></div>
     </div>
     <div>
       <div class="fct">Products</div>
@@ -1048,46 +1042,38 @@ function sendEnquiry(form){
 }
 </script>
 
-<!-- Language translator — Google's engine, our own UI (their widget renders in a
-     cross-origin iframe we can't restyle, so it's hidden and driven programmatically) -->
+<!-- Language translator — plain links into Google's own page-translate service.
+     (No JS widget/hidden-iframe hack: those depend on undocumented Google internals
+     and proved unreliable across devices. This is just navigation, so it always works.) -->
 <script>
-function googleTranslateElementInit(){
-  new google.translate.TranslateElement({
-    pageLanguage: 'en',
-    autoDisplay: false
-  }, 'google_translate_element');
-  waitForGoogleCombo();
-}
+var LANGUAGES = [
+  ['fr','French'],['es','Spanish'],['de','German'],['it','Italian'],['pt','Portuguese'],
+  ['nl','Dutch'],['ru','Russian'],['pl','Polish'],['sv','Swedish'],['el','Greek'],
+  ['tr','Turkish'],['ar','Arabic'],['iw','Hebrew'],['fa','Persian'],
+  ['hi','Hindi'],['bn','Bengali'],['ur','Urdu'],['si','Sinhala'],['ta','Tamil'],
+  ['zh-CN','Chinese (Simplified)'],['zh-TW','Chinese (Traditional)'],['ja','Japanese'],['ko','Korean'],
+  ['th','Thai'],['vi','Vietnamese'],['id','Indonesian'],['ms','Malay'],['sw','Swahili']
+];
 
-function waitForGoogleCombo(attempt){
-  attempt = attempt || 0;
-  var combo = document.querySelector('.goog-te-combo');
-  if(!combo){
-    if(attempt > 40) return; // ~20s, give up quietly
-    return setTimeout(function(){ waitForGoogleCombo(attempt + 1); }, 500);
-  }
-  buildLangMenus(combo);
-}
-
-function buildLangMenus(combo){
-  var options = Array.prototype.slice.call(combo.options).filter(function(o){ return o.value; });
+function buildLangMenus(){
+  var pageUrl = encodeURIComponent(window.location.href);
   ['langmenu1','langmenu2'].forEach(function(menuId){
     var menu = document.getElementById(menuId);
     if(!menu) return;
     menu.innerHTML = '';
-    options.forEach(function(opt){
-      var item = document.createElement('div');
-      item.className = 'lang-item';
-      item.textContent = opt.text;
-      item.onclick = function(){
-        combo.value = opt.value;
-        combo.dispatchEvent(new Event('change'));
-        closeLangMenus();
-      };
-      menu.appendChild(item);
+    LANGUAGES.forEach(function(lang){
+      var a = document.createElement('a');
+      a.className = 'lang-item';
+      a.textContent = lang[1];
+      a.href = 'https://translate.google.com/translate?sl=en&tl=' + lang[0] + '&u=' + pageUrl;
+      a.target = '_blank';
+      a.rel = 'noopener';
+      a.onclick = function(){ closeLangMenus(); };
+      menu.appendChild(a);
     });
   });
 }
+buildLangMenus();
 
 function toggleLangMenu(switchId){
   var wrap = document.getElementById(switchId);
@@ -1107,7 +1093,6 @@ document.addEventListener('click', function(e){
   if(!e.target.closest('.langsw')) closeLangMenus();
 });
 </script>
-<script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
 <a href="https://wa.me/94762307361" target="_blank" rel="noopener" title="Chat on WhatsApp"
    style="position:fixed;bottom:1.75rem;right:1.75rem;z-index:9999;width:56px;height:56px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(37,211,102,.4);transition:.3s;text-decoration:none"
