@@ -64,6 +64,47 @@
   ]
 }
 </script>
+
+<!-- Structured data: FAQ (enables rich-result FAQ snippets in Google search) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is your minimum order quantity (MOQ)?",
+      "acceptedAnswer": { "@type": "Answer", "text": "MOQs vary by product, starting from 250KG for cardamom and nutmeg/mace, and 500KG per SKU for cinnamon, turmeric, and private label orders. Black pepper can start as low as 1MT. Full container loads (20' or 40' FCL) are available for larger buyers." }
+    },
+    {
+      "@type": "Question",
+      "name": "What payment terms do you accept?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Our standard payment method is an irrevocable Letter of Credit payable at sight (Sight LC), issued in favour of Dhanaa Spices. Other methods such as telegraphic transfer may be accepted at our discretion." }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I get a sample before placing a bulk order?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Yes. We dispatch pre-shipment samples matching the exact grade and specification of your intended order, so you can approve quality before production begins." }
+    },
+    {
+      "@type": "Question",
+      "name": "What documents come with each shipment?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Every order ships with a Certificate of Analysis (COA), Phytosanitary Certificate, Fumigation Certificate, Certificate of Origin, Commercial Invoice, Packing List, and Bill of Lading or Air Waybill." }
+    },
+    {
+      "@type": "Question",
+      "name": "What's the difference between Ceylon cinnamon and regular cinnamon?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Most cinnamon sold worldwide is cassia, a different species with 2-7% coumarin content. True Ceylon cinnamon (Cinnamomum verum), grown almost exclusively in Sri Lanka, contains only around 0.004-0.02% coumarin." }
+    },
+    {
+      "@type": "Question",
+      "name": "Can you manufacture under our own brand (private label)?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Yes. We handle sourcing, processing, and packing to your specification, from 500KG per SKU, with a mutual NDA available before formulation details are discussed." }
+    }
+  ]
+}
+</script>
+
 <!-- Google Analytics (GA4) -->
 <!-- TODO: create a free GA4 property at analytics.google.com, then replace G-XXXXXXXXXX below with your real Measurement ID -->
 <script>
@@ -649,12 +690,163 @@ footer{background:var(--char);border-top:1px solid rgba(255,255,255,.055)}
   </div>
   <!-- Other products -->
   <div class="oprodg" style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.35rem">
-    <div style="border:1px solid rgba(11,36,23,.12);border-radius:2px;padding:1.85rem"><div style="font-size:1.4rem;margin-bottom:.9rem">🌶️</div><span class="lbl" style="font-size:.57rem;display:block;margin-bottom:.4rem">Piper nigrum</span><h3 style="font-family:var(--fdis);font-size:1.1rem;font-weight:600;color:var(--g1);margin-bottom:.65rem">Black &amp; White Pepper</h3><p style="font-size:.8rem;color:var(--muted);line-height:1.7;margin-bottom:.9rem">Aromatic Sri Lankan pepper. Whole, cracked, and ground formats.</p><button class="btn-o" style="color:var(--g1);border-color:rgba(11,36,23,.2);font-size:.62rem;padding:.55rem 1.1rem" onclick="sp('contact')">Get Quote</button></div>
-    <div style="border:1px solid rgba(11,36,23,.12);border-radius:2px;padding:1.85rem"><div style="font-size:1.4rem;margin-bottom:.9rem">🌸</div><span class="lbl" style="font-size:.57rem;display:block;margin-bottom:.4rem">Syzygium aromaticum</span><h3 style="font-family:var(--fdis);font-size:1.1rem;font-weight:600;color:var(--g1);margin-bottom:.65rem">Cloves</h3><p style="font-size:.8rem;color:var(--muted);line-height:1.7;margin-bottom:.9rem">High essential oil content. Rich, intensely fragrant whole and powder.</p><button class="btn-o" style="color:var(--g1);border-color:rgba(11,36,23,.2);font-size:.62rem;padding:.55rem 1.1rem" onclick="sp('contact')">Get Quote</button></div>
-    <div style="border:1px solid rgba(11,36,23,.12);border-radius:2px;padding:1.85rem"><div style="font-size:1.4rem;margin-bottom:.9rem">💚</div><span class="lbl" style="font-size:.57rem;display:block;margin-bottom:.4rem">Elettaria cardamomum</span><h3 style="font-family:var(--fdis);font-size:1.1rem;font-weight:600;color:var(--g1);margin-bottom:.65rem">Cardamom</h3><p style="font-size:.8rem;color:var(--muted);line-height:1.7;margin-bottom:.9rem">Fragrant hill-country cardamom. Whole pods and decorticated seeds.</p><button class="btn-o" style="color:var(--g1);border-color:rgba(11,36,23,.2);font-size:.62rem;padding:.55rem 1.1rem" onclick="sp('contact')">Get Quote</button></div>
-    <div style="border:1px solid rgba(11,36,23,.12);border-radius:2px;padding:1.85rem"><div style="font-size:1.4rem;margin-bottom:.9rem">🟤</div><span class="lbl" style="font-size:.57rem;display:block;margin-bottom:.4rem">Myristica fragrans</span><h3 style="font-family:var(--fdis);font-size:1.1rem;font-weight:600;color:var(--g1);margin-bottom:.65rem">Nutmeg &amp; Mace</h3><p style="font-size:.8rem;color:var(--muted);line-height:1.7;margin-bottom:.9rem">Warm, complex nutmeg with its delicate aril mace. Whole and powder.</p><button class="btn-o" style="color:var(--g1);border-color:rgba(11,36,23,.2);font-size:.62rem;padding:.55rem 1.1rem" onclick="sp('contact')">Get Quote</button></div>
-    <div style="border:1px solid rgba(11,36,23,.12);border-radius:2px;padding:1.85rem"><div style="font-size:1.4rem;margin-bottom:.9rem">💛</div><span class="lbl" style="font-size:.57rem;display:block;margin-bottom:.4rem">Curcuma longa</span><h3 style="font-family:var(--fdis);font-size:1.1rem;font-weight:600;color:var(--g1);margin-bottom:.65rem">Turmeric</h3><p style="font-size:.8rem;color:var(--muted);line-height:1.7;margin-bottom:.9rem">High curcumin content. Vibrant colour, rich aroma. Finger and powder.</p><button class="btn-o" style="color:var(--g1);border-color:rgba(11,36,23,.2);font-size:.62rem;padding:.55rem 1.1rem" onclick="sp('contact')">Get Quote</button></div>
-    <div style="border:1px solid rgba(11,36,23,.12);border-radius:2px;padding:1.85rem"><div style="font-size:1.4rem;margin-bottom:.9rem">🍃</div><span class="lbl" style="font-size:.57rem;display:block;margin-bottom:.4rem">Custom Formulation</span><h3 style="font-family:var(--fdis);font-size:1.1rem;font-weight:600;color:var(--g1);margin-bottom:.65rem">Curry &amp; Spice Blends</h3><p style="font-size:.8rem;color:var(--muted);line-height:1.7;margin-bottom:.9rem">Custom curry powder and spice blend manufacturing to your formulation.</p><button class="btn-o" style="color:var(--g1);border-color:rgba(11,36,23,.2);font-size:.62rem;padding:.55rem 1.1rem" onclick="sp('contact')">Get Quote</button></div>
+    <div style="border:1px solid rgba(11,36,23,.12);border-radius:2px;padding:1.85rem"><div style="font-size:1.4rem;margin-bottom:.9rem">🌶️</div><span class="lbl" style="font-size:.57rem;display:block;margin-bottom:.4rem">Piper nigrum</span><h3 style="font-family:var(--fdis);font-size:1.1rem;font-weight:600;color:var(--g1);margin-bottom:.65rem">Black &amp; White Pepper</h3><p style="font-size:.8rem;color:var(--muted);line-height:1.7;margin-bottom:.9rem">Aromatic Sri Lankan pepper. Whole, cracked, and ground formats.</p><div style="display:flex;gap:.6rem;flex-wrap:wrap"><button class="btn-o" style="color:var(--g1);border-color:rgba(11,36,23,.2);font-size:.62rem;padding:.55rem 1.1rem" onclick="sp('contact')">Get Quote</button><button class="btn-o" style="color:var(--g1);border-color:rgba(11,36,23,.2);font-size:.62rem;padding:.55rem 1.1rem" onclick="sp('prod-pepper')">Full Specs →</button></div></div>
+    <div style="border:1px solid rgba(11,36,23,.12);border-radius:2px;padding:1.85rem"><div style="font-size:1.4rem;margin-bottom:.9rem">🌸</div><span class="lbl" style="font-size:.57rem;display:block;margin-bottom:.4rem">Syzygium aromaticum</span><h3 style="font-family:var(--fdis);font-size:1.1rem;font-weight:600;color:var(--g1);margin-bottom:.65rem">Cloves</h3><p style="font-size:.8rem;color:var(--muted);line-height:1.7;margin-bottom:.9rem">High essential oil content. Rich, intensely fragrant whole and powder.</p><div style="display:flex;gap:.6rem;flex-wrap:wrap"><button class="btn-o" style="color:var(--g1);border-color:rgba(11,36,23,.2);font-size:.62rem;padding:.55rem 1.1rem" onclick="sp('contact')">Get Quote</button><button class="btn-o" style="color:var(--g1);border-color:rgba(11,36,23,.2);font-size:.62rem;padding:.55rem 1.1rem" onclick="sp('prod-cloves')">Full Specs →</button></div></div>
+    <div style="border:1px solid rgba(11,36,23,.12);border-radius:2px;padding:1.85rem"><div style="font-size:1.4rem;margin-bottom:.9rem">💚</div><span class="lbl" style="font-size:.57rem;display:block;margin-bottom:.4rem">Elettaria cardamomum</span><h3 style="font-family:var(--fdis);font-size:1.1rem;font-weight:600;color:var(--g1);margin-bottom:.65rem">Cardamom</h3><p style="font-size:.8rem;color:var(--muted);line-height:1.7;margin-bottom:.9rem">Fragrant hill-country cardamom. Whole pods and decorticated seeds.</p><div style="display:flex;gap:.6rem;flex-wrap:wrap"><button class="btn-o" style="color:var(--g1);border-color:rgba(11,36,23,.2);font-size:.62rem;padding:.55rem 1.1rem" onclick="sp('contact')">Get Quote</button><button class="btn-o" style="color:var(--g1);border-color:rgba(11,36,23,.2);font-size:.62rem;padding:.55rem 1.1rem" onclick="sp('prod-cardamom')">Full Specs →</button></div></div>
+    <div style="border:1px solid rgba(11,36,23,.12);border-radius:2px;padding:1.85rem"><div style="font-size:1.4rem;margin-bottom:.9rem">🟤</div><span class="lbl" style="font-size:.57rem;display:block;margin-bottom:.4rem">Myristica fragrans</span><h3 style="font-family:var(--fdis);font-size:1.1rem;font-weight:600;color:var(--g1);margin-bottom:.65rem">Nutmeg &amp; Mace</h3><p style="font-size:.8rem;color:var(--muted);line-height:1.7;margin-bottom:.9rem">Warm, complex nutmeg with its delicate aril mace. Whole and powder.</p><div style="display:flex;gap:.6rem;flex-wrap:wrap"><button class="btn-o" style="color:var(--g1);border-color:rgba(11,36,23,.2);font-size:.62rem;padding:.55rem 1.1rem" onclick="sp('contact')">Get Quote</button><button class="btn-o" style="color:var(--g1);border-color:rgba(11,36,23,.2);font-size:.62rem;padding:.55rem 1.1rem" onclick="sp('prod-nutmeg')">Full Specs →</button></div></div>
+    <div style="border:1px solid rgba(11,36,23,.12);border-radius:2px;padding:1.85rem"><div style="font-size:1.4rem;margin-bottom:.9rem">💛</div><span class="lbl" style="font-size:.57rem;display:block;margin-bottom:.4rem">Curcuma longa</span><h3 style="font-family:var(--fdis);font-size:1.1rem;font-weight:600;color:var(--g1);margin-bottom:.65rem">Turmeric</h3><p style="font-size:.8rem;color:var(--muted);line-height:1.7;margin-bottom:.9rem">High curcumin content. Vibrant colour, rich aroma. Finger and powder.</p><div style="display:flex;gap:.6rem;flex-wrap:wrap"><button class="btn-o" style="color:var(--g1);border-color:rgba(11,36,23,.2);font-size:.62rem;padding:.55rem 1.1rem" onclick="sp('contact')">Get Quote</button><button class="btn-o" style="color:var(--g1);border-color:rgba(11,36,23,.2);font-size:.62rem;padding:.55rem 1.1rem" onclick="sp('prod-turmeric')">Full Specs →</button></div></div>
+    <div style="border:1px solid rgba(11,36,23,.12);border-radius:2px;padding:1.85rem"><div style="font-size:1.4rem;margin-bottom:.9rem">🍃</div><span class="lbl" style="font-size:.57rem;display:block;margin-bottom:.4rem">Custom Formulation</span><h3 style="font-family:var(--fdis);font-size:1.1rem;font-weight:600;color:var(--g1);margin-bottom:.65rem">Curry &amp; Spice Blends</h3><p style="font-size:.8rem;color:var(--muted);line-height:1.7;margin-bottom:.9rem">Custom curry powder and spice blend manufacturing to your formulation.</p><div style="display:flex;gap:.6rem;flex-wrap:wrap"><button class="btn-o" style="color:var(--g1);border-color:rgba(11,36,23,.2);font-size:.62rem;padding:.55rem 1.1rem" onclick="sp('contact')">Get Quote</button><button class="btn-o" style="color:var(--g1);border-color:rgba(11,36,23,.2);font-size:.62rem;padding:.55rem 1.1rem" onclick="sp('prod-curryblends')">Full Specs →</button></div></div>
+  </div>
+</div>
+</div>
+</section>
+
+<!-- ════════ PRODUCT: BLACK & WHITE PEPPER ════════ -->
+<section class="ps" id="s-prod-pepper">
+<div class="phero"><div class="wrap phero-inner"><a href="#" onclick="return sp('products')" style="color:var(--gold);font-family:var(--flab);font-size:.65rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;display:inline-flex;align-items:center;gap:.4rem;margin-bottom:1rem">← Back to Products</a><br><span class="lbl">Piper nigrum</span><h1 style="font-family:var(--fdis);font-size:clamp(2rem,4.2vw,3.2rem);font-weight:600;color:var(--white);margin-top:.65rem;line-height:1.15">Black &amp; White Pepper</h1></div></div>
+<div class="sec-cr">
+<div class="wrap">
+  <div style="max-width:740px">
+    <p style="font-size:.95rem;color:#2D4035;line-height:1.9;margin-bottom:1.5rem">Sri Lankan black pepper is prized in the international spice trade for its higher piperine content, which gives it a sharper, more pungent character than pepper from many other origins. It's grown across the island's mid and low country regions and remains one of Sri Lanka's most consistently exported spices.</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:.85rem;margin-bottom:1.75rem">
+      <div style="padding:.85rem;border:1px solid rgba(11,36,23,.1);border-radius:2px"><span class="lbl" style="font-size:.57rem;display:block;margin-bottom:.3rem">Moisture</span><span style="font-size:.82rem;color:#3D5045">Max 12% (Special Grade 1)</span></div>
+      <div style="padding:.85rem;border:1px solid rgba(11,36,23,.1);border-radius:2px"><span class="lbl" style="font-size:.57rem;display:block;margin-bottom:.3rem">Export Grades</span><span style="font-size:.82rem;color:#3D5045">Special Grade 1, Grade 1, FAQ</span></div>
+      <div style="padding:.85rem;border:1px solid rgba(11,36,23,.1);border-radius:2px"><span class="lbl" style="font-size:.57rem;display:block;margin-bottom:.3rem">MOQ</span><span style="font-size:.82rem;color:#3D5045">From 1 MT</span></div>
+      <div style="padding:.85rem;border:1px solid rgba(11,36,23,.1);border-radius:2px"><span class="lbl" style="font-size:.57rem;display:block;margin-bottom:.3rem">Container</span><span style="font-size:.82rem;color:#3D5045">20' / 40' FCL</span></div>
+    </div>
+    <h3 style="font-family:var(--fdis);font-size:1.15rem;font-weight:600;color:var(--g1);margin:1.5rem 0 .65rem">Available Forms</h3>
+    <ul style="font-size:.9rem;color:#3D5045;line-height:1.95;padding-left:1.25rem">
+      <li>Whole black pepper (Special Grade 1, Grade 1, FAQ)</li>
+      <li>Cracked / crushed black pepper</li>
+      <li>Ground black pepper powder</li>
+      <li>Whole and ground white pepper</li>
+    </ul>
+    <p style="font-size:.9rem;color:#3D5045;line-height:1.85;margin-top:1.5rem">Every lot is graded to Sri Lanka Standards Institution specifications and lab-tested before shipment, with a full Certificate of Analysis provided.</p>
+    <div style="margin-top:2.25rem;display:flex;gap:1rem;flex-wrap:wrap"><button class="btn-g" onclick="sp('contact')" style="background:var(--g1);color:var(--cream)">Request Pepper Specs &amp; Quote →</button><button class="btn-o" style="color:var(--g1);border-color:rgba(11,36,23,.2)" onclick="sp('products')">← Back to Products</button></div>
+  </div>
+</div>
+</div>
+</section>
+
+<!-- ════════ PRODUCT: CLOVES ════════ -->
+<section class="ps" id="s-prod-cloves">
+<div class="phero"><div class="wrap phero-inner"><a href="#" onclick="return sp('products')" style="color:var(--gold);font-family:var(--flab);font-size:.65rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;display:inline-flex;align-items:center;gap:.4rem;margin-bottom:1rem">← Back to Products</a><br><span class="lbl">Syzygium aromaticum</span><h1 style="font-family:var(--fdis);font-size:clamp(2rem,4.2vw,3.2rem);font-weight:600;color:var(--white);margin-top:.65rem;line-height:1.15">Ceylon Cloves</h1></div></div>
+<div class="sec-cr">
+<div class="wrap">
+  <div style="max-width:740px">
+    <p style="font-size:.95rem;color:#2D4035;line-height:1.9;margin-bottom:1.5rem">Grown mainly in the mid-country wet zone — the Kandy, Kegalle, and Matale districts — Sri Lankan cloves are recognised for their richer essential oil content compared to cloves from many other producing countries, giving them a more intense aroma and flavour.</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:.85rem;margin-bottom:1.75rem">
+      <div style="padding:.85rem;border:1px solid rgba(11,36,23,.1);border-radius:2px"><span class="lbl" style="font-size:.57rem;display:block;margin-bottom:.3rem">Top Grade</span><span style="font-size:.82rem;color:#3D5045">HPS (Hand Picked Selected)</span></div>
+      <div style="padding:.85rem;border:1px solid rgba(11,36,23,.1);border-radius:2px"><span class="lbl" style="font-size:.57rem;display:block;margin-bottom:.3rem">Second Grade</span><span style="font-size:.82rem;color:#3D5045">No. 1</span></div>
+      <div style="padding:.85rem;border:1px solid rgba(11,36,23,.1);border-radius:2px"><span class="lbl" style="font-size:.57rem;display:block;margin-bottom:.3rem">MOQ</span><span style="font-size:.82rem;color:#3D5045">From 500 KG</span></div>
+      <div style="padding:.85rem;border:1px solid rgba(11,36,23,.1);border-radius:2px"><span class="lbl" style="font-size:.57rem;display:block;margin-bottom:.3rem">Growing Region</span><span style="font-size:.82rem;color:#3D5045">Kandy, Kegalle, Matale</span></div>
+    </div>
+    <h3 style="font-family:var(--fdis);font-size:1.15rem;font-weight:600;color:var(--g1);margin:1.5rem 0 .65rem">Available Forms</h3>
+    <ul style="font-size:.9rem;color:#3D5045;line-height:1.95;padding-left:1.25rem">
+      <li>Whole cloves — HPS grade (full bud, no headless cloves or stems)</li>
+      <li>Whole cloves — No. 1 grade</li>
+      <li>Ground clove powder</li>
+    </ul>
+    <p style="font-size:.9rem;color:#3D5045;line-height:1.85;margin-top:1.5rem">Sri Lanka is consistently among the world's top ten clove-exporting countries, and every shipment we send ships with full Certificate of Analysis and export documentation.</p>
+    <div style="margin-top:2.25rem;display:flex;gap:1rem;flex-wrap:wrap"><button class="btn-g" onclick="sp('contact')" style="background:var(--g1);color:var(--cream)">Request Clove Specs &amp; Quote →</button><button class="btn-o" style="color:var(--g1);border-color:rgba(11,36,23,.2)" onclick="sp('products')">← Back to Products</button></div>
+  </div>
+</div>
+</div>
+</section>
+
+<!-- ════════ PRODUCT: CARDAMOM ════════ -->
+<section class="ps" id="s-prod-cardamom">
+<div class="phero"><div class="wrap phero-inner"><a href="#" onclick="return sp('products')" style="color:var(--gold);font-family:var(--flab);font-size:.65rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;display:inline-flex;align-items:center;gap:.4rem;margin-bottom:1rem">← Back to Products</a><br><span class="lbl">Elettaria cardamomum</span><h1 style="font-family:var(--fdis);font-size:clamp(2rem,4.2vw,3.2rem);font-weight:600;color:var(--white);margin-top:.65rem;line-height:1.15">Ceylon Cardamom</h1></div></div>
+<div class="sec-cr">
+<div class="wrap">
+  <div style="max-width:740px">
+    <p style="font-size:.95rem;color:#2D4035;line-height:1.9;margin-bottom:1.5rem">Grown in Sri Lanka's mid-country wet zone hill regions, our cardamom is light green in colour and cured using a traditional barn-treating method that preserves its essential oils and distinctive fragrance through drying.</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:.85rem;margin-bottom:1.75rem">
+      <div style="padding:.85rem;border:1px solid rgba(11,36,23,.1);border-radius:2px"><span class="lbl" style="font-size:.57rem;display:block;margin-bottom:.3rem">Colour Grade</span><span style="font-size:.82rem;color:#3D5045">Light Green</span></div>
+      <div style="padding:.85rem;border:1px solid rgba(11,36,23,.1);border-radius:2px"><span class="lbl" style="font-size:.57rem;display:block;margin-bottom:.3rem">Processing</span><span style="font-size:.82rem;color:#3D5045">Traditional barn-curing</span></div>
+      <div style="padding:.85rem;border:1px solid rgba(11,36,23,.1);border-radius:2px"><span class="lbl" style="font-size:.57rem;display:block;margin-bottom:.3rem">MOQ</span><span style="font-size:.82rem;color:#3D5045">From 250 KG</span></div>
+      <div style="padding:.85rem;border:1px solid rgba(11,36,23,.1);border-radius:2px"><span class="lbl" style="font-size:.57rem;display:block;margin-bottom:.3rem">Growing Region</span><span style="font-size:.82rem;color:#3D5045">Mid-country wet zone</span></div>
+    </div>
+    <h3 style="font-family:var(--fdis);font-size:1.15rem;font-weight:600;color:var(--g1);margin:1.5rem 0 .65rem">Available Forms</h3>
+    <ul style="font-size:.9rem;color:#3D5045;line-height:1.95;padding-left:1.25rem">
+      <li>Whole green cardamom pods</li>
+      <li>Decorticated cardamom seeds</li>
+    </ul>
+    <p style="font-size:.9rem;color:#3D5045;line-height:1.85;margin-top:1.5rem">Every lot is tested and documented to the same standard as our other spices, with full traceability back to the growing region.</p>
+    <div style="margin-top:2.25rem;display:flex;gap:1rem;flex-wrap:wrap"><button class="btn-g" onclick="sp('contact')" style="background:var(--g1);color:var(--cream)">Request Cardamom Specs &amp; Quote →</button><button class="btn-o" style="color:var(--g1);border-color:rgba(11,36,23,.2)" onclick="sp('products')">← Back to Products</button></div>
+  </div>
+</div>
+</div>
+</section>
+
+<!-- ════════ PRODUCT: NUTMEG & MACE ════════ -->
+<section class="ps" id="s-prod-nutmeg">
+<div class="phero"><div class="wrap phero-inner"><a href="#" onclick="return sp('products')" style="color:var(--gold);font-family:var(--flab);font-size:.65rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;display:inline-flex;align-items:center;gap:.4rem;margin-bottom:1rem">← Back to Products</a><br><span class="lbl">Myristica fragrans</span><h1 style="font-family:var(--fdis);font-size:clamp(2rem,4.2vw,3.2rem);font-weight:600;color:var(--white);margin-top:.65rem;line-height:1.15">Nutmeg &amp; Mace</h1></div></div>
+<div class="sec-cr">
+<div class="wrap">
+  <div style="max-width:740px">
+    <p style="font-size:.95rem;color:#2D4035;line-height:1.9;margin-bottom:1.5rem">Nutmeg and its delicate aril, mace, are grown in Sri Lanka's central districts of Matale, Kegalle, and Kandy — with roughly 80% of the island's nutmeg production coming from the Kandy district alone. Sri Lanka supplies an estimated 5% of global nutmeg demand and 7% of global mace demand, exporting to markets including India, the UAE, the USA, Germany, Pakistan, and the UK.</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:.85rem;margin-bottom:1.75rem">
+      <div style="padding:.85rem;border:1px solid rgba(11,36,23,.1);border-radius:2px"><span class="lbl" style="font-size:.57rem;display:block;margin-bottom:.3rem">Growing Region</span><span style="font-size:.82rem;color:#3D5045">Kandy, Matale, Kegalle</span></div>
+      <div style="padding:.85rem;border:1px solid rgba(11,36,23,.1);border-radius:2px"><span class="lbl" style="font-size:.57rem;display:block;margin-bottom:.3rem">MOQ</span><span style="font-size:.82rem;color:#3D5045">From 250 KG</span></div>
+      <div style="padding:.85rem;border:1px solid rgba(11,36,23,.1);border-radius:2px"><span class="lbl" style="font-size:.57rem;display:block;margin-bottom:.3rem">Container</span><span style="font-size:.82rem;color:#3D5045">20' / 40' FCL</span></div>
+      <div style="padding:.85rem;border:1px solid rgba(11,36,23,.1);border-radius:2px"><span class="lbl" style="font-size:.57rem;display:block;margin-bottom:.3rem">Key Markets</span><span style="font-size:.82rem;color:#3D5045">India, UAE, USA, Germany, UK</span></div>
+    </div>
+    <h3 style="font-family:var(--fdis);font-size:1.15rem;font-weight:600;color:var(--g1);margin:1.5rem 0 .65rem">Available Forms</h3>
+    <ul style="font-size:.9rem;color:#3D5045;line-height:1.95;padding-left:1.25rem">
+      <li>Whole nutmeg</li>
+      <li>Ground nutmeg powder</li>
+      <li>Whole and ground mace</li>
+    </ul>
+    <div style="margin-top:2.25rem;display:flex;gap:1rem;flex-wrap:wrap"><button class="btn-g" onclick="sp('contact')" style="background:var(--g1);color:var(--cream)">Request Nutmeg &amp; Mace Quote →</button><button class="btn-o" style="color:var(--g1);border-color:rgba(11,36,23,.2)" onclick="sp('products')">← Back to Products</button></div>
+  </div>
+</div>
+</div>
+</section>
+
+<!-- ════════ PRODUCT: TURMERIC ════════ -->
+<section class="ps" id="s-prod-turmeric">
+<div class="phero"><div class="wrap phero-inner"><a href="#" onclick="return sp('products')" style="color:var(--gold);font-family:var(--flab);font-size:.65rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;display:inline-flex;align-items:center;gap:.4rem;margin-bottom:1rem">← Back to Products</a><br><span class="lbl">Curcuma longa</span><h1 style="font-family:var(--fdis);font-size:clamp(2rem,4.2vw,3.2rem);font-weight:600;color:var(--white);margin-top:.65rem;line-height:1.15">Ceylon Turmeric</h1></div></div>
+<div class="sec-cr">
+<div class="wrap">
+  <div style="max-width:740px">
+    <p style="font-size:.95rem;color:#2D4035;line-height:1.9;margin-bottom:1.5rem">Curcumin content in turmeric typically ranges from 2–6% depending on origin and growing conditions — Sri Lankan-grown turmeric generally exceeds 4% curcumin, placing it toward the higher-quality end of that range, with a vivid orange-yellow colour that reflects its curcumin density.</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:.85rem;margin-bottom:1.75rem">
+      <div style="padding:.85rem;border:1px solid rgba(11,36,23,.1);border-radius:2px"><span class="lbl" style="font-size:.57rem;display:block;margin-bottom:.3rem">Curcumin Content</span><span style="font-size:.82rem;color:#3D5045">4%+ typical</span></div>
+      <div style="padding:.85rem;border:1px solid rgba(11,36,23,.1);border-radius:2px"><span class="lbl" style="font-size:.57rem;display:block;margin-bottom:.3rem">Colour</span><span style="font-size:.82rem;color:#3D5045">Deep orange-yellow</span></div>
+      <div style="padding:.85rem;border:1px solid rgba(11,36,23,.1);border-radius:2px"><span class="lbl" style="font-size:.57rem;display:block;margin-bottom:.3rem">MOQ</span><span style="font-size:.82rem;color:#3D5045">From 500 KG</span></div>
+      <div style="padding:.85rem;border:1px solid rgba(11,36,23,.1);border-radius:2px"><span class="lbl" style="font-size:.57rem;display:block;margin-bottom:.3rem">Container</span><span style="font-size:.82rem;color:#3D5045">20' / 40' FCL</span></div>
+    </div>
+    <h3 style="font-family:var(--fdis);font-size:1.15rem;font-weight:600;color:var(--g1);margin:1.5rem 0 .65rem">Available Forms</h3>
+    <ul style="font-size:.9rem;color:#3D5045;line-height:1.95;padding-left:1.25rem">
+      <li>Raw / finger turmeric</li>
+      <li>Turmeric powder</li>
+      <li>Custom curcumin-content specification on request</li>
+    </ul>
+    <p style="font-size:.9rem;color:#3D5045;line-height:1.85;margin-top:1.5rem">Curcumin content is confirmed per lot on the Certificate of Analysis, so food manufacturers can formulate with confidence.</p>
+    <div style="margin-top:2.25rem;display:flex;gap:1rem;flex-wrap:wrap"><button class="btn-g" onclick="sp('contact')" style="background:var(--g1);color:var(--cream)">Request Turmeric Specs &amp; Quote →</button><button class="btn-o" style="color:var(--g1);border-color:rgba(11,36,23,.2)" onclick="sp('products')">← Back to Products</button></div>
+  </div>
+</div>
+</div>
+</section>
+
+<!-- ════════ PRODUCT: CURRY & SPICE BLENDS ════════ -->
+<section class="ps" id="s-prod-curryblends">
+<div class="phero"><div class="wrap phero-inner"><a href="#" onclick="return sp('products')" style="color:var(--gold);font-family:var(--flab);font-size:.65rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;display:inline-flex;align-items:center;gap:.4rem;margin-bottom:1rem">← Back to Products</a><br><span class="lbl">Custom Formulation</span><h1 style="font-family:var(--fdis);font-size:clamp(2rem,4.2vw,3.2rem);font-weight:600;color:var(--white);margin-top:.65rem;line-height:1.15">Curry &amp; Spice Blends</h1></div></div>
+<div class="sec-cr">
+<div class="wrap">
+  <div style="max-width:740px">
+    <p style="font-size:.95rem;color:#2D4035;line-height:1.9;margin-bottom:1.5rem">Beyond single-origin spices, we manufacture custom curry powders and spice blends to your own formulation — whether that's an existing recipe you want produced at scale, or a new blend developed with our team using genuine Ceylon-origin ingredients.</p>
+    <h3 style="font-family:var(--fdis);font-size:1.15rem;font-weight:600;color:var(--g1);margin:1.5rem 0 .65rem">How It Works</h3>
+    <ul style="font-size:.9rem;color:#3D5045;line-height:1.95;padding-left:1.25rem">
+      <li>Share your formulation or target flavour profile — a mutual NDA is available before details are discussed</li>
+      <li>We source and blend using our own turmeric, cinnamon, pepper, cloves, cardamom, and other spices</li>
+      <li>Samples are produced and sent for your approval before bulk production</li>
+      <li>Final blends are packed to your specification — retail, foodservice, or bulk formats</li>
+    </ul>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:.85rem;margin:1.75rem 0"><div style="padding:.85rem;border:1px solid rgba(11,36,23,.1);border-radius:2px"><span class="lbl" style="font-size:.57rem;display:block;margin-bottom:.3rem">MOQ</span><span style="font-size:.82rem;color:#3D5045">From 500 KG per SKU</span></div><div style="padding:.85rem;border:1px solid rgba(11,36,23,.1);border-radius:2px"><span class="lbl" style="font-size:.57rem;display:block;margin-bottom:.3rem">Confidentiality</span><span style="font-size:.82rem;color:#3D5045">NDA available</span></div></div>
+    <p style="font-size:.9rem;color:#3D5045;line-height:1.85">This service pairs naturally with our Private Label programme — see our <a href="#" onclick="return sp('pl')" style="color:var(--gold)">Private Label &amp; OEM page</a> for packaging and branding options.</p>
+    <div style="margin-top:2.25rem;display:flex;gap:1rem;flex-wrap:wrap"><button class="btn-g" onclick="sp('contact')" style="background:var(--g1);color:var(--cream)">Discuss Your Blend →</button><button class="btn-o" style="color:var(--g1);border-color:rgba(11,36,23,.2)" onclick="sp('products')">← Back to Products</button></div>
   </div>
 </div>
 </div>
@@ -992,6 +1184,39 @@ footer{background:var(--char);border-top:1px solid rgba(255,255,255,.055)}
 </div>
 </section>
 
+<!-- ════════ FAQ ════════ -->
+<section class="ps" id="s-faq">
+<div class="phero"><div class="wrap phero-inner"><span class="lbl">Frequently Asked Questions</span><h1 style="font-family:var(--fdis);font-size:clamp(2.4rem,5vw,3.9rem);font-weight:600;color:var(--white);margin-top:.65rem;line-height:1.08">Questions Buyers<br><em style="font-style:italic;color:var(--goldl)">Ask Us Most</em></h1></div></div>
+<div class="sec-cr">
+<div class="wrap">
+  <div style="max-width:760px">
+
+    <div style="margin-bottom:1.75rem"><h3 style="font-family:var(--fdis);font-size:1.1rem;font-weight:600;color:var(--g1);margin-bottom:.5rem">What is your minimum order quantity (MOQ)?</h3><p style="font-size:.9rem;color:#3D5045;line-height:1.85">MOQs vary by product, starting from 250KG for cardamom and nutmeg/mace, and 500KG per SKU for cinnamon, turmeric, and private label orders. Black pepper can start as low as 1MT. Full container loads (20' or 40' FCL) are available for larger buyers.</p></div>
+
+    <div style="margin-bottom:1.75rem"><h3 style="font-family:var(--fdis);font-size:1.1rem;font-weight:600;color:var(--g1);margin-bottom:.5rem">What payment terms do you accept?</h3><p style="font-size:.9rem;color:#3D5045;line-height:1.85">Our standard payment method is an irrevocable Letter of Credit payable at sight (Sight LC), issued in favour of Dhanaa Spices. Other methods such as telegraphic transfer may be accepted at our discretion — see our <a href="#" onclick="return sp('terms')" style="color:var(--gold)">Terms &amp; Conditions</a> for details.</p></div>
+
+    <div style="margin-bottom:1.75rem"><h3 style="font-family:var(--fdis);font-size:1.1rem;font-weight:600;color:var(--g1);margin-bottom:.5rem">Can I get a sample before placing a bulk order?</h3><p style="font-size:.9rem;color:#3D5045;line-height:1.85">Yes. We dispatch pre-shipment samples matching the exact grade and specification of your intended order, so you can approve quality before production begins.</p></div>
+
+    <div style="margin-bottom:1.75rem"><h3 style="font-family:var(--fdis);font-size:1.1rem;font-weight:600;color:var(--g1);margin-bottom:.5rem">What documents come with each shipment?</h3><p style="font-size:.9rem;color:#3D5045;line-height:1.85">Every order ships with a Certificate of Analysis (COA), Phytosanitary Certificate, Fumigation Certificate, Certificate of Origin, Commercial Invoice, Packing List, and Bill of Lading or Air Waybill.</p></div>
+
+    <div style="margin-bottom:1.75rem"><h3 style="font-family:var(--fdis);font-size:1.1rem;font-weight:600;color:var(--g1);margin-bottom:.5rem">What's the difference between Ceylon cinnamon and regular cinnamon?</h3><p style="font-size:.9rem;color:#3D5045;line-height:1.85">Most "cinnamon" sold worldwide is cassia, a different species with 2–7% coumarin content. True Ceylon cinnamon (Cinnamomum verum), grown almost exclusively in Sri Lanka, contains only around 0.004–0.02% coumarin — read our full <a href="#" onclick="return sp('art-cassia')" style="color:var(--gold)">Ceylon vs Cassia comparison</a> for the details.</p></div>
+
+    <div style="margin-bottom:1.75rem"><h3 style="font-family:var(--fdis);font-size:1.1rem;font-weight:600;color:var(--g1);margin-bottom:.5rem">What Incoterms and shipping options do you offer?</h3><p style="font-size:.9rem;color:#3D5045;line-height:1.85">We ship under FOB Colombo, CIF, or CFR to your destination port, with EXW or DDP available on request, via 20'/40' FCL, LCL groupage, or air freight for urgent orders.</p></div>
+
+    <div style="margin-bottom:1.75rem"><h3 style="font-family:var(--fdis);font-size:1.1rem;font-weight:600;color:var(--g1);margin-bottom:.5rem">Can you manufacture under our own brand (private label)?</h3><p style="font-size:.9rem;color:#3D5045;line-height:1.85">Yes. We handle sourcing, processing, and packing to your specification, from 500KG per SKU, with a mutual NDA available before formulation details are discussed. See our <a href="#" onclick="return sp('pl')" style="color:var(--gold)">Private Label &amp; OEM page</a>.</p></div>
+
+    <div style="margin-bottom:1.75rem"><h3 style="font-family:var(--fdis);font-size:1.1rem;font-weight:600;color:var(--g1);margin-bottom:.5rem">What certifications and food safety standards do you follow?</h3><p style="font-size:.9rem;color:#3D5045;line-height:1.85">Our processes are aligned with ISO 22000, HACCP, and GMP standards, and every lot is lab-tested for pesticide residue, heavy metals, and microbiological safety ahead of EU, UK, US, and Middle East market requirements.</p></div>
+
+    <div style="margin-bottom:1.75rem"><h3 style="font-family:var(--fdis);font-size:1.1rem;font-weight:600;color:var(--g1);margin-bottom:.5rem">How quickly will you respond to an enquiry?</h3><p style="font-size:.9rem;color:#3D5045;line-height:1.85">Every enquiry submitted through our contact form or WhatsApp receives a personal response within 24 hours, along with a detailed quotation.</p></div>
+
+    <div style="margin-bottom:1.75rem"><h3 style="font-family:var(--fdis);font-size:1.1rem;font-weight:600;color:var(--g1);margin-bottom:.5rem">Where are you located, and where do shipments depart from?</h3><p style="font-size:.9rem;color:#3D5045;line-height:1.85">Our head office and processing facility are in Galle, Sri Lanka, with a registered office in London, United Kingdom. All shipments are loaded at Colombo Port.</p></div>
+
+    <div style="margin-top:2.25rem;display:flex;gap:1rem;flex-wrap:wrap"><button class="btn-g" onclick="sp('contact')" style="background:var(--g1);color:var(--cream)">Ask Us a Question →</button></div>
+  </div>
+</div>
+</div>
+</section>
+
 <!-- ════════ PRIVACY POLICY ════════ -->
 <section class="ps" id="s-privacy">
 <div class="phero"><div class="wrap phero-inner"><span class="lbl">Legal</span><h2 style="font-family:var(--fdis);font-size:clamp(2.4rem,5vw,3.9rem);font-weight:600;color:var(--white);margin-top:.65rem;line-height:1.08">Privacy <em style="font-style:italic;color:var(--goldl)">Policy</em></h2><p style="margin-top:.85rem;color:var(--light);max-width:560px;font-size:.93rem">Last updated: July 2026</p></div></div>
@@ -1133,7 +1358,7 @@ footer{background:var(--char);border-top:1px solid rgba(255,255,255,.055)}
     </div>
     <div>
       <div class="fct">Company</div>
-      <div class="flinks"><a href="#" onclick="return sp('about')">About Us</a><a href="#" onclick="return sp('quality')">Quality &amp; Certifications</a><a href="#" onclick="return sp('pl')">Private Label</a><a href="#" onclick="return sp('export')">Export Services</a><a href="#" onclick="return sp('blog')">Insights</a><a href="#" onclick="return sp('contact')">Contact</a></div>
+      <div class="flinks"><a href="#" onclick="return sp('about')">About Us</a><a href="#" onclick="return sp('quality')">Quality &amp; Certifications</a><a href="#" onclick="return sp('pl')">Private Label</a><a href="#" onclick="return sp('export')">Export Services</a><a href="#" onclick="return sp('blog')">Insights</a><a href="#" onclick="return sp('faq')">FAQ</a><a href="#" onclick="return sp('contact')">Contact</a></div>
     </div>
     <div>
       <div class="fct">Contact</div>
