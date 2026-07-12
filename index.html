@@ -6,6 +6,9 @@
 <meta name="description" content="Dhanaa Ceylon Spices LTD is a premium B2B exporter of Ceylon cinnamon, black pepper, cloves, cardamom, and nutmeg from Sri Lanka to importers and food manufacturers worldwide. Request a wholesale quote.">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://www.dhanaaspices.com/">
+<link rel="alternate" hreflang="en" href="https://www.dhanaaspices.com/">
+<link rel="alternate" hreflang="ar" href="https://www.dhanaaspices.com/ar/">
+<link rel="alternate" hreflang="x-default" href="https://www.dhanaaspices.com/">
 <title>Ceylon Cinnamon &amp; Spice Exporter Sri Lanka | Dhanaa Ceylon Spices LTD</title>
 
 <!-- Favicons -->
@@ -441,7 +444,7 @@ footer{background:var(--char);border-top:1px solid rgba(255,255,255,.055)}
   <div style="margin-left:.65rem;display:flex;gap:.65rem" class="ncta">
     <button class="btn-g" onclick="sp('contact')">Request Quote →</button>
   </div>
-  <div class="langsw" id="langsw1">
+  <div class="langsw" id="langsw1" translate="no">
     <button class="langbtn" onclick="toggleLangMenu('langsw1')" aria-label="Change language" title="Change language">🌐</button>
     <div class="langmenu" id="langmenu1"><div class="lang-loading">Loading languages…</div></div>
   </div>
@@ -461,7 +464,7 @@ footer{background:var(--char);border-top:1px solid rgba(255,255,255,.055)}
   <a href="#" onclick="return sp('blog')">Insights</a>
   <a href="#" onclick="return sp('contact')">Contact</a>
   <div style="margin-top:1rem"><button class="btn-g" onclick="sp('contact')">Request a Quote →</button></div>
-  <div class="langsw" id="langsw2">
+  <div class="langsw" id="langsw2" translate="no">
     <button class="langbtn langbtn-wide" onclick="toggleLangMenu('langsw2')" aria-label="Change language" title="Change language">🌐 <span style="font-size:.68rem;font-family:var(--flab);letter-spacing:.08em;text-transform:uppercase;margin-left:.4rem">Language</span></button>
     <div class="langmenu" id="langmenu2"><div class="lang-loading">Loading languages…</div></div>
   </div>
@@ -1300,7 +1303,7 @@ footer{background:var(--char);border-top:1px solid rgba(255,255,255,.055)}
 </section>
 
 <!-- FOOTER -->
-<footer>
+<footer id="footer">
 <div class="wrap">
   <div class="ftop">
     <div>
@@ -1338,6 +1341,7 @@ function sp(name){
   window.scrollTo({top:0,behavior:'smooth'});
   document.querySelectorAll('.nlink').forEach(function(l){l.classList.toggle('a',l.dataset.sp===name);});
   document.getElementById('mmenu').classList.remove('open');
+  if(typeof CURRENT_LANG !== 'undefined' && CURRENT_LANG !== 'en'){ translateCurrentView(CURRENT_LANG); }
   return false;
 }
 function tmob(){document.getElementById('mmenu').classList.toggle('open');}
@@ -1417,33 +1421,132 @@ function sendEnquiry(form){
 }
 </script>
 
-<!-- Language translator — plain links into Google's own page-translate service.
-     (No JS widget/hidden-iframe hack: those depend on undocumented Google internals
-     and proved unreliable across devices. This is just navigation, so it always works.) -->
+<!-- Language translator — translates the visible text in place on this page,
+     instead of redirecting to Google's translate.goog proxy (which wraps the
+     page in Google's own toolbar and breaks the site's look). Uses Google's
+     public translation endpoint directly from the browser; if a request ever
+     fails, the original English text is simply left as-is. -->
 <script>
 var LANGUAGES = [
   ['fr','French'],['es','Spanish'],['de','German'],['it','Italian'],['pt','Portuguese'],
   ['nl','Dutch'],['ru','Russian'],['pl','Polish'],['sv','Swedish'],['el','Greek'],
   ['tr','Turkish'],['ar','Arabic'],['iw','Hebrew'],['fa','Persian'],
-  ['hi','Hindi'],['bn','Bengali'],['ur','Urdu'],['si','Sinhala'],['ta','Tamil'],
   ['zh-CN','Chinese (Simplified)'],['zh-TW','Chinese (Traditional)'],['ja','Japanese'],['ko','Korean'],
-  ['th','Thai'],['vi','Vietnamese'],['id','Indonesian'],['ms','Malay'],['sw','Swahili']
+  ['ms','Malay'],['sw','Swahili']
 ];
 
+var CURRENT_LANG = 'en';
+var ORIGINAL_TEXT = new Map();
+var TRANSLATION_CACHE = new Map();
+
+function gtranslateChunk(texts, tl){
+  var params = new URLSearchParams();
+  params.append('client','gtx'); params.append('sl','en'); params.append('tl',tl); params.append('dt','t');
+  texts.forEach(function(t){ params.append('q', t); });
+  return fetch('https://translate.googleapis.com/translate_a/single?' + params.toString())
+    .then(function(r){ return r.json(); })
+    .then(function(data){
+      var arr = data && data[0];
+      if(!Array.isArray(arr)) return null;
+      var nested = arr.length > 0 && Array.isArray(arr[0]) && Array.isArray(arr[0][0]);
+      if(nested) return arr.map(function(seg){ return seg.map(function(s){ return s[0]; }).join(''); });
+      return [ arr.map(function(s){ return s[0]; }).join('') ];
+    })
+    .catch(function(){ return null; });
+}
+
+function translatableNodes(root){
+  if(!root) return [];
+  var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+    acceptNode: function(node){
+      var p = node.parentElement;
+      if(!p) return NodeFilter.FILTER_REJECT;
+      var tag = p.tagName;
+      if(tag==='SCRIPT'||tag==='STYLE'||tag==='NOSCRIPT') return NodeFilter.FILTER_REJECT;
+      if(p.closest('[translate="no"]')) return NodeFilter.FILTER_REJECT;
+      if(!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+      return NodeFilter.FILTER_ACCEPT;
+    }
+  });
+  var nodes = [], n;
+  while(n = walker.nextNode()) nodes.push(n);
+  return nodes;
+}
+
+function applyLanguageToNodes(nodes, tl){
+  if(tl === 'en'){
+    nodes.forEach(function(n){ if(ORIGINAL_TEXT.has(n)) n.nodeValue = ORIGINAL_TEXT.get(n); });
+    return Promise.resolve();
+  }
+  var toFetch = [];
+  nodes.forEach(function(n){
+    if(!ORIGINAL_TEXT.has(n)) ORIGINAL_TEXT.set(n, n.nodeValue);
+    var cache = TRANSLATION_CACHE.get(n);
+    if(cache && cache[tl]) n.nodeValue = cache[tl];
+    else toFetch.push(n);
+  });
+  if(!toFetch.length) return Promise.resolve();
+  var CHUNK = 30, chunks = [];
+  for(var i=0;i<toFetch.length;i+=CHUNK) chunks.push(toFetch.slice(i, i+CHUNK));
+  return Promise.all(chunks.map(function(chunkNodes){
+    var texts = chunkNodes.map(function(n){ return ORIGINAL_TEXT.get(n); });
+    return gtranslateChunk(texts, tl).then(function(translated){
+      if(!translated) return;
+      chunkNodes.forEach(function(node, idx){
+        var t = translated[idx];
+        if(t){
+          node.nodeValue = t;
+          var c = TRANSLATION_CACHE.get(node) || {};
+          c[tl] = t;
+          TRANSLATION_CACHE.set(node, c);
+        }
+      });
+    });
+  }));
+}
+
+function persistentChromeRoots(){
+  return ['nav','mmenu','footer'].map(function(id){ return document.getElementById(id); }).filter(Boolean);
+}
+
+function translateCurrentView(tl){
+  var roots = persistentChromeRoots();
+  var active = document.querySelector('.ps.a');
+  if(active) roots.push(active);
+  var allNodes = [];
+  roots.forEach(function(r){ allNodes = allNodes.concat(translatableNodes(r)); });
+  return applyLanguageToNodes(allNodes, tl);
+}
+
+function updateLangLabel(label){
+  document.querySelectorAll('.langbtn-wide span').forEach(function(s){ s.textContent = label || 'Language'; });
+}
+
+function setLanguage(tl, label){
+  CURRENT_LANG = tl;
+  updateLangLabel(tl === 'en' ? null : label);
+  translateCurrentView(tl);
+}
+
 function buildLangMenus(){
-  var pageUrl = encodeURIComponent(window.location.href);
   ['langmenu1','langmenu2'].forEach(function(menuId){
     var menu = document.getElementById(menuId);
     if(!menu) return;
     menu.innerHTML = '';
+    var en = document.createElement('a');
+    en.className = 'lang-item';
+    en.textContent = 'English (original)';
+    en.onclick = function(){ setLanguage('en', null); closeLangMenus(); };
+    menu.appendChild(en);
     LANGUAGES.forEach(function(lang){
       var a = document.createElement('a');
       a.className = 'lang-item';
       a.textContent = lang[1];
-      a.href = 'https://translate.google.com/translate?sl=en&tl=' + lang[0] + '&u=' + pageUrl;
-      a.target = '_blank';
-      a.rel = 'noopener';
-      a.onclick = function(){ closeLangMenus(); };
+      if(lang[0] === 'ar'){
+        a.href = 'ar/';
+      } else {
+        a.onclick = function(){ setLanguage(lang[0], lang[1]); closeLangMenus(); };
+      }
       menu.appendChild(a);
     });
   });
