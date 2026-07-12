@@ -7,7 +7,26 @@
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://www.dhanaaspices.com/">
 <link rel="alternate" hreflang="en" href="https://www.dhanaaspices.com/">
+<link rel="alternate" hreflang="fr" href="https://www.dhanaaspices.com/fr/">
+<link rel="alternate" hreflang="es" href="https://www.dhanaaspices.com/es/">
+<link rel="alternate" hreflang="de" href="https://www.dhanaaspices.com/de/">
+<link rel="alternate" hreflang="it" href="https://www.dhanaaspices.com/it/">
+<link rel="alternate" hreflang="pt" href="https://www.dhanaaspices.com/pt/">
+<link rel="alternate" hreflang="nl" href="https://www.dhanaaspices.com/nl/">
+<link rel="alternate" hreflang="ru" href="https://www.dhanaaspices.com/ru/">
+<link rel="alternate" hreflang="pl" href="https://www.dhanaaspices.com/pl/">
+<link rel="alternate" hreflang="sv" href="https://www.dhanaaspices.com/sv/">
+<link rel="alternate" hreflang="el" href="https://www.dhanaaspices.com/el/">
+<link rel="alternate" hreflang="tr" href="https://www.dhanaaspices.com/tr/">
 <link rel="alternate" hreflang="ar" href="https://www.dhanaaspices.com/ar/">
+<link rel="alternate" hreflang="he" href="https://www.dhanaaspices.com/he/">
+<link rel="alternate" hreflang="fa" href="https://www.dhanaaspices.com/fa/">
+<link rel="alternate" hreflang="zh-Hans" href="https://www.dhanaaspices.com/zh-cn/">
+<link rel="alternate" hreflang="zh-Hant" href="https://www.dhanaaspices.com/zh-tw/">
+<link rel="alternate" hreflang="ja" href="https://www.dhanaaspices.com/ja/">
+<link rel="alternate" hreflang="ko" href="https://www.dhanaaspices.com/ko/">
+<link rel="alternate" hreflang="ms" href="https://www.dhanaaspices.com/ms/">
+<link rel="alternate" hreflang="sw" href="https://www.dhanaaspices.com/sw/">
 <link rel="alternate" hreflang="x-default" href="https://www.dhanaaspices.com/">
 <title>Ceylon Cinnamon &amp; Spice Exporter Sri Lanka | Dhanaa Ceylon Spices LTD</title>
 
@@ -1528,29 +1547,7 @@ function setLanguage(tl, label){
   translateCurrentView(tl);
 }
 
-function buildLangMenus(){
-  ['langmenu1','langmenu2'].forEach(function(menuId){
-    var menu = document.getElementById(menuId);
-    if(!menu) return;
-    menu.innerHTML = '';
-    var en = document.createElement('a');
-    en.className = 'lang-item';
-    en.textContent = 'English (original)';
-    en.onclick = function(){ setLanguage('en', null); closeLangMenus(); };
-    menu.appendChild(en);
-    LANGUAGES.forEach(function(lang){
-      var a = document.createElement('a');
-      a.className = 'lang-item';
-      a.textContent = lang[1];
-      if(lang[0] === 'ar'){
-        a.href = 'ar/';
-      } else {
-        a.onclick = function(){ setLanguage(lang[0], lang[1]); closeLangMenus(); };
-      }
-      menu.appendChild(a);
-    });
-  });
-}
+function buildLangMenus(){['langmenu1','langmenu2'].forEach(function(menuId){var menu = document.getElementById(menuId);if(!menu) return;menu.innerHTML = '';function mk(text, href){ var a = document.createElement('a'); a.className = 'lang-item'; a.textContent = text; a.href = href; return a; }menu.appendChild(mk("French", "fr/"));menu.appendChild(mk("Spanish", "es/"));menu.appendChild(mk("German", "de/"));menu.appendChild(mk("Italian", "it/"));menu.appendChild(mk("Portuguese", "pt/"));menu.appendChild(mk("Dutch", "nl/"));menu.appendChild(mk("Russian", "ru/"));menu.appendChild(mk("Polish", "pl/"));menu.appendChild(mk("Swedish", "sv/"));menu.appendChild(mk("Greek", "el/"));menu.appendChild(mk("Turkish", "tr/"));menu.appendChild(mk("Arabic", "ar/"));menu.appendChild(mk("Hebrew", "he/"));menu.appendChild(mk("Persian", "fa/"));menu.appendChild(mk("Chinese (Simplified)", "zh-cn/"));menu.appendChild(mk("Chinese (Traditional)", "zh-tw/"));menu.appendChild(mk("Japanese", "ja/"));menu.appendChild(mk("Korean", "ko/"));menu.appendChild(mk("Malay", "ms/"));menu.appendChild(mk("Swahili", "sw/"));});}
 buildLangMenus();
 
 function toggleLangMenu(switchId){
