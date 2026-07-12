@@ -6,6 +6,9 @@
 <meta name="description" content="Dhanaa Ceylon Spices LTD is a premium B2B exporter of Ceylon cinnamon, black pepper, cloves, cardamom, and nutmeg from Sri Lanka to importers and food manufacturers worldwide. Request a wholesale quote.">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://www.dhanaaspices.com/">
+<link rel="alternate" hreflang="en" href="https://www.dhanaaspices.com/">
+<link rel="alternate" hreflang="ar" href="https://www.dhanaaspices.com/ar/">
+<link rel="alternate" hreflang="x-default" href="https://www.dhanaaspices.com/">
 <title>Ceylon Cinnamon &amp; Spice Exporter Sri Lanka | Dhanaa Ceylon Spices LTD</title>
 
 <!-- Favicons -->
@@ -1539,7 +1542,11 @@ function buildLangMenus(){
       var a = document.createElement('a');
       a.className = 'lang-item';
       a.textContent = lang[1];
-      a.onclick = function(){ setLanguage(lang[0], lang[1]); closeLangMenus(); };
+      if(lang[0] === 'ar'){
+        a.href = 'ar/';
+      } else {
+        a.onclick = function(){ setLanguage(lang[0], lang[1]); closeLangMenus(); };
+      }
       menu.appendChild(a);
     });
   });
