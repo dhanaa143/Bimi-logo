@@ -106,20 +106,13 @@
 </script>
 
 <!-- Google Analytics (GA4) -->
-<!-- Google Analytics 4 — property "Dhanaa Spices Website" -->
+<!-- Google tag (gtag.js) — property "Dhanaa Spices Website" -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JNK9N3K8XH"></script>
 <script>
-(function(){
-  var GA_MEASUREMENT_ID = 'G-JNK9N3K8XH';
-  if (GA_MEASUREMENT_ID.indexOf('XXXXXXXXXX') !== -1) return;
-  var s = document.createElement('script');
-  s.async = true;
-  s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_MEASUREMENT_ID;
-  document.head.appendChild(s);
   window.dataLayer = window.dataLayer || [];
-  window.gtag = function(){ dataLayer.push(arguments); };
+  function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-  gtag('config', GA_MEASUREMENT_ID);
-})();
+  gtag('config', 'G-JNK9N3K8XH');
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
