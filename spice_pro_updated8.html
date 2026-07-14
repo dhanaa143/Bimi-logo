@@ -650,6 +650,7 @@
                        <div><label>Email:</label><input type="text" id="buy_email" placeholder="buyer@example.com"></div>
                        <div><label>Country:</label><input type="text" id="buy_country" placeholder="United Kingdom"></div>
                        <div><label>Buyer's Reference / PO Number:</label><input type="text" id="buy_po_ref" placeholder="Ex: PO-UK-00231"></div>
+                       <div><label>VAT / Tax / EORI Number:</label><input type="text" id="buy_vat" placeholder="Ex: GB123456789 or EORI"></div>
                    </div>
                    <label>Address:</label><textarea id="buy_address" placeholder="15 Spice Lane, London EC1A 1BB, UK" rows="2"></textarea>
                </div>
@@ -3688,6 +3689,7 @@
        Tel: ${document.getElementById('buy_phone').value}<br>
        Email: ${document.getElementById('buy_email').value}
        ${document.getElementById('buy_po_ref') && document.getElementById('buy_po_ref').value ? `<br>Buyer's Ref / PO No: ${document.getElementById('buy_po_ref').value}` : ''}
+       ${document.getElementById('buy_vat') && document.getElementById('buy_vat').value ? `<br>VAT/Tax/EORI No: ${document.getElementById('buy_vat').value}` : ''}
      `;
 
 
