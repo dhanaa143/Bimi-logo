@@ -96,6 +96,14 @@
        .manual-weight-row input { margin-bottom: 0; padding: 10px; }
        .mwr-breakdown { grid-column: 1 / -1; font-size: 10px; color: #b45309; font-weight: 700; }
        .mwr-breakdown:empty { display: none; }
+       .inv-charge-row {
+         display: grid; grid-template-columns: 1fr 1fr 40px;
+         gap: 10px; align-items: center; margin-bottom: 4px;
+         background: #fffcf0; padding: 10px; border-radius: 12px;
+         border: 1px solid #fef3c7; transition: all 0.2s;
+       }
+       .inv-charge-row:hover { background: #fef9c3; }
+       .inv-charge-row input { margin-bottom: 0; padding: 10px; }
        .btn {
          border: none; border-radius: 12px; cursor: pointer;
          font-weight: 700; font-size: 13px;
@@ -710,10 +718,8 @@
 
 
                    <span class="inv-section-title">Additional Charges <span style="font-size:9px; color:var(--text-muted); text-transform:none; font-weight:500;">(optional - customer-requested extras, added to Total Amount, never discounted)</span></span>
-                   <div class="grid-2">
-                       <div><label>Packaging Charge:</label><input type="number" id="inv_packaging_charge" value="0" placeholder="Ex: 50" oninput="buildInvProductTable()"></div>
-                       <div><label>Private Labeling Charge:</label><input type="number" id="inv_private_label_charge" value="0" placeholder="Ex: 100" oninput="buildInvProductTable()"></div>
-                   </div>
+                   <div id="invChargesContainer"></div>
+                   <button type="button" class="btn custom-add-btn" onclick="addChargeRow()"><i class="fa-solid fa-plus"></i> Add Section</button>
 
 
                    <span class="inv-section-title">Payment Terms</span>
@@ -2162,6 +2168,7 @@
    window.onload = function() {
      loadFixedCosts(); loadSellerProfile(); updatePriceLabels();
      if (document.querySelectorAll('.spice-row').length === 0) addSpice();
+     if (document.querySelectorAll('.inv-charge-row').length === 0) { addChargeRow('Packaging'); addChargeRow('Private Labeling'); }
      setDefaultInvoiceDates(); autoGenInvoiceNumber(); setDefaultTC(); setDefaultPoTC(); syncInvCurrencyFromMain();
      populateCrmDropdowns(); renderCrmLists(); renderLogs(); renderReadinessChecklist();
    };
@@ -2390,6 +2397,19 @@
            onclick="this.parentElement.remove();calc();"><i class="fa-solid fa-xmark"></i></button>
        `;
      }
+     container.appendChild(div);
+   }
+
+
+   function addChargeRow(name='', amount='') {
+     const container = document.getElementById('invChargesContainer');
+     const div = document.createElement('div');
+     div.className = 'inv-charge-row';
+     div.innerHTML = `
+       <input type="text" class="charge-name" placeholder="Ex: Private Labeling" value="${name}" oninput="buildInvProductTable()">
+       <input type="number" class="charge-amount" placeholder="Amount" value="${amount}" oninput="buildInvProductTable()">
+       <button class="remove-btn" onclick="this.parentElement.remove();buildInvProductTable();"><i class="fa-solid fa-xmark"></i></button>
+     `;
      container.appendChild(div);
    }
 
@@ -3500,19 +3520,24 @@
        : `${totalQty} Packs`;
 
 
-     // Customer-requested extras (packaging, private labeling): added on top of the
-     // product total, never discounted — the discount only reduces the products themselves.
-     const packagingCharge = parseFloat(document.getElementById('inv_packaging_charge') ? document.getElementById('inv_packaging_charge').value : 0) || 0;
-     const privateLabelCharge = parseFloat(document.getElementById('inv_private_label_charge') ? document.getElementById('inv_private_label_charge').value : 0) || 0;
-     const finalTotal = grandDisc + packagingCharge + privateLabelCharge;
+     // Customer-requested extras (freely-named sections, e.g. Packaging, Private Labeling):
+     // added on top of the product total, never discounted — the discount only reduces
+     // the products themselves.
+     let additionalCharges = [];
+     document.querySelectorAll('#invChargesContainer .inv-charge-row').forEach(cr => {
+       const chargeName = cr.querySelector('.charge-name').value || 'Additional Charge';
+       const chargeAmt = parseFloat(cr.querySelector('.charge-amount').value) || 0;
+       if (chargeAmt > 0) additionalCharges.push({ name: chargeName, amount: chargeAmt });
+     });
+     const additionalChargesTotal = additionalCharges.reduce((sum, c) => sum + c.amount, 0);
+     const finalTotal = grandDisc + additionalChargesTotal;
 
 
      document.getElementById('invTotalsBox').innerHTML = `
        <div class="inv-total-row"><span>${qtyLabel}</span><span>${qtyVal}</span></div>
        <div class="inv-total-row"><span>Sub Total:</span><span>${curr}${grandTotal.toFixed(2)}</span></div>
        <div class="inv-total-row"><span>Total Discount:</span><span>${curr}${(grandTotal - grandDisc).toFixed(2)}</span></div>
-       ${packagingCharge > 0 ? `<div class="inv-total-row"><span>Packaging Charge:</span><span>${curr}${packagingCharge.toFixed(2)}</span></div>` : ''}
-       ${privateLabelCharge > 0 ? `<div class="inv-total-row"><span>Private Labeling Charge:</span><span>${curr}${privateLabelCharge.toFixed(2)}</span></div>` : ''}
+       ${additionalCharges.map(c => `<div class="inv-total-row"><span>${c.name}:</span><span>${curr}${c.amount.toFixed(2)}</span></div>`).join('')}
        <div class="inv-total-row"><span>Grand Total:</span><span>${curr}${finalTotal.toFixed(2)}</span></div>
      `;
 
@@ -3523,8 +3548,7 @@
        qtyVal: qtyVal,
        grandTotal: grandTotal,
        grandDisc: grandDisc,
-       packagingCharge: packagingCharge,
-       privateLabelCharge: privateLabelCharge,
+       additionalCharges: additionalCharges,
        finalTotal: finalTotal,
        curr: curr,
        fmt: (val) => curr + val.toFixed(2),
@@ -3724,8 +3748,7 @@
          <div class="inv-total-line inv-qty-line"><span>${dt.qtyLabel}</span><span>${dt.qtyVal}</span></div>
          <div class="inv-total-line"><span>Sub Total:</span><span>${dt.fmt(dt.grandTotal)}</span></div>
          <div class="inv-total-line"><span>Discount:</span><span>${dt.fmt(dt.grandTotal - dt.grandDisc)}</span></div>
-         ${dt.packagingCharge > 0 ? `<div class="inv-total-line"><span>Packaging Charge:</span><span>${dt.fmt(dt.packagingCharge)}</span></div>` : ''}
-         ${dt.privateLabelCharge > 0 ? `<div class="inv-total-line"><span>Private Labeling Charge:</span><span>${dt.fmt(dt.privateLabelCharge)}</span></div>` : ''}
+         ${dt.additionalCharges.map(c => `<div class="inv-total-line"><span>${c.name}:</span><span>${dt.fmt(c.amount)}</span></div>`).join('')}
          <div class="inv-total-line inv-total-final"><span>Total Amount:</span><span>${dt.fmt(dt.finalTotal)}</span></div>
        `;
      }
