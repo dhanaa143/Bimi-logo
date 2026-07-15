@@ -1122,7 +1122,7 @@ footer{background:var(--char);border-top:1px solid rgba(255,255,255,.055)}
 <div class="fg"><label class="fl">Nama Syarikat</label><input class="fi" name="company" placeholder="Syarikat Anda Ltd" type="text"/></div>
 <div class="fg"><label class="fl">Alamat E-mel</label><input class="fi" name="email" placeholder="john@yourcompany.com" required="" type="email"/></div>
 <div class="fg"><label class="fl">Nombor Telefon</label><input class="fi" name="phone" placeholder="+44 20 1234 5678" type="tel"/></div>
-<div class="fg"><label class="fl">Alamat Penuh</label><input class="fi" name="address" placeholder="Jalan, Bandar, Poskod" type="text"/></div>
+<div class="frow"><div class="fg"><label class="fl">Alamat Penuh</label><input class="fi" name="address" placeholder="Jalan, Bandar" type="text"/></div><div class="fg"><label class="fl">Poskod</label><input class="fi" name="postalCode" type="text"/></div></div>
 <div class="frow">
 <div class="fg"><label class="fl">Negara</label><input class="fi" name="country" placeholder="United Kingdom" type="text"/></div>
 <div class="fg"><label class="fl">Minat Produk</label><select class="fi" name="product"><option>Kayu Manis Ceylon</option><option>Lada Hitam</option><option>Cengkih</option><option>buah pelaga</option><option>Buah Pala &amp; Mace</option><option>Label Peribadi</option><option>Pelbagai Produk</option></select></div>
@@ -1332,6 +1332,7 @@ function sendEnquiry(form){
       'Email: ' + data.get('email') + '\n' +
       'Phone: ' + (data.get('phone') || '-') + '\n' +
       'Address: ' + (data.get('address') || '-') + '\n' +
+      'Postal/Zip Code: ' + (data.get('postalCode') || '-') + '\n' +
       'Country: ' + (data.get('country') || '-') + '\n' +
       'VAT/Tax/EORI No: ' + (data.get('vatNumber') || '-') + '\n' +
       'Buyer Ref/PO No: ' + (data.get('buyerRef') || '-') + '\n' +

@@ -1122,7 +1122,7 @@ footer{background:var(--char);border-top:1px solid rgba(255,255,255,.055)}
 <div class="fg"><label class="fl">회사명</label><input class="fi" name="company" placeholder="귀하의 회사 (주)" type="text"/></div>
 <div class="fg"><label class="fl">이메일 주소</label><input class="fi" name="email" placeholder="john@yourcompany.com" required="" type="email"/></div>
 <div class="fg"><label class="fl">전화번호</label><input class="fi" name="phone" placeholder="+44 20 1234 5678" type="tel"/></div>
-<div class="fg"><label class="fl">상세 주소</label><input class="fi" name="address" placeholder="도로명, 도시, 우편번호" type="text"/></div>
+<div class="frow"><div class="fg"><label class="fl">상세 주소</label><input class="fi" name="address" placeholder="도로명, 도시" type="text"/></div><div class="fg"><label class="fl">우편번호</label><input class="fi" name="postalCode" type="text"/></div></div>
 <div class="frow">
 <div class="fg"><label class="fl">국가</label><input class="fi" name="country" placeholder="영국" type="text"/></div>
 <div class="fg"><label class="fl">제품 관심도</label><select class="fi" name="product"><option>실론 계피</option><option>검은 후추</option><option>정향</option><option>카다몬</option><option>육두구 &amp; 메이스</option><option>개인 상표</option><option>여러 제품</option></select></div>
@@ -1332,6 +1332,7 @@ function sendEnquiry(form){
       'Email: ' + data.get('email') + '\n' +
       'Phone: ' + (data.get('phone') || '-') + '\n' +
       'Address: ' + (data.get('address') || '-') + '\n' +
+      'Postal/Zip Code: ' + (data.get('postalCode') || '-') + '\n' +
       'Country: ' + (data.get('country') || '-') + '\n' +
       'VAT/Tax/EORI No: ' + (data.get('vatNumber') || '-') + '\n' +
       'Buyer Ref/PO No: ' + (data.get('buyerRef') || '-') + '\n' +

@@ -1122,7 +1122,7 @@ footer{background:var(--char);border-top:1px solid rgba(255,255,255,.055)}
 <div class="fg"><label class="fl">Jina la Kampuni</label><input class="fi" name="company" placeholder="Kampuni yako Ltd" type="text"/></div>
 <div class="fg"><label class="fl">Anwani ya Barua Pepe</label><input class="fi" name="email" placeholder="john@yourcompany.com" required="" type="email"/></div>
 <div class="fg"><label class="fl">Nambari ya Simu</label><input class="fi" name="phone" placeholder="+44 20 1234 5678" type="tel"/></div>
-<div class="fg"><label class="fl">Anwani Kamili</label><input class="fi" name="address" placeholder="Barabara, Jiji, Msimbo wa Posta" type="text"/></div>
+<div class="frow"><div class="fg"><label class="fl">Anwani Kamili</label><input class="fi" name="address" placeholder="Barabara, Jiji" type="text"/></div><div class="fg"><label class="fl">Msimbo wa Posta</label><input class="fi" name="postalCode" type="text"/></div></div>
 <div class="frow">
 <div class="fg"><label class="fl">Nchi</label><input class="fi" name="country" placeholder="Uingereza" type="text"/></div>
 <div class="fg"><label class="fl">Maslahi ya Bidhaa</label><select class="fi" name="product"><option>Mdalasini wa Ceylon</option><option>Pilipili Nyeusi</option><option>Karafuu</option><option>Cardamom</option><option>Nutmeg &amp; Mace</option><option>Lebo ya Kibinafsi</option><option>Bidhaa Nyingi</option></select></div>
@@ -1332,6 +1332,7 @@ function sendEnquiry(form){
       'Email: ' + data.get('email') + '\n' +
       'Phone: ' + (data.get('phone') || '-') + '\n' +
       'Address: ' + (data.get('address') || '-') + '\n' +
+      'Postal/Zip Code: ' + (data.get('postalCode') || '-') + '\n' +
       'Country: ' + (data.get('country') || '-') + '\n' +
       'VAT/Tax/EORI No: ' + (data.get('vatNumber') || '-') + '\n' +
       'Buyer Ref/PO No: ' + (data.get('buyerRef') || '-') + '\n' +

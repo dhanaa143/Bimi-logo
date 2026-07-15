@@ -1122,7 +1122,7 @@ footer{background:var(--char);border-top:1px solid rgba(255,255,255,.055)}
 <div class="fg"><label class="fl">نام شرکت</label><input class="fi" name="company" placeholder="شرکت شما با مسئولیت محدود" type="text"/></div>
 <div class="fg"><label class="fl">آدرس ایمیل</label><input class="fi" name="email" placeholder="john@yourcompany.com" required="" type="email"/></div>
 <div class="fg"><label class="fl">شماره تلفن</label><input class="fi" name="phone" placeholder="+44 20 1234 5678" type="tel"/></div>
-<div class="fg"><label class="fl">آدرس کامل</label><input class="fi" name="address" placeholder="خیابان، شهر، کد پستی" type="text"/></div>
+<div class="frow"><div class="fg"><label class="fl">آدرس کامل</label><input class="fi" name="address" placeholder="خیابان، شهر" type="text"/></div><div class="fg"><label class="fl">کد پستی</label><input class="fi" name="postalCode" type="text"/></div></div>
 <div class="frow">
 <div class="fg"><label class="fl">کشور</label><input class="fi" name="country" placeholder="انگلستان" type="text"/></div>
 <div class="fg"><label class="fl">علاقه محصول</label><select class="fi" name="product"><option>دارچین سیلان</option><option>فلفل سیاه</option><option>میخک</option><option>هل</option><option>جوز هندی و ماس</option><option>برچسب خصوصی</option><option>محصولات متعدد</option></select></div>
@@ -1332,6 +1332,7 @@ function sendEnquiry(form){
       'Email: ' + data.get('email') + '\n' +
       'Phone: ' + (data.get('phone') || '-') + '\n' +
       'Address: ' + (data.get('address') || '-') + '\n' +
+      'Postal/Zip Code: ' + (data.get('postalCode') || '-') + '\n' +
       'Country: ' + (data.get('country') || '-') + '\n' +
       'VAT/Tax/EORI No: ' + (data.get('vatNumber') || '-') + '\n' +
       'Buyer Ref/PO No: ' + (data.get('buyerRef') || '-') + '\n' +

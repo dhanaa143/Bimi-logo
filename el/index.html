@@ -1122,7 +1122,7 @@ footer{background:var(--char);border-top:1px solid rgba(255,255,255,.055)}
 <div class="fg"><label class="fl">Όνομα εταιρείας</label><input class="fi" name="company" placeholder="Η Εταιρεία σας Ε.Π.Ε" type="text"/></div>
 <div class="fg"><label class="fl">Διεύθυνση Email</label><input class="fi" name="email" placeholder="john@yourcompany.com" required="" type="email"/></div>
 <div class="fg"><label class="fl">Αριθμός Τηλεφώνου</label><input class="fi" name="phone" placeholder="+44 20 1234 5678" type="tel"/></div>
-<div class="fg"><label class="fl">Πλήρης Διεύθυνση</label><input class="fi" name="address" placeholder="Οδός, Πόλη, Ταχυδρομικός Κώδικας" type="text"/></div>
+<div class="frow"><div class="fg"><label class="fl">Πλήρης Διεύθυνση</label><input class="fi" name="address" placeholder="Οδός, Πόλη" type="text"/></div><div class="fg"><label class="fl">Ταχυδρομικός Κώδικας</label><input class="fi" name="postalCode" type="text"/></div></div>
 <div class="frow">
 <div class="fg"><label class="fl">Χώρα</label><input class="fi" name="country" placeholder="Ηνωμένο Βασίλειο" type="text"/></div>
 <div class="fg"><label class="fl">Ενδιαφέρον προϊόντος</label><select class="fi" name="product"><option>Κανέλα Κεϋλάνης</option><option>Μαύρο πιπέρι</option><option>Γαρίφαλο</option><option>Κάρδαμο</option><option>Μοσχοκάρυδο &amp; Μοσχοκάρυδο</option><option>Ιδιωτική ετικέτα</option><option>Πολλαπλά Προϊόντα</option></select></div>
@@ -1332,6 +1332,7 @@ function sendEnquiry(form){
       'Email: ' + data.get('email') + '\n' +
       'Phone: ' + (data.get('phone') || '-') + '\n' +
       'Address: ' + (data.get('address') || '-') + '\n' +
+      'Postal/Zip Code: ' + (data.get('postalCode') || '-') + '\n' +
       'Country: ' + (data.get('country') || '-') + '\n' +
       'VAT/Tax/EORI No: ' + (data.get('vatNumber') || '-') + '\n' +
       'Buyer Ref/PO No: ' + (data.get('buyerRef') || '-') + '\n' +

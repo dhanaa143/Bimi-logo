@@ -1122,7 +1122,7 @@ footer{background:var(--char);border-top:1px solid rgba(255,255,255,.055)}
 <div class="fg"><label class="fl">שם החברה</label><input class="fi" name="company" placeholder='החברה שלך בע"מ' type="text"/></div>
 <div class="fg"><label class="fl">כתובת אימייל</label><input class="fi" name="email" placeholder="john@yourcompany.com" required="" type="email"/></div>
 <div class="fg"><label class="fl">מספר טלפון</label><input class="fi" name="phone" placeholder="+44 20 1234 5678" type="tel"/></div>
-<div class="fg"><label class="fl">כתובת מלאה</label><input class="fi" name="address" placeholder="רחוב, עיר, מיקוד" type="text"/></div>
+<div class="frow"><div class="fg"><label class="fl">כתובת מלאה</label><input class="fi" name="address" placeholder="רחוב, עיר" type="text"/></div><div class="fg"><label class="fl">מיקוד</label><input class="fi" name="postalCode" type="text"/></div></div>
 <div class="frow">
 <div class="fg"><label class="fl">מְדִינָה</label><input class="fi" name="country" placeholder="בְּרִיטַנִיָה" type="text"/></div>
 <div class="fg"><label class="fl">עניין המוצר</label><select class="fi" name="product"><option>ציילון קינמון</option><option>פלפל שחור</option><option>צִיפּוֹרֶן</option><option>הֶל</option><option>אגוז מוסקט ומייס</option><option>מותג פרטי</option><option>מספר מוצרים</option></select></div>
@@ -1332,6 +1332,7 @@ function sendEnquiry(form){
       'Email: ' + data.get('email') + '\n' +
       'Phone: ' + (data.get('phone') || '-') + '\n' +
       'Address: ' + (data.get('address') || '-') + '\n' +
+      'Postal/Zip Code: ' + (data.get('postalCode') || '-') + '\n' +
       'Country: ' + (data.get('country') || '-') + '\n' +
       'VAT/Tax/EORI No: ' + (data.get('vatNumber') || '-') + '\n' +
       'Buyer Ref/PO No: ' + (data.get('buyerRef') || '-') + '\n' +

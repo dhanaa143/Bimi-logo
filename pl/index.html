@@ -1122,7 +1122,7 @@ footer{background:var(--char);border-top:1px solid rgba(255,255,255,.055)}
 <div class="fg"><label class="fl">Nazwa firmy</label><input class="fi" name="company" placeholder="Twoja firma spółka z ograniczoną odpowiedzialnością" type="text"/></div>
 <div class="fg"><label class="fl">Adres e-mail</label><input class="fi" name="email" placeholder="jan@twojafirma.com" required="" type="email"/></div>
 <div class="fg"><label class="fl">Numer Telefonu</label><input class="fi" name="phone" placeholder="+44 20 1234 5678" type="tel"/></div>
-<div class="fg"><label class="fl">Pełny Adres</label><input class="fi" name="address" placeholder="Ulica, Miasto, Kod Pocztowy" type="text"/></div>
+<div class="frow"><div class="fg"><label class="fl">Pełny Adres</label><input class="fi" name="address" placeholder="Ulica, Miasto" type="text"/></div><div class="fg"><label class="fl">Kod Pocztowy</label><input class="fi" name="postalCode" type="text"/></div></div>
 <div class="frow">
 <div class="fg"><label class="fl">Kraj</label><input class="fi" name="country" placeholder="Zjednoczone Królestwo" type="text"/></div>
 <div class="fg"><label class="fl">Zainteresowanie produktem</label><select class="fi" name="product"><option>Cynamon Cejloński</option><option>Czarny Pieprz</option><option>Goździki</option><option>Kardamon</option><option>Gałka muszkatołowa i bułkawa</option><option>Etykieta prywatna</option><option>Wiele produktów</option></select></div>
@@ -1332,6 +1332,7 @@ function sendEnquiry(form){
       'Email: ' + data.get('email') + '\n' +
       'Phone: ' + (data.get('phone') || '-') + '\n' +
       'Address: ' + (data.get('address') || '-') + '\n' +
+      'Postal/Zip Code: ' + (data.get('postalCode') || '-') + '\n' +
       'Country: ' + (data.get('country') || '-') + '\n' +
       'VAT/Tax/EORI No: ' + (data.get('vatNumber') || '-') + '\n' +
       'Buyer Ref/PO No: ' + (data.get('buyerRef') || '-') + '\n' +

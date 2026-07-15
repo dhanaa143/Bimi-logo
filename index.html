@@ -1149,7 +1149,10 @@ footer{background:var(--char);border-top:1px solid rgba(255,255,255,.055)}
         <div class="fg"><label class="fl">Company Name</label><input type="text" class="fi" name="company" placeholder="Your Company Ltd"></div>
         <div class="fg"><label class="fl">Email Address</label><input type="email" class="fi" name="email" placeholder="john@yourcompany.com" required></div>
         <div class="fg"><label class="fl">Phone Number</label><input type="tel" class="fi" name="phone" placeholder="+44 20 1234 5678"></div>
-        <div class="fg"><label class="fl">Full Address</label><input type="text" class="fi" name="address" placeholder="Street, City, Postal Code"></div>
+        <div class="frow">
+          <div class="fg"><label class="fl">Full Address</label><input type="text" class="fi" name="address" placeholder="Street, City"></div>
+          <div class="fg"><label class="fl">Postal / Zip Code</label><input type="text" class="fi" name="postalCode"></div>
+        </div>
         <div class="frow">
           <div class="fg"><label class="fl">Country</label><input type="text" class="fi" name="country" placeholder="United Kingdom"></div>
           <div class="fg"><label class="fl">Product Interest</label><select class="fi" name="product"><option>Ceylon Cinnamon</option><option>Black Pepper</option><option>Cloves</option><option>Cardamom</option><option>Nutmeg &amp; Mace</option><option>Private Label</option><option>Multiple Products</option></select></div>
@@ -1403,6 +1406,7 @@ function sendEnquiry(form){
       'Email: ' + data.get('email') + '\n' +
       'Phone: ' + (data.get('phone') || '-') + '\n' +
       'Address: ' + (data.get('address') || '-') + '\n' +
+      'Postal/Zip Code: ' + (data.get('postalCode') || '-') + '\n' +
       'Country: ' + (data.get('country') || '-') + '\n' +
       'VAT/Tax/EORI No: ' + (data.get('vatNumber') || '-') + '\n' +
       'Buyer Ref/PO No: ' + (data.get('buyerRef') || '-') + '\n' +

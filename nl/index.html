@@ -1122,7 +1122,7 @@ footer{background:var(--char);border-top:1px solid rgba(255,255,255,.055)}
 <div class="fg"><label class="fl">Bedrijfsnaam</label><input class="fi" name="company" placeholder="Uw bedrijf Ltd" type="text"/></div>
 <div class="fg"><label class="fl">E-mailadres</label><input class="fi" name="email" placeholder="john@uwbedrijf.com" required="" type="email"/></div>
 <div class="fg"><label class="fl">Telefoonnummer</label><input class="fi" name="phone" placeholder="+44 20 1234 5678" type="tel"/></div>
-<div class="fg"><label class="fl">Volledig Adres</label><input class="fi" name="address" placeholder="Straat, Stad, Postcode" type="text"/></div>
+<div class="frow"><div class="fg"><label class="fl">Volledig Adres</label><input class="fi" name="address" placeholder="Straat, Stad" type="text"/></div><div class="fg"><label class="fl">Postcode</label><input class="fi" name="postalCode" type="text"/></div></div>
 <div class="frow">
 <div class="fg"><label class="fl">Land</label><input class="fi" name="country" placeholder="Verenigd Koninkrijk" type="text"/></div>
 <div class="fg"><label class="fl">Productinteresse</label><select class="fi" name="product"><option>Ceylon Kaneel</option><option>Zwarte peper</option><option>Kruidnagel</option><option>Kardemom</option><option>Nootmuskaat &amp; Foelie</option><option>Privélabel</option><option>Meerdere producten</option></select></div>
@@ -1332,6 +1332,7 @@ function sendEnquiry(form){
       'Email: ' + data.get('email') + '\n' +
       'Phone: ' + (data.get('phone') || '-') + '\n' +
       'Address: ' + (data.get('address') || '-') + '\n' +
+      'Postal/Zip Code: ' + (data.get('postalCode') || '-') + '\n' +
       'Country: ' + (data.get('country') || '-') + '\n' +
       'VAT/Tax/EORI No: ' + (data.get('vatNumber') || '-') + '\n' +
       'Buyer Ref/PO No: ' + (data.get('buyerRef') || '-') + '\n' +
