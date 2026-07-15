@@ -1121,10 +1121,13 @@ footer{background:var(--char);border-top:1px solid rgba(255,255,255,.055)}
 <div class="frow"><div class="fg"><label class="fl">שֵׁם פְּרַטִי</label><input class="fi" name="firstName" placeholder="ג'ון" required="" type="text"/></div><div class="fg"><label class="fl">שֵׁם מִשׁפָּחָה</label><input class="fi" name="lastName" placeholder="נַפָּח" required="" type="text"/></div></div>
 <div class="fg"><label class="fl">שם החברה</label><input class="fi" name="company" placeholder='החברה שלך בע"מ' type="text"/></div>
 <div class="fg"><label class="fl">כתובת אימייל</label><input class="fi" name="email" placeholder="john@yourcompany.com" required="" type="email"/></div>
+<div class="fg"><label class="fl">מספר טלפון</label><input class="fi" name="phone" placeholder="+44 20 1234 5678" type="tel"/></div>
+<div class="fg"><label class="fl">כתובת מלאה</label><input class="fi" name="address" placeholder="רחוב, עיר, מיקוד" type="text"/></div>
 <div class="frow">
 <div class="fg"><label class="fl">מְדִינָה</label><input class="fi" name="country" placeholder="בְּרִיטַנִיָה" type="text"/></div>
 <div class="fg"><label class="fl">עניין המוצר</label><select class="fi" name="product"><option>ציילון קינמון</option><option>פלפל שחור</option><option>צִיפּוֹרֶן</option><option>הֶל</option><option>אגוז מוסקט ומייס</option><option>מותג פרטי</option><option>מספר מוצרים</option></select></div>
 </div>
+<div class="frow"><div class="fg"><label class="fl">מספר עוסק/מע"מ / EORI</label><input class="fi" name="vatNumber" placeholder="GB123456789" type="text"/></div><div class="fg"><label class="fl">מספר הזמנה / אסמכתא של הקונה</label><input class="fi" name="buyerRef" placeholder="אופציונלי" type="text"/></div></div>
 <div class="fg"><label class="fl">פרטי בירור</label><textarea class="fi fta" name="message" placeholder="ספר לנו על הדרישות שלך - מוצר, כמות, אריזה, נמל יעד..." required=""></textarea></div>
 <button class="fsub" type="submit">שלח פניה →</button>
 <p class="fnote">על ידי שליחתך אתה מסכים למדיניות הפרטיות שלנו. לעולם איננו חולקים את הנתונים שלך עם צדדים שלישיים.</p>
@@ -1327,7 +1330,11 @@ function sendEnquiry(form){
     var body = 'Name: ' + data.get('firstName') + ' ' + data.get('lastName') + '\n' +
       'Company: ' + (data.get('company') || '-') + '\n' +
       'Email: ' + data.get('email') + '\n' +
+      'Phone: ' + (data.get('phone') || '-') + '\n' +
+      'Address: ' + (data.get('address') || '-') + '\n' +
       'Country: ' + (data.get('country') || '-') + '\n' +
+      'VAT/Tax/EORI No: ' + (data.get('vatNumber') || '-') + '\n' +
+      'Buyer Ref/PO No: ' + (data.get('buyerRef') || '-') + '\n' +
       'Product Interest: ' + data.get('product') + '\n\n' +
       (data.get('message') || '');
     var mailto = 'mailto:Dhanaaceylonspiceuk@gmail.com' +

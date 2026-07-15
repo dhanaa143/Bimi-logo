@@ -1121,10 +1121,13 @@ footer{background:var(--char);border-top:1px solid rgba(255,255,255,.055)}
 <div class="frow"><div class="fg"><label class="fl">Imię</label><input class="fi" name="firstName" placeholder="Jan" required="" type="text"/></div><div class="fg"><label class="fl">Nazwisko</label><input class="fi" name="lastName" placeholder="Kowal" required="" type="text"/></div></div>
 <div class="fg"><label class="fl">Nazwa firmy</label><input class="fi" name="company" placeholder="Twoja firma spółka z ograniczoną odpowiedzialnością" type="text"/></div>
 <div class="fg"><label class="fl">Adres e-mail</label><input class="fi" name="email" placeholder="jan@twojafirma.com" required="" type="email"/></div>
+<div class="fg"><label class="fl">Numer Telefonu</label><input class="fi" name="phone" placeholder="+44 20 1234 5678" type="tel"/></div>
+<div class="fg"><label class="fl">Pełny Adres</label><input class="fi" name="address" placeholder="Ulica, Miasto, Kod Pocztowy" type="text"/></div>
 <div class="frow">
 <div class="fg"><label class="fl">Kraj</label><input class="fi" name="country" placeholder="Zjednoczone Królestwo" type="text"/></div>
 <div class="fg"><label class="fl">Zainteresowanie produktem</label><select class="fi" name="product"><option>Cynamon Cejloński</option><option>Czarny Pieprz</option><option>Goździki</option><option>Kardamon</option><option>Gałka muszkatołowa i bułkawa</option><option>Etykieta prywatna</option><option>Wiele produktów</option></select></div>
 </div>
+<div class="frow"><div class="fg"><label class="fl">Numer VAT / EORI</label><input class="fi" name="vatNumber" placeholder="GB123456789" type="text"/></div><div class="fg"><label class="fl">Numer Referencyjny Kupującego / Zamówienia</label><input class="fi" name="buyerRef" placeholder="Opcjonalnie" type="text"/></div></div>
 <div class="fg"><label class="fl">Szczegóły zapytania</label><textarea class="fi fta" name="message" placeholder="Opowiedz nam o swoich wymaganiach — produkcie, ilości, opakowaniu, porcie docelowym..." required=""></textarea></div>
 <button class="fsub" type="submit">Wyślij zapytanie →</button>
 <p class="fnote">Przesyłając, wyrażasz zgodę na naszą Politykę prywatności. Nigdy nie udostępniamy Twoich danych stronom trzecim.</p>
@@ -1327,7 +1330,11 @@ function sendEnquiry(form){
     var body = 'Name: ' + data.get('firstName') + ' ' + data.get('lastName') + '\n' +
       'Company: ' + (data.get('company') || '-') + '\n' +
       'Email: ' + data.get('email') + '\n' +
+      'Phone: ' + (data.get('phone') || '-') + '\n' +
+      'Address: ' + (data.get('address') || '-') + '\n' +
       'Country: ' + (data.get('country') || '-') + '\n' +
+      'VAT/Tax/EORI No: ' + (data.get('vatNumber') || '-') + '\n' +
+      'Buyer Ref/PO No: ' + (data.get('buyerRef') || '-') + '\n' +
       'Product Interest: ' + data.get('product') + '\n\n' +
       (data.get('message') || '');
     var mailto = 'mailto:Dhanaaceylonspiceuk@gmail.com' +

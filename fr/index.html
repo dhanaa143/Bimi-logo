@@ -1121,10 +1121,13 @@ footer{background:var(--char);border-top:1px solid rgba(255,255,255,.055)}
 <div class="frow"><div class="fg"><label class="fl">Prénom</label><input class="fi" name="firstName" placeholder="John" required="" type="text"/></div><div class="fg"><label class="fl">Nom de famille</label><input class="fi" name="lastName" placeholder="Forgeron" required="" type="text"/></div></div>
 <div class="fg"><label class="fl">Nom de l'entreprise</label><input class="fi" name="company" placeholder="Votre entreprise Ltd" type="text"/></div>
 <div class="fg"><label class="fl">Adresse email</label><input class="fi" name="email" placeholder="john@votreentreprise.com" required="" type="email"/></div>
+<div class="fg"><label class="fl">Numéro de Téléphone</label><input class="fi" name="phone" placeholder="+44 20 1234 5678" type="tel"/></div>
+<div class="fg"><label class="fl">Adresse Complète</label><input class="fi" name="address" placeholder="Rue, Ville, Code Postal" type="text"/></div>
 <div class="frow">
 <div class="fg"><label class="fl">Pays</label><input class="fi" name="country" placeholder="Royaume-Uni" type="text"/></div>
 <div class="fg"><label class="fl">Intérêt pour le produit</label><select class="fi" name="product"><option>Cannelle de Ceylan</option><option>Poivre Noir</option><option>clous de girofle</option><option>Cardamome</option><option>Noix de muscade et macis</option><option>Marque privée</option><option>Plusieurs produits</option></select></div>
 </div>
+<div class="frow"><div class="fg"><label class="fl">Numéro de TVA / EORI</label><input class="fi" name="vatNumber" placeholder="GB123456789" type="text"/></div><div class="fg"><label class="fl">Référence Acheteur / N° de Commande</label><input class="fi" name="buyerRef" placeholder="Facultatif" type="text"/></div></div>
 <div class="fg"><label class="fl">Détails de la demande</label><textarea class="fi fta" name="message" placeholder="Faites-nous part de vos exigences : produit, quantité, emballage, port de destination..." required=""></textarea></div>
 <button class="fsub" type="submit">Envoyer une demande →</button>
 <p class="fnote">En soumettant, vous acceptez notre politique de confidentialité. Nous ne partageons jamais vos données avec des tiers.</p>
@@ -1327,7 +1330,11 @@ function sendEnquiry(form){
     var body = 'Name: ' + data.get('firstName') + ' ' + data.get('lastName') + '\n' +
       'Company: ' + (data.get('company') || '-') + '\n' +
       'Email: ' + data.get('email') + '\n' +
+      'Phone: ' + (data.get('phone') || '-') + '\n' +
+      'Address: ' + (data.get('address') || '-') + '\n' +
       'Country: ' + (data.get('country') || '-') + '\n' +
+      'VAT/Tax/EORI No: ' + (data.get('vatNumber') || '-') + '\n' +
+      'Buyer Ref/PO No: ' + (data.get('buyerRef') || '-') + '\n' +
       'Product Interest: ' + data.get('product') + '\n\n' +
       (data.get('message') || '');
     var mailto = 'mailto:Dhanaaceylonspiceuk@gmail.com' +

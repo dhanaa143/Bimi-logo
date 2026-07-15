@@ -1121,10 +1121,13 @@ footer{background:var(--char);border-top:1px solid rgba(255,255,255,.055)}
 <div class="frow"><div class="fg"><label class="fl">Voornaam</label><input class="fi" name="firstName" placeholder="John" required="" type="text"/></div><div class="fg"><label class="fl">Achternaam</label><input class="fi" name="lastName" placeholder="Smit" required="" type="text"/></div></div>
 <div class="fg"><label class="fl">Bedrijfsnaam</label><input class="fi" name="company" placeholder="Uw bedrijf Ltd" type="text"/></div>
 <div class="fg"><label class="fl">E-mailadres</label><input class="fi" name="email" placeholder="john@uwbedrijf.com" required="" type="email"/></div>
+<div class="fg"><label class="fl">Telefoonnummer</label><input class="fi" name="phone" placeholder="+44 20 1234 5678" type="tel"/></div>
+<div class="fg"><label class="fl">Volledig Adres</label><input class="fi" name="address" placeholder="Straat, Stad, Postcode" type="text"/></div>
 <div class="frow">
 <div class="fg"><label class="fl">Land</label><input class="fi" name="country" placeholder="Verenigd Koninkrijk" type="text"/></div>
 <div class="fg"><label class="fl">Productinteresse</label><select class="fi" name="product"><option>Ceylon Kaneel</option><option>Zwarte peper</option><option>Kruidnagel</option><option>Kardemom</option><option>Nootmuskaat &amp; Foelie</option><option>Privélabel</option><option>Meerdere producten</option></select></div>
 </div>
+<div class="frow"><div class="fg"><label class="fl">BTW-/EORI-nummer</label><input class="fi" name="vatNumber" placeholder="GB123456789" type="text"/></div><div class="fg"><label class="fl">Referentie Koper / Bestelnummer</label><input class="fi" name="buyerRef" placeholder="Optioneel" type="text"/></div></div>
 <div class="fg"><label class="fl">Onderzoeksdetails</label><textarea class="fi fta" name="message" placeholder="Vertel ons over uw vereisten: product, hoeveelheid, verpakking, bestemmingshaven..." required=""></textarea></div>
 <button class="fsub" type="submit">Onderzoek verzenden →</button>
 <p class="fnote">Door inzending gaat u akkoord met ons privacybeleid. Wij delen uw gegevens nooit met derden.</p>
@@ -1327,7 +1330,11 @@ function sendEnquiry(form){
     var body = 'Name: ' + data.get('firstName') + ' ' + data.get('lastName') + '\n' +
       'Company: ' + (data.get('company') || '-') + '\n' +
       'Email: ' + data.get('email') + '\n' +
+      'Phone: ' + (data.get('phone') || '-') + '\n' +
+      'Address: ' + (data.get('address') || '-') + '\n' +
       'Country: ' + (data.get('country') || '-') + '\n' +
+      'VAT/Tax/EORI No: ' + (data.get('vatNumber') || '-') + '\n' +
+      'Buyer Ref/PO No: ' + (data.get('buyerRef') || '-') + '\n' +
       'Product Interest: ' + data.get('product') + '\n\n' +
       (data.get('message') || '');
     var mailto = 'mailto:Dhanaaceylonspiceuk@gmail.com' +

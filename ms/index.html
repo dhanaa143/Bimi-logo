@@ -1121,10 +1121,13 @@ footer{background:var(--char);border-top:1px solid rgba(255,255,255,.055)}
 <div class="frow"><div class="fg"><label class="fl">Nama Pertama</label><input class="fi" name="firstName" placeholder="John" required="" type="text"/></div><div class="fg"><label class="fl">Nama Akhir</label><input class="fi" name="lastName" placeholder="Smith" required="" type="text"/></div></div>
 <div class="fg"><label class="fl">Nama Syarikat</label><input class="fi" name="company" placeholder="Syarikat Anda Ltd" type="text"/></div>
 <div class="fg"><label class="fl">Alamat E-mel</label><input class="fi" name="email" placeholder="john@yourcompany.com" required="" type="email"/></div>
+<div class="fg"><label class="fl">Nombor Telefon</label><input class="fi" name="phone" placeholder="+44 20 1234 5678" type="tel"/></div>
+<div class="fg"><label class="fl">Alamat Penuh</label><input class="fi" name="address" placeholder="Jalan, Bandar, Poskod" type="text"/></div>
 <div class="frow">
 <div class="fg"><label class="fl">Negara</label><input class="fi" name="country" placeholder="United Kingdom" type="text"/></div>
 <div class="fg"><label class="fl">Minat Produk</label><select class="fi" name="product"><option>Kayu Manis Ceylon</option><option>Lada Hitam</option><option>Cengkih</option><option>buah pelaga</option><option>Buah Pala &amp; Mace</option><option>Label Peribadi</option><option>Pelbagai Produk</option></select></div>
 </div>
+<div class="frow"><div class="fg"><label class="fl">Nombor VAT / EORI</label><input class="fi" name="vatNumber" placeholder="GB123456789" type="text"/></div><div class="fg"><label class="fl">Rujukan Pembeli / No. Pesanan</label><input class="fi" name="buyerRef" placeholder="Pilihan" type="text"/></div></div>
 <div class="fg"><label class="fl">Butiran Pertanyaan</label><textarea class="fi fta" name="message" placeholder="Beritahu kami tentang keperluan anda — produk, kuantiti, pembungkusan, pelabuhan destinasi..." required=""></textarea></div>
 <button class="fsub" type="submit">Hantar Pertanyaan →</button>
 <p class="fnote">Dengan menyerahkan anda bersetuju menerima Dasar Privasi kami. Kami tidak pernah berkongsi data anda dengan pihak ketiga.</p>
@@ -1327,7 +1330,11 @@ function sendEnquiry(form){
     var body = 'Name: ' + data.get('firstName') + ' ' + data.get('lastName') + '\n' +
       'Company: ' + (data.get('company') || '-') + '\n' +
       'Email: ' + data.get('email') + '\n' +
+      'Phone: ' + (data.get('phone') || '-') + '\n' +
+      'Address: ' + (data.get('address') || '-') + '\n' +
       'Country: ' + (data.get('country') || '-') + '\n' +
+      'VAT/Tax/EORI No: ' + (data.get('vatNumber') || '-') + '\n' +
+      'Buyer Ref/PO No: ' + (data.get('buyerRef') || '-') + '\n' +
       'Product Interest: ' + data.get('product') + '\n\n' +
       (data.get('message') || '');
     var mailto = 'mailto:Dhanaaceylonspiceuk@gmail.com' +

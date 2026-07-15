@@ -1121,10 +1121,13 @@ footer{background:var(--char);border-top:1px solid rgba(255,255,255,.055)}
 <div class="frow"><div class="fg"><label class="fl">Förnamn</label><input class="fi" name="firstName" placeholder="John" required="" type="text"/></div><div class="fg"><label class="fl">Efternamn</label><input class="fi" name="lastName" placeholder="Smed" required="" type="text"/></div></div>
 <div class="fg"><label class="fl">Företagsnamn</label><input class="fi" name="company" placeholder="Ditt företag Ltd" type="text"/></div>
 <div class="fg"><label class="fl">E-postadress</label><input class="fi" name="email" placeholder="john@dittföretag.com" required="" type="email"/></div>
+<div class="fg"><label class="fl">Telefonnummer</label><input class="fi" name="phone" placeholder="+44 20 1234 5678" type="tel"/></div>
+<div class="fg"><label class="fl">Fullständig Adress</label><input class="fi" name="address" placeholder="Gata, Stad, Postnummer" type="text"/></div>
 <div class="frow">
 <div class="fg"><label class="fl">Land</label><input class="fi" name="country" placeholder="Storbritannien" type="text"/></div>
 <div class="fg"><label class="fl">Produktintresse</label><select class="fi" name="product"><option>Ceylon kanel</option><option>Svartpeppar</option><option>Kryddnejlika</option><option>Kardemumma</option><option>Muskotnöt &amp; Mace</option><option>Private Label</option><option>Flera produkter</option></select></div>
 </div>
+<div class="frow"><div class="fg"><label class="fl">Moms-/EORI-nummer</label><input class="fi" name="vatNumber" placeholder="GB123456789" type="text"/></div><div class="fg"><label class="fl">Köparreferens / Ordernummer</label><input class="fi" name="buyerRef" placeholder="Valfritt" type="text"/></div></div>
 <div class="fg"><label class="fl">Förfrågan Detaljer</label><textarea class="fi fta" name="message" placeholder="Berätta för oss om dina krav - produkt, kvantitet, förpackning, destinationshamn..." required=""></textarea></div>
 <button class="fsub" type="submit">Skicka förfrågan →</button>
 <p class="fnote">Genom att skicka in godkänner du vår integritetspolicy. Vi delar aldrig dina uppgifter med tredje part.</p>
@@ -1327,7 +1330,11 @@ function sendEnquiry(form){
     var body = 'Name: ' + data.get('firstName') + ' ' + data.get('lastName') + '\n' +
       'Company: ' + (data.get('company') || '-') + '\n' +
       'Email: ' + data.get('email') + '\n' +
+      'Phone: ' + (data.get('phone') || '-') + '\n' +
+      'Address: ' + (data.get('address') || '-') + '\n' +
       'Country: ' + (data.get('country') || '-') + '\n' +
+      'VAT/Tax/EORI No: ' + (data.get('vatNumber') || '-') + '\n' +
+      'Buyer Ref/PO No: ' + (data.get('buyerRef') || '-') + '\n' +
       'Product Interest: ' + data.get('product') + '\n\n' +
       (data.get('message') || '');
     var mailto = 'mailto:Dhanaaceylonspiceuk@gmail.com' +

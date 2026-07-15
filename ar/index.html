@@ -1121,10 +1121,13 @@ footer{background:var(--char);border-top:1px solid rgba(255,255,255,.055)}
 <div class="frow"><div class="fg"><label class="fl">الاسم الأول</label><input class="fi" name="firstName" placeholder="جون" required="" type="text"/></div><div class="fg"><label class="fl">اسم العائلة</label><input class="fi" name="lastName" placeholder="سميث" required="" type="text"/></div></div>
 <div class="fg"><label class="fl">اسم الشركة</label><input class="fi" name="company" placeholder="شركتك المحدودة" type="text"/></div>
 <div class="fg"><label class="fl">عنوان البريد الإلكتروني</label><input class="fi" name="email" placeholder="جون@yourcompany.com" required="" type="email"/></div>
+<div class="fg"><label class="fl">رقم الهاتف</label><input class="fi" name="phone" placeholder="+44 20 1234 5678" type="tel"/></div>
+<div class="fg"><label class="fl">العنوان الكامل</label><input class="fi" name="address" placeholder="الشارع، المدينة، الرمز البريدي" type="text"/></div>
 <div class="frow">
 <div class="fg"><label class="fl">دولة</label><input class="fi" name="country" placeholder="المملكة المتحدة" type="text"/></div>
 <div class="fg"><label class="fl">مصلحة المنتج</label><select class="fi" name="product"><option>قرفة سيلان</option><option>فلفل اسود</option><option>قرنفل</option><option>الهيل</option><option>جوزة الطيب والصولجان</option><option>تسمية خاصة</option><option>منتجات متعددة</option></select></div>
 </div>
+<div class="frow"><div class="fg"><label class="fl">رقم ضريبة القيمة المضافة / EORI</label><input class="fi" name="vatNumber" placeholder="GB123456789" type="text"/></div><div class="fg"><label class="fl">مرجع المشتري / رقم أمر الشراء</label><input class="fi" name="buyerRef" placeholder="اختياري" type="text"/></div></div>
 <div class="fg"><label class="fl">تفاصيل الاستفسار</label><textarea class="fi fta" name="message" placeholder="أخبرنا عن متطلباتك - المنتج والكمية والتعبئة وميناء الوجهة..." required=""></textarea></div>
 <button class="fsub" type="submit">أرسل استفسار →</button>
 <p class="fnote">بإرسالك فإنك توافق على سياسة الخصوصية الخاصة بنا. نحن لا نشارك بياناتك أبدًا مع أطراف ثالثة.</p>
@@ -1327,7 +1330,11 @@ function sendEnquiry(form){
     var body = 'Name: ' + data.get('firstName') + ' ' + data.get('lastName') + '\n' +
       'Company: ' + (data.get('company') || '-') + '\n' +
       'Email: ' + data.get('email') + '\n' +
+      'Phone: ' + (data.get('phone') || '-') + '\n' +
+      'Address: ' + (data.get('address') || '-') + '\n' +
       'Country: ' + (data.get('country') || '-') + '\n' +
+      'VAT/Tax/EORI No: ' + (data.get('vatNumber') || '-') + '\n' +
+      'Buyer Ref/PO No: ' + (data.get('buyerRef') || '-') + '\n' +
       'Product Interest: ' + data.get('product') + '\n\n' +
       (data.get('message') || '');
     var mailto = 'mailto:Dhanaaceylonspiceuk@gmail.com' +

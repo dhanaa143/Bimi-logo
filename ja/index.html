@@ -1121,10 +1121,13 @@ footer{background:var(--char);border-top:1px solid rgba(255,255,255,.055)}
 <div class="frow"><div class="fg"><label class="fl">ファーストネーム</label><input class="fi" name="firstName" placeholder="ジョン" required="" type="text"/></div><div class="fg"><label class="fl">苗字</label><input class="fi" name="lastName" placeholder="スミス" required="" type="text"/></div></div>
 <div class="fg"><label class="fl">会社名</label><input class="fi" name="company" placeholder="あなたの会社株式会社" type="text"/></div>
 <div class="fg"><label class="fl">電子メールアドレス</label><input class="fi" name="email" placeholder="john@yourcompany.com" required="" type="email"/></div>
+<div class="fg"><label class="fl">電話番号</label><input class="fi" name="phone" placeholder="+44 20 1234 5678" type="tel"/></div>
+<div class="fg"><label class="fl">詳細住所</label><input class="fi" name="address" placeholder="番地、市区町村、郵便番号" type="text"/></div>
 <div class="frow">
 <div class="fg"><label class="fl">国</label><input class="fi" name="country" placeholder="イギリス" type="text"/></div>
 <div class="fg"><label class="fl">製品への関心</label><select class="fi" name="product"><option>セイロンシナモン</option><option>ブラックペッパー</option><option>クローブ</option><option>カルダモン</option><option>ナツメグ＆メイス</option><option>プライベートブランド</option><option>複数の製品</option></select></div>
 </div>
+<div class="frow"><div class="fg"><label class="fl">VAT/EORI番号</label><input class="fi" name="vatNumber" placeholder="GB123456789" type="text"/></div><div class="fg"><label class="fl">バイヤー参照番号／発注番号</label><input class="fi" name="buyerRef" placeholder="任意" type="text"/></div></div>
 <div class="fg"><label class="fl">お問い合わせ内容</label><textarea class="fi fta" name="message" placeholder="製品、数量、梱包、目的地港などの要件についてお知らせください。" required=""></textarea></div>
 <button class="fsub" type="submit">お問い合わせを送る→</button>
 <p class="fnote">送信すると、当社のプライバシー ポリシーに同意したことになります。当社がお客様のデータを第三者と共有することはありません。</p>
@@ -1327,7 +1330,11 @@ function sendEnquiry(form){
     var body = 'Name: ' + data.get('firstName') + ' ' + data.get('lastName') + '\n' +
       'Company: ' + (data.get('company') || '-') + '\n' +
       'Email: ' + data.get('email') + '\n' +
+      'Phone: ' + (data.get('phone') || '-') + '\n' +
+      'Address: ' + (data.get('address') || '-') + '\n' +
       'Country: ' + (data.get('country') || '-') + '\n' +
+      'VAT/Tax/EORI No: ' + (data.get('vatNumber') || '-') + '\n' +
+      'Buyer Ref/PO No: ' + (data.get('buyerRef') || '-') + '\n' +
       'Product Interest: ' + data.get('product') + '\n\n' +
       (data.get('message') || '');
     var mailto = 'mailto:Dhanaaceylonspiceuk@gmail.com' +

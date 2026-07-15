@@ -1121,10 +1121,13 @@ footer{background:var(--char);border-top:1px solid rgba(255,255,255,.055)}
 <div class="frow"><div class="fg"><label class="fl">İlk adı</label><input class="fi" name="firstName" placeholder="John" required="" type="text"/></div><div class="fg"><label class="fl">Soy isim</label><input class="fi" name="lastName" placeholder="Smith" required="" type="text"/></div></div>
 <div class="fg"><label class="fl">Firma Adı</label><input class="fi" name="company" placeholder="Şirketiniz Ltd" type="text"/></div>
 <div class="fg"><label class="fl">E-posta Adresi</label><input class="fi" name="email" placeholder="john@sirketiniz.com" required="" type="email"/></div>
+<div class="fg"><label class="fl">Telefon Numarası</label><input class="fi" name="phone" placeholder="+44 20 1234 5678" type="tel"/></div>
+<div class="fg"><label class="fl">Tam Adres</label><input class="fi" name="address" placeholder="Sokak, Şehir, Posta Kodu" type="text"/></div>
 <div class="frow">
 <div class="fg"><label class="fl">Ülke</label><input class="fi" name="country" placeholder="Birleşik Krallık" type="text"/></div>
 <div class="fg"><label class="fl">Ürün İlgi Alanı</label><select class="fi" name="product"><option>Seylan Tarçın</option><option>Karabiber</option><option>Karanfil</option><option>Kakule</option><option>Küçük Hindistan Cevizi ve Topuz</option><option>Özel Etiket</option><option>Çoklu Ürünler</option></select></div>
 </div>
+<div class="frow"><div class="fg"><label class="fl">KDV / EORI Numarası</label><input class="fi" name="vatNumber" placeholder="GB123456789" type="text"/></div><div class="fg"><label class="fl">Alıcı Referansı / Sipariş No.</label><input class="fi" name="buyerRef" placeholder="İsteğe Bağlı" type="text"/></div></div>
 <div class="fg"><label class="fl">Sorgulama Detayları</label><textarea class="fi fta" name="message" placeholder="Bize gereksinimlerinizi anlatın - ürün, miktar, paketleme, varış limanı..." required=""></textarea></div>
 <button class="fsub" type="submit">Talep Gönder →</button>
 <p class="fnote">Göndererek Gizlilik Politikamızı kabul etmiş olursunuz. Verilerinizi asla üçüncü şahıslarla paylaşmayız.</p>
@@ -1327,7 +1330,11 @@ function sendEnquiry(form){
     var body = 'Name: ' + data.get('firstName') + ' ' + data.get('lastName') + '\n' +
       'Company: ' + (data.get('company') || '-') + '\n' +
       'Email: ' + data.get('email') + '\n' +
+      'Phone: ' + (data.get('phone') || '-') + '\n' +
+      'Address: ' + (data.get('address') || '-') + '\n' +
       'Country: ' + (data.get('country') || '-') + '\n' +
+      'VAT/Tax/EORI No: ' + (data.get('vatNumber') || '-') + '\n' +
+      'Buyer Ref/PO No: ' + (data.get('buyerRef') || '-') + '\n' +
       'Product Interest: ' + data.get('product') + '\n\n' +
       (data.get('message') || '');
     var mailto = 'mailto:Dhanaaceylonspiceuk@gmail.com' +

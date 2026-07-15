@@ -1121,10 +1121,13 @@ footer{background:var(--char);border-top:1px solid rgba(255,255,255,.055)}
 <div class="frow"><div class="fg"><label class="fl">Ονομα</label><input class="fi" name="firstName" placeholder="Γιάννης" required="" type="text"/></div><div class="fg"><label class="fl">Επώνυμο</label><input class="fi" name="lastName" placeholder="Σιδηρουργός" required="" type="text"/></div></div>
 <div class="fg"><label class="fl">Όνομα εταιρείας</label><input class="fi" name="company" placeholder="Η Εταιρεία σας Ε.Π.Ε" type="text"/></div>
 <div class="fg"><label class="fl">Διεύθυνση Email</label><input class="fi" name="email" placeholder="john@yourcompany.com" required="" type="email"/></div>
+<div class="fg"><label class="fl">Αριθμός Τηλεφώνου</label><input class="fi" name="phone" placeholder="+44 20 1234 5678" type="tel"/></div>
+<div class="fg"><label class="fl">Πλήρης Διεύθυνση</label><input class="fi" name="address" placeholder="Οδός, Πόλη, Ταχυδρομικός Κώδικας" type="text"/></div>
 <div class="frow">
 <div class="fg"><label class="fl">Χώρα</label><input class="fi" name="country" placeholder="Ηνωμένο Βασίλειο" type="text"/></div>
 <div class="fg"><label class="fl">Ενδιαφέρον προϊόντος</label><select class="fi" name="product"><option>Κανέλα Κεϋλάνης</option><option>Μαύρο πιπέρι</option><option>Γαρίφαλο</option><option>Κάρδαμο</option><option>Μοσχοκάρυδο &amp; Μοσχοκάρυδο</option><option>Ιδιωτική ετικέτα</option><option>Πολλαπλά Προϊόντα</option></select></div>
 </div>
+<div class="frow"><div class="fg"><label class="fl">Αριθμός ΦΠΑ / EORI</label><input class="fi" name="vatNumber" placeholder="GB123456789" type="text"/></div><div class="fg"><label class="fl">Αναφορά Αγοραστή / Αρ. Παραγγελίας</label><input class="fi" name="buyerRef" placeholder="Προαιρετικό" type="text"/></div></div>
 <div class="fg"><label class="fl">Λεπτομέρειες έρευνας</label><textarea class="fi fta" name="message" placeholder="Πείτε μας για τις απαιτήσεις σας — προϊόν, ποσότητα, συσκευασία, λιμάνι προορισμού..." required=""></textarea></div>
 <button class="fsub" type="submit">Αποστολή Ερώτησης →</button>
 <p class="fnote">Με την υποβολή συμφωνείτε με την Πολιτική Απορρήτου μας. Δεν μοιραζόμαστε ποτέ τα δεδομένα σας με τρίτους.</p>
@@ -1327,7 +1330,11 @@ function sendEnquiry(form){
     var body = 'Name: ' + data.get('firstName') + ' ' + data.get('lastName') + '\n' +
       'Company: ' + (data.get('company') || '-') + '\n' +
       'Email: ' + data.get('email') + '\n' +
+      'Phone: ' + (data.get('phone') || '-') + '\n' +
+      'Address: ' + (data.get('address') || '-') + '\n' +
       'Country: ' + (data.get('country') || '-') + '\n' +
+      'VAT/Tax/EORI No: ' + (data.get('vatNumber') || '-') + '\n' +
+      'Buyer Ref/PO No: ' + (data.get('buyerRef') || '-') + '\n' +
       'Product Interest: ' + data.get('product') + '\n\n' +
       (data.get('message') || '');
     var mailto = 'mailto:Dhanaaceylonspiceuk@gmail.com' +

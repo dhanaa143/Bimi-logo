@@ -1121,10 +1121,13 @@ footer{background:var(--char);border-top:1px solid rgba(255,255,255,.055)}
 <div class="frow"><div class="fg"><label class="fl">名</label><input class="fi" name="firstName" placeholder="约翰" required="" type="text"/></div><div class="fg"><label class="fl">姓</label><input class="fi" name="lastName" placeholder="史密斯" required="" type="text"/></div></div>
 <div class="fg"><label class="fl">公司名称</label><input class="fi" name="company" placeholder="贵公司" type="text"/></div>
 <div class="fg"><label class="fl">电子邮件</label><input class="fi" name="email" placeholder="john@yourcompany.com" required="" type="email"/></div>
+<div class="fg"><label class="fl">电话号码</label><input class="fi" name="phone" placeholder="+44 20 1234 5678" type="tel"/></div>
+<div class="fg"><label class="fl">详细地址</label><input class="fi" name="address" placeholder="街道、城市、邮政编码" type="text"/></div>
 <div class="frow">
 <div class="fg"><label class="fl">国家</label><input class="fi" name="country" placeholder="英国" type="text"/></div>
 <div class="fg"><label class="fl">产品兴趣</label><select class="fi" name="product"><option>锡兰肉桂</option><option>黑胡椒</option><option>丁香</option><option>小豆蔻</option><option>肉豆蔻和梅斯</option><option>自有品牌</option><option>多种产品</option></select></div>
 </div>
+<div class="frow"><div class="fg"><label class="fl">增值税/EORI 编号</label><input class="fi" name="vatNumber" placeholder="GB123456789" type="text"/></div><div class="fg"><label class="fl">买方参考号/采购单号</label><input class="fi" name="buyerRef" placeholder="可选" type="text"/></div></div>
 <div class="fg"><label class="fl">查询详情</label><textarea class="fi fta" name="message" placeholder="告诉我们您的要求——产品、数量、包装、目的港......" required=""></textarea></div>
 <button class="fsub" type="submit">发送询问 →</button>
 <p class="fnote">提交即表示您同意我们的隐私政策。我们绝不会与第三方共享您的数据。</p>
@@ -1327,7 +1330,11 @@ function sendEnquiry(form){
     var body = 'Name: ' + data.get('firstName') + ' ' + data.get('lastName') + '\n' +
       'Company: ' + (data.get('company') || '-') + '\n' +
       'Email: ' + data.get('email') + '\n' +
+      'Phone: ' + (data.get('phone') || '-') + '\n' +
+      'Address: ' + (data.get('address') || '-') + '\n' +
       'Country: ' + (data.get('country') || '-') + '\n' +
+      'VAT/Tax/EORI No: ' + (data.get('vatNumber') || '-') + '\n' +
+      'Buyer Ref/PO No: ' + (data.get('buyerRef') || '-') + '\n' +
       'Product Interest: ' + data.get('product') + '\n\n' +
       (data.get('message') || '');
     var mailto = 'mailto:Dhanaaceylonspiceuk@gmail.com' +

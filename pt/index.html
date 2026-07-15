@@ -1121,10 +1121,13 @@ footer{background:var(--char);border-top:1px solid rgba(255,255,255,.055)}
 <div class="frow"><div class="fg"><label class="fl">Primeiro nome</label><input class="fi" name="firstName" placeholder="John" required="" type="text"/></div><div class="fg"><label class="fl">Sobrenome</label><input class="fi" name="lastName" placeholder="Smith" required="" type="text"/></div></div>
 <div class="fg"><label class="fl">nome da empresa</label><input class="fi" name="company" placeholder="Sua Empresa Ltda" type="text"/></div>
 <div class="fg"><label class="fl">Endereço de email</label><input class="fi" name="email" placeholder="john@suaempresa.com" required="" type="email"/></div>
+<div class="fg"><label class="fl">Número de Telefone</label><input class="fi" name="phone" placeholder="+44 20 1234 5678" type="tel"/></div>
+<div class="fg"><label class="fl">Endereço Completo</label><input class="fi" name="address" placeholder="Rua, Cidade, Código Postal" type="text"/></div>
 <div class="frow">
 <div class="fg"><label class="fl">País</label><input class="fi" name="country" placeholder="Reino Unido" type="text"/></div>
 <div class="fg"><label class="fl">Interesse no produto</label><select class="fi" name="product"><option>Canela do Ceilão</option><option>Pimenta preta</option><option>cravo</option><option>Cardamomo</option><option>Noz-moscada e Mace</option><option>Marca Própria</option><option>Vários produtos</option></select></div>
 </div>
+<div class="frow"><div class="fg"><label class="fl">Número de IVA / EORI</label><input class="fi" name="vatNumber" placeholder="GB123456789" type="text"/></div><div class="fg"><label class="fl">Referência do Comprador / N.º de Encomenda</label><input class="fi" name="buyerRef" placeholder="Opcional" type="text"/></div></div>
 <div class="fg"><label class="fl">Detalhes da consulta</label><textarea class="fi fta" name="message" placeholder="Conte-nos sobre suas necessidades — produto, quantidade, embalagem, porto de destino..." required=""></textarea></div>
 <button class="fsub" type="submit">Enviar consulta →</button>
 <p class="fnote">Ao enviar você concorda com nossa Política de Privacidade. Nunca compartilhamos seus dados com terceiros.</p>
@@ -1327,7 +1330,11 @@ function sendEnquiry(form){
     var body = 'Name: ' + data.get('firstName') + ' ' + data.get('lastName') + '\n' +
       'Company: ' + (data.get('company') || '-') + '\n' +
       'Email: ' + data.get('email') + '\n' +
+      'Phone: ' + (data.get('phone') || '-') + '\n' +
+      'Address: ' + (data.get('address') || '-') + '\n' +
       'Country: ' + (data.get('country') || '-') + '\n' +
+      'VAT/Tax/EORI No: ' + (data.get('vatNumber') || '-') + '\n' +
+      'Buyer Ref/PO No: ' + (data.get('buyerRef') || '-') + '\n' +
       'Product Interest: ' + data.get('product') + '\n\n' +
       (data.get('message') || '');
     var mailto = 'mailto:Dhanaaceylonspiceuk@gmail.com' +
